@@ -42,15 +42,7 @@ Several basic facts follow at once.
 - **Size.** Since $|\chi_{-4}(d)| \le 1$, we have $r_2(n) \le 4\tau(n) \ll_\varepsilon n^{\varepsilon}$, and $r_2(n)$ is as irregular as $\tau(n)$: $r_2(5) = 8$, $r_2(65) = 16$, $r_2(1105) = 32$ for products of the first primes $\equiv 1 \bmod 4$, while $r_2(n) = 0$ for every $n \equiv 3 \bmod 4$.
 - **Average.** The average of $r_2(n)$ is $\pi$, since $N(x) \sim \pi x$. Proving that, with an error term, is the subject of the next two sections.
 
-A different question is how many integers are sums of two squares at all, without multiplicity. Let $B(x)$ be the number of $n \le x$ with $r_2(n) > 0$.
-
-<Result name="Landau, 1908">
-$$
-B(x) \sim K \frac{x}{\sqrt{\log x}}, \qquad K = \frac{1}{\sqrt{2}} \prod_{p \equiv 3 \bmod 4} \left( 1 - \frac{1}{p^2} \right)^{-1/2} = 0.764223653\ldots
-$$
-</Result>
-
-The constant $K$ is the **Landau–Ramanujan constant**; Ramanujan rediscovered the result and stated it in his first letter to Hardy. So the integers that are sums of two squares have density zero, yet the total number of representations is $\pi x$: a thin set of integers carries many representations each. The convergence is slow. For $x = 10^6$ one has $B(x) = 216\,341$, while $K x/\sqrt{\log x} = 205\,606.6$, so $B(x)\sqrt{\log x}/x = 0.8041$, still well above $K$; the next term in the asymptotic is only smaller by a factor $1/\log x$.
+A different question is how many integers are sums of two squares at all, counted without multiplicity. Their number up to $x$ is of order $x/\sqrt{\log x}$, so they have density zero; for this indicator function, see Lecture 5.
 
 ## The trivial count
 
@@ -211,19 +203,11 @@ $$
 $$
 In terms of radii, an annulus of inner radius $\sqrt{x}$ and width $w$ corresponds to $h \approx 2w\sqrt{x}$, so annuli of fixed width correspond to $h \asymp \sqrt{x}$ and **thin annuli** (width tending to $0$) to $h = o(\sqrt{x})$.
 
-**Every interval.** Any bound $P(x) \ll x^{\theta + \varepsilon}$ gives the asymptotic $\pi h$ for all $x$ once $h \ge x^{\theta + 2\varepsilon}$, and Hardy's $\Omega$-result means this route cannot go below $h = x^{1/4}$. For the weaker question of whether $(x, x + h]$ contains a sum of two squares at all, there is a simple elementary answer.
-
-<Result name="Bambah and Chowla, 1947">
-Every interval $[x, x + c x^{1/4}]$, for a suitable absolute constant $c$ and all $x \ge 1$, contains a sum of two squares. Equivalently, consecutive sums of two squares $s_k \lt s_{k+1}$ satisfy $s_{k+1} - s_k \ll s_k^{1/4}$.
-</Result>
-
-The proof is a two-step greedy choice: take $a = \lfloor \sqrt{x} \rfloor$, so that $0 \le x - a^2 \le 2\sqrt{x}$, and then $b = \lceil \sqrt{x - a^2} \rceil$, so that $a^2 + b^2 - x \le 2b + 1 \ll x^{1/4}$. Nobody has improved the exponent $\tfrac14$, and whether the gaps are $o(x^{1/4})$ is open. The truth is believed to be far smaller: up to $2 \times 10^6$ the longest gap between sums of two squares is $48$, from $1\,853\,866$ to $1\,853\,914$, where $x^{1/4} = 36.9$ and $\log x = 14.4$. In the other direction, Richards (1982) showed that gaps of length at least $(\tfrac14 - \varepsilon)\log s_k$ occur infinitely often, and Dietmann, Elsholtz, Kalmynin, Konyagin and Maynard improved the constant $\tfrac14$ to $390/449 = 0.868\ldots$
-
-**Almost every interval.** Hooley (1971) proved that if $y/\sqrt{\log x} \to \infty$, then for almost all $x$ the interval $(x, x + y]$ contains a number of sums of two squares of the expected order $y/\sqrt{\log x}$. Balog and Wooley (2000) showed that this cannot hold for every interval: adapting Maier's method, they found intervals of length a power of $\log x$ with noticeably more, and others with noticeably fewer, sums of two squares than average. Maynard showed that some intervals of length $y$ contain at least a constant times $y^{1/10}$ sums of two squares, which exceeds the average when $y = o((\log x)^{5/9})$.
+**Every interval.** Any bound $P(x) \ll x^{\theta + \varepsilon}$ gives the asymptotic $\pi h$ for all $x$ once $h \ge x^{\theta + 2\varepsilon}$, and Hardy's $\Omega$-result means this route cannot go below $h = x^{1/4}$. Whether $(x, x + h]$ contains a sum of two squares at all, and the gaps between consecutive sums of two squares, are questions about the indicator of sums of two squares; see Lecture 5.
 
 **Thin annuli and Gaussian behaviour.** For the count with multiplicity, the natural question is the distribution of $P(x + h) - P(x)$ as $x$ varies. Bleher and Lebowitz (1994), motivated by energy-level statistics of quantum systems, studied the number of lattice points in annuli of various widths. For wide annuli the fluctuations have a non-Gaussian limiting distribution, like Heath-Brown's; they conjectured that in the thin-annulus regime — width tending to $0$ while the area tends to infinity — the fluctuations, normalized by their standard deviation, become Gaussian. Hughes and Rudnick (2004) proved this conjecture for circles and the lattice $\mathbb{Z}^2$, provided the width shrinks slower than any power of the radius. Wigman extended it to generic rectangular lattices and to some elliptic annuli. The parallel with Lecture 2 is close: this is the circle analogue of the Lester–Yesha theorem for $\Delta(x + h) - \Delta(x)$, which came later.
 
-**The method.** As in Lecture 2, Hardy's series turns $P(x + h) - P(x)$ into a sum of terms $r_2(n) n^{-3/4}$ times a difference of cosines that is small when $n$ is small compared with $x/h^2$. The variance comes from the diagonal, and Gaussian behaviour from computing higher moments and showing that the frequencies $\sqrt{n}$, for $n$ a sum of two squares, cancel against each other only in trivial ways. For the set of sums of two squares (without multiplicity) the tools are sieve methods instead, since its indicator is not a convolution with a nice Dirichlet series: its generating function involves $\big( \zeta(s) L(s, \chi_{-4}) \big)^{1/2}$, which is why $\sqrt{\log x}$ appears.
+**The method.** As in Lecture 2, Hardy's series turns $P(x + h) - P(x)$ into a sum of terms $r_2(n) n^{-3/4}$ times a difference of cosines that is small when $n$ is small compared with $x/h^2$. The variance comes from the diagonal, and Gaussian behaviour from computing higher moments and showing that the frequencies $\sqrt{n}$, for $n$ a sum of two squares, cancel against each other only in trivial ways. For the set of sums of two squares, without multiplicity, see Lecture 5.
 
 ## Sums of two squares in arithmetic progressions
 
@@ -248,14 +232,12 @@ all within $106$ of the prediction. The class $a = 0$ gets $64\,076$ against the
 ### Milestones
 
 - **The $2/3$ barrier.** R. A. Smith (1968) proved the asymptotic $N(x; q, a) \sim \pi \eta_a(q) x/q^2$ uniformly for $q \le x^{2/3 - \varepsilon}$, with an explicit error term. Smith's motivation was the shifted convolution problem of the next section. Varbanets (1970) improved the error term for $a = 1$, and Tolev (2012) improved it in general.
-- **Sums of two squares without multiplicity.** Prachar proved that the integers that are sums of two squares are equidistributed in arithmetic progressions: for $a$ coprime to a fixed $q$, their number up to $x$ in the class $a \bmod q$ has a Landau-type asymptotic $c_q\, x/\sqrt{\log x}$. Iwaniec's half-dimensional sieve (1972) gives results in which $q$ may grow with $x$.
-- **Bias.** Gorodetsky (2023) showed that sums of two squares are strongly biased towards quadratic residues: for example, assuming the generalized Riemann hypothesis and a Chowla-type conjecture on non-vanishing of $L$-functions at $\tfrac12$, the sums of two squares up to $x$ that are $\equiv 1 \bmod 3$ outnumber those $\equiv 2 \bmod 3$ for all $x$ outside a set of density zero. This is much stronger than Chebyshev's bias for primes, which holds only in logarithmic density. Numerically the effect is small but visible: up to $10^6$ there are $94\,913$ sums of two squares $\equiv 1 \bmod 3$ and $94\,878$ that are $\equiv 2 \bmod 3$.
+- **Without multiplicity.** For the sums of two squares themselves (equidistribution, and a bias towards quadratic residues), see Lecture 5.
 
 ### The method
 
 1. **Theta functions.** The generating function $\sum_{n \ge 0} r_2(n) e(nz) = \theta(z)^2$, with $\theta(z) = \sum_{m \in \mathbb{Z}} e(m^2 z)$, is a modular form of weight $1$ for $\Gamma_0(4)$ with character $\chi_{-4}$. It plays the role that $\zeta(s)^2$ and the Eisenstein series play for $\tau(n)$, and the corresponding Voronoi formula for $r_2(n) e(rn/q)$ follows from the transformation law of $\theta$.
 2. **Exponential sums.** Detecting $n \equiv a \bmod q$ with additive characters and applying that summation formula leads, as for $\tau$, to dual sums with arithmetic exponential sums modulo $q$ as coefficients, and square-root cancellation in each of them gives the level $x^{2/3}$, as in Lecture 2.
-3. **Sieve methods.** For the set of sums of two squares, Jacobi's formula is no help, because its indicator is not a convolution of nice functions. The half-dimensional sieve exploits that this set is defined by excluding primes $p \equiv 3 \bmod 4$ (to odd powers), half of all primes, so that its density is of order $1/\sqrt{\log x}$.
 
 ## Shifted convolutions
 
@@ -276,7 +258,7 @@ Numerically, for $x = 10^6$ the sum divided by $x$ is $8.0034$ for $h = 1$ (pred
 
 The exponent $\tfrac23$ matches the Deshouillers–Iwaniec bound for $\tau(n)\tau(n + h)$ in Lecture 2, and it has the same source.
 
-**Counting pairs of sums of two squares.** Without multiplicity, one asks how many $n \le x$ have both $n$ and $n + 1$ sums of two squares. Treating the two events as independent, each of probability about $1/\sqrt{\log x}$, predicts about $x/\log x$ such $n$. Indlekofer (1974) proved a sharp lower bound for the counting function of these "$B$-twins", as he called them; an asymptotic formula is not known.
+For pairs $n, n + 1$ that are both sums of two squares, counted without multiplicity, see Lecture 5.
 
 ### The method
 
@@ -286,7 +268,7 @@ The exponent $\tfrac23$ matches the Deshouillers–Iwaniec bound for $\tau(n)\ta
 
 ## Sums of two squares at polynomial values
 
-Finally, one can ask about $r_2(f(n))$, or about $f(n)$ being a sum of two squares, for a polynomial $f$. The simplest case reduces to Lecture 2. Every odd divisor $d$ of $n^2 + 1$ is a product of primes $\equiv 1 \bmod 4$, so $\chi_{-4}(d) = 1$, and $4 \nmid n^2 + 1$. Jacobi's formula therefore gives
+Finally, one can ask about $r_2(f(n))$ for a polynomial $f$. (How often $f(n)$ is a sum of two squares at all is a question about the indicator, treated in Lecture 5.) The simplest case reduces to Lecture 2. Every odd divisor $d$ of $n^2 + 1$ is a product of primes $\equiv 1 \bmod 4$, so $\chi_{-4}(d) = 1$, and $4 \nmid n^2 + 1$. Jacobi's formula therefore gives
 $$
 r_2(n^2 + 1) = \begin{cases} 4\, \tau(n^2 + 1) & n \text{ even}, \\ 2\, \tau(n^2 + 1) & n \text{ odd}, \end{cases}
 $$
@@ -294,15 +276,14 @@ for instance $\sum_{n \le 10} r_2(n^2 + 1) = 4 + 8 + 8 + 8 + 8 + 8 + 12 + 16 + 8
 
 The deeper questions are about primes. Since a prime $p$ is a sum of two squares exactly when $p = 2$ or $p \equiv 1 \bmod 4$, the primes $p = a^2 + b^2$ are well understood, but restricting $a$ or $b$ to a sparse set is hard.
 
-- **Shifted forms.** Iwaniec (1972) introduced the half-dimensional sieve to show that shifted binary quadratic forms such as $a^2 + b^2 + 1$ take prime values infinitely often, with upper and lower bounds of the right order. Equivalently, there are infinitely many primes $p$ with $p - 1$ a sum of two squares.
+- **Shifted primes.** For primes $p$ with $p - 1$ a sum of two squares (Linnik, and Iwaniec's half-dimensional sieve), see Lecture 5.
 - **Primes with a prime coordinate.** Fouvry and Iwaniec (1997) gave an asymptotic formula for the number of primes $p = a^2 + b^2 \le x$ with $b$ also prime, and more generally with $b$ restricted to suitable sets of density as small as $(\log x)^{-C}$.
 - **A thin polynomial.** Friedlander and Iwaniec (1998) proved that $a^2 + b^4$ takes infinitely many prime values, with an asymptotic formula for their number. This is remarkable because fewer than $x^{3/4}$ integers up to $x$ have this form, so the set is far too thin for the usual sieve arguments. Heath-Brown (2001) did the same for $a^3 + 2b^3$, a set of integers of size about $x^{2/3}$.
-- **Open.** Whether $n^2 + 1$ is prime infinitely often — the one-variable case $b = 1$ of all of the above — is open.
+- **Open.** Whether $n^2 + 1$ is prime infinitely often — the one-variable case $b = 1$ of $a^2 + b^4$ — is open.
 
 ### The method
 
 1. **Reduction to divisor sums.** When $f(n)$ is automatically a norm from $\mathbb{Z}[i]$, as for $n^2 + 1 = (n + i)(n - i)$, Jacobi's formula makes $r_2(f(n))$ a divisor sum with a character, and the methods of Lecture 2 (switching divisors, roots of $f$ modulo $d$ and their equidistribution) apply directly.
-2. **Half-dimensional sieve.** To detect whether $f(n)$ is a sum of two squares one must sift out the primes $p \equiv 3 \bmod 4$ dividing $f(n)$ to an odd power. That is a sieve of dimension $\tfrac12$, where — unlike in dimension $1$ — Iwaniec showed that upper and lower bounds of the same order can be obtained.
-3. **Bilinear forms and the parity barrier.** Selberg's parity problem prevents sieve methods alone from detecting primes. Friedlander and Iwaniec overcame it for $a^2 + b^4$ by proving an estimate for bilinear forms (Type II sums) in the Gaussian integers, using the factorization $a^2 + b^4 = (a + b^2 i)(a - b^2 i)$; Heath-Brown did the same in $\mathbb{Z}[\sqrt[3]{2}]$ for $a^3 + 2b^3$.
+2. **Bilinear forms and the parity barrier.** Selberg's parity problem prevents sieve methods alone from detecting primes. Friedlander and Iwaniec overcame it for $a^2 + b^4$ by proving an estimate for bilinear forms (Type II sums) in the Gaussian integers, using the factorization $a^2 + b^4 = (a + b^2 i)(a - b^2 i)$; Heath-Brown did the same in $\mathbb{Z}[\sqrt[3]{2}]$ for $a^3 + 2b^3$.
 
 Further reading: E. Grosswald, *Representations of Integers as Sums of Squares*, for Jacobi's formula and its relatives; M. N. Huxley, *Area, Lattice Points, and Exponential Sums*, for the circle problem and the Bombieri–Iwaniec method; A. Ivić, E. Krätzel, M. Kühleitner and W. G. Nowak, "Lattice points in large regions and related arithmetic functions: recent developments in a very classic topic", for a survey of the circle problem and its variants; H. Iwaniec and E. Kowalski, *Analytic Number Theory*, for theta functions, Kloosterman sums and the Kuznetsov formula; J. Friedlander and H. Iwaniec, *Opera de Cribro*, for the semi-linear (half-dimensional) sieve and the parity problem.

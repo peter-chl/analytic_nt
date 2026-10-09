@@ -1,0 +1,302 @@
+Lecture 4 counted lattice points in a disc, which is the same as averaging $r_2(n)$, the number of ways to write $n$ as a sum of two squares. A more basic question ignores multiplicity: **which** integers are sums of two squares, and how many are there up to $x$? The integers $1, 2, 4, 5, 8, 9, 10, 13, \ldots$ are; $3, 6, 7, 11, 12, \ldots$ are not. The answer to the counting question is due to Landau (1908): about $0.764\, x/\sqrt{\log x}$ of the integers up to $x$ are sums of two squares. So they have density zero, yet the total number of representations is $\pi x$ — a thin set of integers carries many representations each.
+
+The two functions behave very differently. The representation count has a clean Dirichlet series, $4\zeta(s) L(s, \chi_{-4})$, with a simple pole at $s = 1$; that pole gives $\pi x$, and the difficulty of the circle problem lies entirely in the error term. The indicator of sums of two squares has a generating function that behaves like $\big( \zeta(s) L(s, \chi_{-4}) \big)^{1/2}$: a square root of a pole, which is a **branch point**. The factor $1/\sqrt{\log x}$ is the trace of that square root, and it is also why the error term is only a power of $\log x$ smaller than the main term, never a power of $x$. Branch points are a new phenomenon in this course, and the tool built for them, the Selberg–Delange method, is the main technique of this lecture.
+
+As in Lectures 2–4, we first count in two ways — elementary bounds and Landau's analytic method — and then survey five directions of research.
+
+## Sums of two squares without multiplicity
+
+<Definition name="The functions b and B">
+For a positive integer $n$, let $b(n) = 1$ if $n = u^2 + v^2$ has a solution in integers $u, v$, and $b(n) = 0$ otherwise. The counting function is
+$$
+B(x) = \sum_{n \le x} b(n) = \#\{ n \le x : n \text{ is a sum of two squares} \}.
+$$
+</Definition>
+
+Since $r_2(n) \ge 4$ whenever $r_2(n) > 0$ (change the signs and order of a representation), we have $b(n) = \mathbf{1}[r_2(n) > 0]$ and $b(n) \le r_2(n)/4$ for $n \ge 1$. Lecture 4 read off from Jacobi's formula which $n$ have $r_2(n) > 0$:
+
+<Result name="Fermat and Euler; the characterization">
+A prime $p$ is a sum of two squares exactly when $p = 2$ or $p \equiv 1 \pmod 4$. A positive integer $n$ is a sum of two squares exactly when every prime $p \equiv 3 \pmod 4$ divides $n$ to an even power.
+</Result>
+
+The first statement is Fermat's two-squares theorem, first proved by Euler; the second follows from it and from the identity $(a^2 + b^2)(c^2 + d^2) = (ac - bd)^2 + (ad + bc)^2$, which is multiplicativity of the norm in $\mathbb{Z}[i]$. Several basic facts follow.
+
+- **Multiplicativity.** $b$ is multiplicative, with $b(2^k) = 1$, $b(p^k) = 1$ for $p \equiv 1 \bmod 4$, and $b(p^k) = 1$ or $0$ for $p \equiv 3 \bmod 4$ according as $k$ is even or odd. It is not completely multiplicative, since $b(3)^2 = 0$ while $b(9) = 1$, but the identity above gives $b(mn) \ge b(m) b(n)$ for all $m, n$.
+- **Local obstructions.** Odd sums of two squares are $\equiv 1 \bmod 4$, and $b(2n) = b(n)$. Among four consecutive integers one is $\equiv 3 \bmod 4$, so there are never four consecutive sums of two squares; three occur, for instance $8, 9, 10$.
+- **Square part.** Write $n = m^2 s$ with $s$ squarefree. Then $b(n) = 1$ exactly when $s$ has no prime factor $\equiv 3 \bmod 4$. If $\sigma(s)$ is the indicator of such squarefree $s$, then $b(n) = \sum_{m^2 \mid n} \sigma(n/m^2)$, as for squarefree numbers in Lecture 3.
+
+The Euler product of $b$ explains the rest of the lecture. It is
+$$
+F(s) = \sum_{n=1}^{\infty} \frac{b(n)}{n^s} = \frac{1}{1 - 2^{-s}} \prod_{p \equiv 1 \bmod 4} \frac{1}{1 - p^{-s}} \prod_{p \equiv 3 \bmod 4} \frac{1}{1 - p^{-2s}} \qquad (\sigma > 1).
+$$
+Compare with $\zeta(s) L(s, \chi_{-4})$: its Euler factor is $(1 - p^{-s})^{-2}$ at $p \equiv 1$, $(1 - p^{-2s})^{-1}$ at $p \equiv 3$ and $(1 - 2^{-s})^{-1}$ at $2$. Squaring $F$ and dividing gives:
+
+<Result name="The generating function of b">
+$$
+F(s) = \big( \zeta(s) L(s, \chi_{-4}) \big)^{1/2}\, G(s), \qquad G(s) = (1 - 2^{-s})^{-1/2} \prod_{p \equiv 3 \bmod 4} (1 - p^{-2s})^{-1/2},
+$$
+where $G$ is holomorphic and nonzero for $\sigma > \tfrac12$.
+</Result>
+
+Near $s = 1$, $\zeta(s) L(s, \chi_{-4})$ has a simple pole with residue $L(1, \chi_{-4}) = \pi/4$, so $F(s)$ behaves like a constant times $(s - 1)^{-1/2}$. That is not a pole, and Perron's formula cannot be finished by a residue computation.
+
+## Elementary bounds
+
+The square part identity gives an exact count, the analogue of the count by the square divisor in Lecture 3:
+$$
+B(x) = \sum_{m \le \sqrt{x}} S\!\left( \frac{x}{m^2} \right), \qquad S(y) = \#\{ s \le y : s \text{ squarefree, no prime factor} \equiv 3 \bmod 4 \}.
+$$
+Unlike in Lecture 3, this does not lead to an asymptotic formula: $S$ is just as hard to count as $B$. What one can get cheaply are bounds.
+
+**An upper bound by sieving.** If $b(n) = 1$, then no prime $p \equiv 3 \bmod 4$ divides $n$ exactly once. Fix $z$ and keep only the primes $p \equiv 3 \bmod 4$ with $p \le z$. Whether $p$ divides $n$ exactly once depends only on $n \bmod p^2$, and happens for a proportion $(p - 1)/p^2$ of all $n$. Inclusion–exclusion over the subsets of these primes, as in the sieve of Lecture 3, gives
+$$
+B(x) \le x \prod_{\substack{p \le z \\ p \equiv 3 \bmod 4}} \left( 1 - \frac{p - 1}{p^2} \right) + O\big( 3^{\pi(z)} \big).
+$$
+The product behaves like $\prod_{p \le z,\, p \equiv 3 (4)} (1 - 1/p)$, which by Mertens' theorem for primes in progressions is of order $(\log z)^{-1/2}$. The error term forces $z$ to be small; with $z = \log x$ we get $B(x) \ll x/\sqrt{\log \log x}$. So the sums of two squares have density zero, but this argument barely shows it: for $x = 10^{10}$ it sieves by $3, 7, 11, 19, 23$ and gives $B(x) \le 0.5702\, x$ (plus $243$), while the truth is $0.1638\, x$.
+
+**A lower bound from $r_2$.** Since $r_2(n)$ vanishes where $b(n)$ does, the Cauchy–Schwarz inequality gives
+$$
+\Big( \sum_{1 \le n \le x} r_2(n) \Big)^2 \le B(x) \sum_{n \le x} r_2(n)^2 .
+$$
+The left side is $(N(x) - 1)^2 \sim \pi^2 x^2$ by Lecture 4. The Dirichlet series of $r_2(n)^2$, given there, has a double pole at $s = 1$, and its leading coefficient gives $\sum_{n \le x} r_2(n)^2 \sim 4x \log x$. Hence $B(x) \ge (\tfrac{\pi^2}{4} + o(1))\, x/\log x$. At $x = 10^6$ this inequality, with the exact sums $3\,141\,548$ and $63\,325\,040$, gives $B(10^6) \ge 155\,852$; the true value is $216\,341$.
+
+<Result name="Elementary bounds">
+$$
+\frac{x}{\log x} \ll B(x) \ll \frac{x}{\sqrt{\log \log x}} .
+$$
+</Result>
+
+The two bounds miss in opposite directions, and each by a power of a logarithm. A better sieve (Brun's or Selberg's), which can sift by all primes up to a small power of $x$, improves the upper bound to $B(x) \ll x/\sqrt{\log x}$, the right order. No elementary argument of this kind gives an asymptotic formula.
+
+## Landau's theorem: the square root of a pole
+
+Perron's formula gives, for $c > 1$,
+$$
+B(x) = \frac{1}{2\pi i} \int_{c - i\infty}^{c + i\infty} F(s) \frac{x^s}{s}\, ds .
+$$
+In Lectures 2–4 the next step was to move the contour to the left and collect residues. Here $F(s) = (s - 1)^{-1/2} H(s)$ with $H$ holomorphic near $s = 1$, and $(s - 1)^{-1/2}$ needs a branch cut, which we place along the real axis to the left of $1$. The contour can still be moved left, but it must wrap around the cut. That piece is a **Hankel contour**, and the basic integral over it is
+$$
+\frac{1}{2\pi i} \int_{\mathcal{H}} (s - 1)^{-w} x^{s}\, ds = \frac{x (\log x)^{w - 1}}{\Gamma(w)} + (\text{small}).
+$$
+With $w = \tfrac12$ and $\Gamma(\tfrac12) = \sqrt{\pi}$ this gives $x/\sqrt{\pi \log x}$, and expanding $H(s)/s$ in powers of $s - 1$ gives a term for each power, with $w = \tfrac12 - k$.
+
+<Result name="Landau, 1908">
+For every fixed $N \ge 1$,
+$$
+B(x) = \frac{K x}{\sqrt{\log x}} \left( 1 + \frac{c_1}{\log x} + \cdots + \frac{c_{N-1}}{(\log x)^{N-1}} + O\!\left( \frac{1}{(\log x)^{N}} \right) \right),
+$$
+where
+$$
+K = \frac{1}{\sqrt{2}} \prod_{p \equiv 3 \bmod 4} \left( 1 - \frac{1}{p^2} \right)^{-1/2} = 0.764223653589\ldots
+$$
+</Result>
+
+The constant $K = H(1)/\sqrt{\pi}$ is the **Landau–Ramanujan constant**: $H(1) = L(1, \chi_{-4})^{1/2} G(1)$, and $L(1, \chi_{-4}) = \pi/4$ cancels the $\pi$. Ramanujan rediscovered the theorem and stated it in his first letter to Hardy (1913). The next coefficient comes from the logarithmic derivative of $H(s)/s$ at $s = 1$:
+$$
+c_1 = \frac12 - \frac{\gamma}{4} - \frac{L'(1, \chi_{-4})}{4 L(1, \chi_{-4})} + \frac{\log 2}{4} + \frac12 \sum_{p \equiv 3 \bmod 4} \frac{\log p}{p^2 - 1} = 0.581948659317\ldots,
+$$
+with $L'(1, \chi_{-4})/L(1, \chi_{-4}) = 0.245609584777\ldots$ and the prime sum equal to $0.228736353194\ldots$. The next two coefficients are $c_2 = 1.2910\ldots$ and $c_3 = 4.8747\ldots$
+
+The general version of this argument is the **Selberg–Delange method**: if the Dirichlet series of $f$ is $\zeta(s)^w$ times a function that is holomorphic and not too large in a region slightly to the left of $\sigma = 1$, then $\sum_{n \le x} f(n) = x (\log x)^{w - 1} \big( \lambda_0 + \lambda_1/\log x + \cdots \big)$ with $\lambda_0 = H(1)/\Gamma(w)$. It handles any complex $w$; for instance it counts integers with a given number of prime factors.
+
+| | Sieve by $p \le \log x$ | Cauchy–Schwarz from $r_2$ | Landau (Hankel contour) |
+|---|---|---|---|
+| Input | which $p \equiv 3 \bmod 4$ divide $n$ once | $N(x)$ and $\sum r_2(n)^2$ | $F = (\zeta L)^{1/2} G$ |
+| Result | $B(x) \ll x/\sqrt{\log \log x}$ | $B(x) \gg x/\log x$ | $B(x) \sim K x/\sqrt{\log x}$ |
+| Lower-order terms | not visible | not visible | full expansion in $1/\log x$ |
+| What limits it | $3^{\pi(z)}$ rounding errors | multiplicity of $r_2$ | zero-free region of $\zeta$ and $L$ |
+
+## A worked example
+
+The sums of two squares up to $100$ are
+$$
+\begin{aligned}
+&1, 2, 4, 5, 8, 9, 10, 13, 16, 17, 18, 20, 25, 26, 29, 32, 34, 36, 37, 40, 41, 45, \\
+&49, 50, 52, 53, 58, 61, 64, 65, 68, 72, 73, 74, 80, 81, 82, 85, 89, 90, 97, 98, 100,
+\end{aligned}
+$$
+so $B(100) = 43$. Each can be checked against the characterization: for example $45 = 3^2 \cdot 5 = 6^2 + 3^2$, while $12 = 2^2 \cdot 3$ is excluded by the single factor $3$. The square-part identity organizes the same count. The squarefree $s \le 100$ with no prime factor $\equiv 3 \bmod 4$ are
+$$
+1, 2, 5, 10, 13, 17, 26, 29, 34, 37, 41, 53, 58, 61, 65, 73, 74, 82, 85, 89, 97,
+$$
+twenty-one numbers, and $S(100/m^2)$ for $m = 1, \dots, 10$ is $21, 6, 4, 3, 2, 2, 2, 1, 1, 1$, which again adds up to $43$.
+
+The main term $K \cdot 100/\sqrt{\log 100} = 35.61$ is far too small, and even with the second term $35.61 (1 + c_1/\log 100) = 40.11$ the error is about $7\%$.
+
+<Example name="Landau's formula numerically">
+The table lists $B(x)$, computed with a segmented sieve (and checked against the square-part identity up to $10^8$), against one and two terms of Landau's expansion, and against the integral $M(x)$ of the next section.
+
+| $x$ | $B(x)$ | $\frac{Kx}{\sqrt{\log x}}$ | ratio | two terms | $M(x)$ | $\frac{B(x) - M(x)}{\sqrt{x}}$ |
+|---|---|---|---|---|---|---|
+| $10^2$ | $43$ | $35.61$ | $1.2075$ | $40.11$ | $40.89$ | $0.211$ |
+| $10^3$ | $330$ | $290.77$ | $1.1349$ | $315.27$ | $323.78$ | $0.197$ |
+| $10^4$ | $2\,749$ | $2\,518.16$ | $1.0917$ | $2\,677.26$ | $2\,730.59$ | $0.184$ |
+| $10^5$ | $24\,028$ | $22\,523.07$ | $1.0668$ | $23\,661.56$ | $23\,980.42$ | $0.150$ |
+| $10^6$ | $216\,341$ | $205\,606.58$ | $1.0522$ | $214\,267.31$ | $216\,239.22$ | $0.102$ |
+| $10^7$ | $1\,985\,459$ | $1\,903\,547.03$ | $1.0430$ | $1\,972\,275.16$ | $1\,985\,128.38$ | $0.105$ |
+| $10^8$ | $18\,457\,847$ | $17\,806\,052.01$ | $1.0366$ | $18\,368\,583.24$ | $18\,456\,876.92$ | $0.097$ |
+| $10^9$ | $173\,229\,058$ | $167\,877\,068.32$ | $1.0319$ | $172\,591\,375.20$ | $173\,226\,354.36$ | $0.086$ |
+| $10^{10}$ | $1\,637\,624\,156$ | $1\,592\,621\,708.36$ | $1.0283$ | $1\,632\,873\,166.20$ | $1\,637\,616\,416.64$ | $0.077$ |
+
+The ratio column approaches $1$ only like $1 + c_1/\log x$: at $x = 10^{10}$ it is still $1.028$, close to $1 + c_1/\log x = 1.0253$. Two terms of the expansion leave a relative error of $3 \times 10^{-3}$ at $10^{10}$, and three terms (giving $1\,636\,751\,155.06$) leave $5 \times 10^{-4}$. Compare the circle problem, where $N(x)/x$ agreed with $\pi$ to fourteen digits at $x = 10^{18}$.
+</Example>
+
+## Better error terms, secondary terms and RH
+
+Truncating Landau's expansion after any fixed number of terms leaves an error of the size of the next term, as long as that coefficient is nonzero (as $c_1, c_2, c_3$ are). So in the form of an expansion in powers of $1/\log x$, the error term is a power of $\log x$ and never a power of $x$. This is not a weakness of the method: the function $x (\log x)^{-1/2}$ and its companions are simply not a good enough description of $B(x)$.
+
+The cure is to keep the Hankel integral itself instead of expanding it. On the real segment $\tfrac12 \lt \sigma \lt 1$ we have $\zeta(\sigma) \lt 0 \lt L(\sigma, \chi_{-4})$, and the two sides of the cut differ by a factor $-1$. The contribution of the cut is therefore the real integral
+$$
+M(x) = \frac{1}{\pi} \int_{1/2}^{1} \sqrt{|\zeta(\sigma)|\, L(\sigma, \chi_{-4})}\; G(\sigma)\, \frac{x^{\sigma}}{\sigma}\, d\sigma ,
+$$
+which is the column $M(x)$ of the table. It tracks $B(x)$ to within $0.22\sqrt{x}$ throughout the table, compared with an error of $0.003 x$ for two terms of the expansion at $x = 10^{10}$.
+
+How small $B(x) - M(x)$ is depends on how far left the contour can be moved, which is decided by the zeros of $\zeta(s)$ and $L(s, \chi_{-4})$. Each zero $\rho$ is a branch point of $F$, because $F$ involves their square root, and it needs its own cut. Unconditionally, the classical zero-free region gives $B(x) = M(x) + O\big( x e^{-c\sqrt{\log x}} \big)$, like the prime number theorem. Assuming the Riemann hypothesis for $\zeta$ and $L(s, \chi_{-4})$, all the cuts start on the line $\sigma = \tfrac12$, and the same contour argument gives $B(x) = M(x) + O(x^{1/2 + \varepsilon})$. So here, as for squarefree numbers in Lecture 3 and unlike for the divisor and circle problems, RH controls the error term: a zero with real part $\beta \gt \tfrac12$ would make itself felt as a term of size about $x^{\beta}$.
+
+### Milestones
+
+| Year | Author(s) | Result |
+|---|---|---|
+| 1908 | Landau | $B(x) \sim K x/\sqrt{\log x}$, with an expansion in powers of $1/\log x$ |
+| 1913 | Ramanujan (letter to Hardy) | stated the asymptotic, in the form $K \int_2^x dt/\sqrt{\log t}$ plus an error $O(\sqrt{x})$ |
+| 1964 | Shanks | computed $c_1 = 0.5819\ldots$, showing that Ramanujan's form is not correct |
+| 2023 | Gorodetsky | bias towards quadratic residues in progressions (conditional) |
+
+Ramanujan's integral expands as $K x/\sqrt{\log x}\,(1 + \tfrac12/\log x + \cdots)$, so it predicts $c_1 = \tfrac12$. Shanks's computation of $c_1 = 0.58194\ldots$ showed that it differs from $B(x)$ by a term of order $x (\log x)^{-3/2}$, far more than $\sqrt{x}$. At $x = 10^{10}$ the integral gives $1\,629\,749\,497.6$, short by about $7.9 \times 10^{6}$. The function $M(x)$ is the correct replacement.
+
+### The method
+
+1. **Taking square roots.** Write $F(s)^2 = \zeta(s) L(s, \chi_{-4}) G(s)^2$ and define $F$ in a region left of $\sigma = 1$ through $\exp\big( \tfrac12 \log \zeta(s) + \tfrac12 \log L(s, \chi_{-4}) \big) G(s)$. The logarithms exist wherever $\zeta$ and $L$ have no zeros, so the zero-free region decides where the contour may go.
+2. **Hankel contour.** Move the contour into that region, wrapping it around the cut at $s = 1$. The cut gives $M(x)$, or after Taylor expansion of $H(s)/s$ and the Hankel formula for $\Gamma$, Landau's expansion term by term.
+3. **Bounds on the rest.** The remaining contour lies inside the zero-free region, where $\log \zeta$ and $\log L$ are bounded by powers of $\log |t|$. This gives $O(x e^{-c\sqrt{\log x}})$; under RH the contour can go to $\sigma = \tfrac12 + \varepsilon$.
+
+## Short intervals and gaps
+
+How many sums of two squares lie in $(x, x + h]$? Landau's formula predicts about $K h/\sqrt{\log x}$, so the average gap between consecutive sums of two squares near $x$ is $\sqrt{\log x}/K$. Since $B(x)$ is known only with a logarithmic saving, the asymptotic follows for every interval only when $h$ is close to $x$. The interesting questions are the existence of at least one sum of two squares, and the behaviour of almost all intervals.
+
+**Every interval.** There is a simple elementary result.
+
+<Result name="Bambah and Chowla, 1947">
+Every interval $[x, x + c x^{1/4}]$, for a suitable absolute constant $c$ and all $x \ge 1$, contains a sum of two squares. Equivalently, consecutive sums of two squares $s_k \lt s_{k+1}$ satisfy $s_{k+1} - s_k \ll s_k^{1/4}$.
+</Result>
+
+The proof is a two-step greedy choice: take $u = \lfloor \sqrt{x} \rfloor$, so that $0 \le x - u^2 \le 2\sqrt{x}$, and then $v = \lceil \sqrt{x - u^2} \rceil$, so that $u^2 + v^2 - x \le 2v + 1 \ll x^{1/4}$. Nobody has improved the exponent $\tfrac14$, and whether the gaps are $o(x^{1/4})$ is open.
+
+<Example name="Record gaps">
+First occurrences of record gaps between consecutive sums of two squares below $10^{10}$ (a selection):
+
+| Gap | $11$ | $19$ | $25$ | $35$ | $48$ | $60$ | $74$ | $88$ | $105$ |
+|---|---|---|---|---|---|---|---|---|---|
+| From | $986$ | $5\,165$ | $52\,393$ | $685\,541$ | $1\,853\,866$ | $67\,070\,173$ | $780\,728\,128$ | $4\,362\,753\,449$ | $6\,067\,500\,388$ |
+| Gap$/\log s_k$ | $1.60$ | $2.22$ | $2.30$ | $2.60$ | $3.33$ | $3.33$ | $3.61$ | $3.96$ | $4.66$ |
+
+At the last entry $s_k^{1/4} = 279$, so the gaps are far below the Bambah–Chowla bound, and they grow roughly like a multiple of $\log s_k$.
+</Example>
+
+**Long gaps.** In the other direction, Richards (1982) showed that gaps of length at least $(\tfrac14 - \varepsilon) \log s_k$ occur infinitely often. Dietmann, Elsholtz, Kalmynin, Konyagin and Maynard (IMRN, 2022) improved the constant to $390/449 = 0.868\ldots$, as part of a result for general binary quadratic forms. Note that $\log s_k$ is much larger than the average gap $\sqrt{\log s_k}/K$.
+
+**Almost every interval.** Hooley (1971) proved that if $y/\sqrt{\log x} \to \infty$, then for almost all $x$ the interval $(x, x + y]$ contains a number of sums of two squares of the expected order $y/\sqrt{\log x}$. He also bounded the moments of the gaps,
+$$
+\sum_{s_{k+1} \le x} (s_{k+1} - s_k)^{\gamma} \ll x (\log x)^{(\gamma - 1)/2} \qquad (0 \lt \gamma \lt \tfrac53),
+$$
+which is the size that gaps of typical length $\sqrt{\log x}$ would give. Kalmynin later extended the range of $\gamma$. Matomäki and Radziwiłł, in their second paper on multiplicative functions in short intervals, upgraded Hooley's order of magnitude to an asymptotic formula in almost all short intervals, and showed that $\gamma \lt 2$ is admissible in the moment bound under the Riemann hypothesis for Hecke $L$-functions.
+
+**Not every interval.** Balog and Wooley (2000) showed that Hooley's result cannot hold for every interval: adapting Maier's method, they found intervals of length a power of $\log x$ with noticeably more, and others with noticeably fewer, sums of two squares than average. Maynard showed that some intervals of length $y$ contain at least a constant times $y^{1/10}$ sums of two squares, which exceeds the average when $y = o((\log x)^{5/9})$.
+
+**Very short intervals and the Poisson model.** On the scale of the mean spacing, the natural model is that the sums of two squares behave like a Poisson process. Connors and Keating formulated a conjecture for pairs $(n, n + h)$ of sums of two squares, motivated by the energy levels of the square billiard; Smilansky computed the resulting variance in short intervals, and Freiberg, Kurlberg and Rosenzweig (2017) showed that a Hardy–Littlewood-type conjecture for $k$-tuples of sums of two squares implies Poisson statistics. All of this is conditional.
+
+**Function fields.** In $\mathbb{F}_q[t]$ the analogous questions can be settled in the limit $q \to \infty$. Bank, Bary-Soroker and Fehm (2018) showed that the density of sums of two squares is the same in short intervals as globally, and Gorodetsky and Rodgers (2021) computed the variance, finding a connection with the $z$-measures from the harmonic analysis of the infinite symmetric group.
+
+### The method
+
+- **Greedy choice** gives Bambah–Chowla. Better bounds for the largest gap would need to show that some $x - u^2$ with $u$ near $\sqrt{x}$ is itself a sum of two squares, which is as hard as the original problem.
+- **Constructions** give long gaps: one arranges, by the Chinese remainder theorem and a careful choice of primes $p \equiv 3 \bmod 4$, an interval in which every integer is divisible exactly once by such a prime. The constant depends on how efficiently a few primes can cover the interval.
+- **Sieve methods and multiplicative functions** give almost-all results. Since $b$ vanishes on half the primes, Hooley used sieve upper and lower bounds of the right order, and Matomäki and Radziwiłł extended their method for multiplicative functions in short intervals to functions that vanish on a positive proportion of primes.
+
+## Arithmetic progressions
+
+For $\gcd(a, q) = 1$, let $B(x; q, a)$ count the sums of two squares $n \le x$ with $n \equiv a \pmod q$. If $4 \mid q$ and $a \equiv 3 \bmod 4$, it is zero. Otherwise, Prachar (1953) proved a Landau-type asymptotic $B(x; q, a) \sim c_q K x/\sqrt{\log x}$, with a constant $c_q$ depending only on $q$ (among the classes with $a \equiv 1 \bmod \gcd(4, q)$): the sums of two squares are equidistributed among the admissible classes coprime to $q$. Iwaniec's half-dimensional sieve (1976) gives results in which $q$ may grow with $x$.
+
+<Example name="Sums of two squares mod 7">
+Since $7 \equiv 3 \bmod 4$, a multiple of $7$ that is a sum of two squares is a multiple of $49$, so $B(x; 7, 0) = B(x/49)$ exactly; for $x = 10^6$ this is $5\,357$. The other $210\,984$ sums of two squares up to $10^6$ should be shared equally by the six classes, $35\,164$ each. The counts for $a = 1, \dots, 6$ are
+$$
+35\,188,\quad 35\,176,\quad 35\,155,\quad 35\,182,\quad 35\,133,\quad 35\,150 .
+$$
+The quadratic residues $1, 2, 4$ get $105\,546$ together, the non-residues $105\,438$.
+</Example>
+
+### Milestones
+
+- **Equidistribution.** Prachar (1953) for fixed $q$; Iwaniec's half-dimensional sieve (1976) for $q$ growing with $x$.
+- **Bias.** Gorodetsky (2023) showed that sums of two squares are strongly biased towards quadratic residues. Assuming the generalized Riemann hypothesis and a Chowla-type conjecture on non-vanishing of $L$-functions at $\tfrac12$, the sums of two squares up to $x$ that are $\equiv 1 \bmod 3$ outnumber those $\equiv 2 \bmod 3$ for all $x$ outside a set of density zero. This is much stronger than Chebyshev's bias for primes, which holds only in logarithmic density. Numerically the effect is small but persistent: up to $10^9$ the counts are $76\,392\,210$ and $76\,391\,418$, and up to $10^{10}$ they are $722\,835\,380$ and $722\,834\,014$.
+- **Consecutive sums of two squares in progressions.** David, Devin, Nam and Schlitt studied the analogue of the Lemke Oliver–Soundararajan bias for consecutive primes: the residue classes of consecutive sums of two squares are visibly not independent, and they explained the biases seen in the data with a model based on the Hardy–Littlewood-type conjecture of the next section.
+
+### The method
+
+1. **Twisting by characters.** For a Dirichlet character $\psi$ mod $q$, the series $\sum b(n) \psi(n) n^{-s}$ factors, as $F$ did, into $\big( L(s, \psi) L(s, \psi\chi_{-4}) \big)^{1/2}$ times a function holomorphic for $\sigma \gt \tfrac12$. It has a singularity at $s = 1$ of the same strength as $F$ only when $\psi$ or $\psi \chi_{-4}$ is principal. Orthogonality of characters then gives Prachar's theorem, and explains the empty class $3 \bmod 4$.
+2. **The source of the bias**, in outline. For a real character $\psi$, the factor over primes $p \equiv 3 \bmod 4$ becomes $\prod (1 - \psi(p)^2 p^{-2s})^{-1/2}$, which behaves like $\zeta(2s)^{1/4}$ and is singular at $s = \tfrac12$. That real singularity produces a term of size about $x^{1/2}(\log x)^{-3/4}$ favouring quadratic residues, while the zeros of the $L$-functions on the critical line are weaker branch points. The non-vanishing hypothesis keeps the coefficient of that term from vanishing.
+3. **Sieve methods** handle large moduli: the set is defined by excluding primes $p \equiv 3 \bmod 4$ to odd powers, which is a sieve of dimension $\tfrac12$.
+
+## Correlations: consecutive sums of two squares
+
+How often are $n$ and $n + 1$ both sums of two squares? If the two events were independent, each with probability about $K/\sqrt{\log x}$, there would be about a constant times $x/\log x$ such $n$ up to $x$.
+
+<Result name="Rieger; Hooley and Indlekofer">
+For each fixed $h \ge 1$,
+$$
+\#\{ n \le x : b(n) = b(n + h) = 1 \} \ll \frac{x}{\log x}
+$$
+(Rieger, 1965), and for $h = 1$ this is of the right order: the count is $\gg x/\log x$ (Hooley, and independently Indlekofer, 1974).
+</Result>
+
+An asymptotic formula is not known. The conjectured one has the shape $C(h)\, x/\log x$, with a singular series $C(h)$ computed by Connors and Keating; Freiberg, Kurlberg and Rosenzweig extended it to a Hardy–Littlewood-type conjecture for all $k$-tuples. Bary-Soroker and Fehm (2019) proved a function-field analogue in the limit $q \to \infty$.
+
+**Triples.** Pell's equation gives infinitely many triples $n, n + 1, n + 2$ of sums of two squares by an elementary argument: if $m^2 - 2y^2 = 1$, then
+$$
+m^2 - 1 = y^2 + y^2, \qquad m^2 = m^2 + 0^2, \qquad m^2 + 1 = m^2 + 1^2 ,
+$$
+and the solutions $m = 3, 17, 99, 577, 3363, \ldots$ give the triples starting at $8, 288, 9800, 332\,928, 11\,309\,768, \ldots$ The triples up to $1000$ start at $8, 16, 72, 80, 144, 232, 288, 360, 520, 576, 584, 800$, so most are not of this form. Cochrane and Dressler (1987) bounded the number of triples up to $x$; the independence heuristic predicts the order $x/(\log x)^{3/2}$.
+
+<Example name="Consecutive sums of two squares">
+Counts of $n$ with $n, n + 1$ (respectively $n, n + 1, n + 2$) all sums of two squares and $\le x$:
+
+| $x$ | pairs | pairs $/ (x/\log x)$ | triples | triples $/ (x/(\log x)^{3/2})$ |
+|---|---|---|---|---|
+| $10^4$ | $670$ | $0.6171$ | $65$ | $0.1817$ |
+| $10^6$ | $40\,798$ | $0.5636$ | $3\,082$ | $0.1583$ |
+| $10^8$ | $2\,948\,564$ | $0.5431$ | $183\,098$ | $0.1448$ |
+| $10^{10}$ | $231\,444\,217$ | $0.5329$ | $12\,459\,137$ | $0.1377$ |
+
+Both ratios decrease slowly, as one expects from lower-order terms in powers of $1/\log x$, and are consistent with the predicted orders.
+</Example>
+
+**Runs in residue classes.** Kimmel and Kuperberg (2024) proved that every triple of residue classes mod $q$ that is not ruled out by local conditions occurs infinitely often among three consecutive sums of two squares, and in a second paper (2025) that, for odd squarefree $q$, a positive proportion of sums of two squares begin runs of consecutive members in prescribed classes, an analogue of Maynard's result on runs of consecutive primes.
+
+### The method
+
+- **Upper bounds** come from the sieve: sifting both $n$ and $n + h$ by primes $p \equiv 3 \bmod 4$ is a sieve of dimension $1$ (two conditions of dimension $\tfrac12$), which gives $x/\log x$ up to a constant.
+- **Lower bounds** of the right order need more, since lower-bound sieves in dimension $1$ lose information. One way in is to replace one of the two indicators by $r_2$, which is a divisor sum: $\sum_n b(n)\, r_2(n + 1)$ opens into sums of $b$ over progressions to moduli $d$, as in the shifted convolution problem of Lecture 4.
+- **Constructions** like the Pell argument produce special infinite families but no density.
+
+## Sums of two squares at polynomial values
+
+For a polynomial $f$, how often is $f(n)$ a sum of two squares? For norm forms the answer is "always": $n^2 + 1$, or $a^2 + b^2$ itself. The interesting cases are where no algebraic identity helps, and the most studied one is shifted primes: how many primes $p$ have $p - 1$ a sum of two squares?
+
+The independence heuristic predicts about $x/(\log x)^{3/2}$ such $p \le x$: the probability $1/\log x$ of being prime times $1/\sqrt{\log x}$.
+
+- **Infinitely many.** Linnik (1960) proved an asymptotic formula for $\sum_{p \le x} r_2(p - 1)$, using his dispersion method. This is the analogue for $r_2$ of the Titchmarsh divisor problem of Lecture 2, and it gives the first unconditional proof that infinitely many primes have the form $p = u^2 + v^2 + 1$.
+- **The right order.** Iwaniec (1972) introduced the half-dimensional sieve to show that the number of primes $p = u^2 + v^2 + 1 \le x$ is of exact order $x/(\log x)^{3/2}$, with upper and lower bounds of the same order. An asymptotic formula is not known unconditionally.
+- **Refinements.** Matomäki (2007) found such primes in short intervals. Teräväinen (2018) showed that almost all even integers satisfying the necessary local conditions are sums of two primes of this form, and that these primes contain infinitely many three-term arithmetic progressions. Nath and Xie (2026) combined the condition with $p + 2$ having a bounded number of prime factors.
+- **Primes that are sums of two squares** with a restriction on the coordinates, such as $p = a^2 + b^2$ with $b$ prime (Fouvry–Iwaniec) or $p = a^2 + b^4$ (Friedlander–Iwaniec), are counted with multiplicity and appear in Lecture 4.
+
+<Example name="Shifted primes">
+Up to $10^8$ there are $5\,761\,455$ primes, and $881\,536$ of them have $p - 1$ a sum of two squares ($880\,702$ have $p + 1$ a sum of two squares). The first few are $2, 3, 5, 11, 17, 19, 37, 41, 53, 59$. The ratio of the count to $x/(\log x)^{3/2}$ is $0.731$ at $x = 10^6$ and $0.697$ at $x = 10^8$, slowly decreasing as in the previous example.
+</Example>
+
+### The method
+
+1. **Linnik's dispersion method** treats $\sum_p r_2(p - 1) = 4 \sum_p \sum_{d \mid p - 1} \chi_{-4}(d)$ as a problem about primes in progressions to moduli up to $\sqrt{x}$, like $\sum_p \tau(p - 1)$ in Lecture 2, where the Bombieri–Vinogradov theorem later gave a shorter route.
+2. **The half-dimensional sieve.** To detect whether $p - 1$ is a sum of two squares one must sift out the primes $q \equiv 3 \bmod 4$ dividing it to an odd power, among the shifted primes. That is a sieve of dimension $\tfrac12$, and Iwaniec showed that in this dimension — unlike in dimension $1$ — upper and lower bounds of the same order can be obtained. The input is the level of distribution of primes in progressions, from Bombieri–Vinogradov.
+3. **Why there is no asymptotic.** Sieves give bounds of the right order but, because of the parity problem, not asymptotics. Replacing $b$ by $r_2$ removes the sieve and gives Linnik's asymptotic, but $r_2(p - 1)$ is large exactly when $p - 1$ has many prime factors $\equiv 1 \bmod 4$, so it cannot be converted back into a count.
+
+Further reading: G. H. Hardy, *Ramanujan: Twelve Lectures on Subjects Suggested by His Life and Work*, Lecture IV, for Landau's theorem and Ramanujan's version of it; G. Tenenbaum, *Introduction to Analytic and Probabilistic Number Theory*, for the Selberg–Delange method; D. Shanks, "The second-order term in the asymptotic expansion of $B(x)$" (Math. Comp., 1964), for $c_1$; B. C. Berndt and P. Moree, "Sums of two squares and the tau-function: Ramanujan's trail", for the history; O. Gorodetsky, "Sums of two squares are strongly biased towards quadratic residues" (Algebra & Number Theory, 2023), whose introduction surveys the distribution of sums of two squares; J. Friedlander and H. Iwaniec, *Opera de Cribro*, for the semi-linear (half-dimensional) sieve.
