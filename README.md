@@ -1,6 +1,6 @@
 # analytic_nt
 
-Lecture notes on analytic number theory — the distribution of primes,
+Notes on analytic number theory — the distribution of primes,
 Dirichlet series, the Riemann zeta function and sieve methods — with the
 arguments written out in full.
 

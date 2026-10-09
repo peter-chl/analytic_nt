@@ -1,38 +1,38 @@
-The number of divisors of $n$ jumps around without any visible pattern: $d(12) = 6$, $d(13) = 2$, $d(720720) = 240$. Averaged over $n \le x$, though, it settles down to a smooth function of $x$, and the question of *how* smooth turns out to be one of the oldest open problems in analytic number theory. The divisor function is also a model case. Almost every technique in the subject — elementary counting, contour integration, exponential sums, Kloosterman sums, spectral theory of automorphic forms — was either first developed for it or is most easily seen on it.
+The number of divisors of $n$ jumps around without any visible pattern: $\tau(12) = 6$, $\tau(13) = 2$, $\tau(720720) = 240$. Averaged over $n \le x$, though, it settles down to a smooth function of $x$, and the question of *how* smooth turns out to be one of the oldest open problems in analytic number theory. The divisor function is also a model case. Almost every technique in the subject — elementary counting, contour integration, exponential sums, Kloosterman sums, spectral theory of automorphic forms — was either first developed for it or is most easily seen on it.
 
-This lecture first derives the average of $d(n)$ in two ways: a trivial count, and Dirichlet's hyperbola method, which does much better with no extra machinery. It then surveys five directions of current research that grow out of that one formula.
+This lecture first derives the average of $\tau(n)$ in two ways: a trivial count, and Dirichlet's hyperbola method, which does much better with no extra machinery. It then surveys five directions of current research that grow out of that one formula.
 
 ## The divisor function
 
 <Definition name="Divisor functions">
-For a positive integer $n$, $d(n)$ is the number of positive divisors of $n$:
+For a positive integer $n$, $\tau(n)$ is the number of positive divisors of $n$:
 $$
-d(n) = \sum_{a \mid n} 1 = \#\{(a, b) \in \mathbb{N}^2 : ab = n\}.
+\tau(n) = \sum_{a \mid n} 1 = \#\{(a, b) \in \mathbb{N}^2 : ab = n\}.
 $$
-More generally, for $k \ge 2$ the **$k$-fold divisor function** $d_k(n)$ counts ordered factorizations $n = a_1 a_2 \cdots a_k$, so $d_2 = d$.
+More generally, for $k \ge 2$ the **$k$-fold divisor function** $\tau_k(n)$ counts ordered factorizations $n = a_1 a_2 \cdots a_k$, so $\tau_2 = \tau$.
 </Definition>
 
-Because $d(n)$ counts factorizations, it is multiplicative, with $d(p^a) = a + 1$ for a prime power. Hence if $n = p_1^{a_1} \cdots p_r^{a_r}$ then $d(n) = (a_1 + 1) \cdots (a_r + 1)$. Its Dirichlet series is the square of the zeta function:
+Because $\tau(n)$ counts factorizations, it is multiplicative, with $\tau(p^a) = a + 1$ for a prime power. Hence if $n = p_1^{a_1} \cdots p_r^{a_r}$ then $\tau(n) = (a_1 + 1) \cdots (a_r + 1)$. Its Dirichlet series is the square of the zeta function:
 $$
-\sum_{n = 1}^{\infty} \frac{d(n)}{n^s} = \zeta(s)^2, \qquad \sum_{n = 1}^{\infty} \frac{d_k(n)}{n^s} = \zeta(s)^k \qquad (\sigma > 1).
+\sum_{n = 1}^{\infty} \frac{\tau(n)}{n^s} = \zeta(s)^2, \qquad \sum_{n = 1}^{\infty} \frac{\tau_k(n)}{n^s} = \zeta(s)^k \qquad (\sigma > 1).
 $$
 
-The values are very irregular. $d(p) = 2$ for every prime, so $d(n) = 2$ infinitely often. At the other extreme $d(n)$ is larger than any power of $\log n$ infinitely often, but it is smaller than any power of $n$:
+The values are very irregular. $\tau(p) = 2$ for every prime, so $\tau(n) = 2$ infinitely often. At the other extreme $\tau(n)$ is larger than any power of $\log n$ infinitely often, but it is smaller than any power of $n$:
 
-<Result name="Size of d(n)">
-For every $\varepsilon > 0$, $d(n) \ll_\varepsilon n^{\varepsilon}$. More precisely,
+<Result name="Size of τ(n)">
+For every $\varepsilon > 0$, $\tau(n) \ll_\varepsilon n^{\varepsilon}$. More precisely,
 $$
-\limsup_{n \to \infty} \frac{\log d(n)\, \log \log n}{\log n} = \log 2 .
+\limsup_{n \to \infty} \frac{\log \tau(n)\, \log \log n}{\log n} = \log 2 .
 $$
 </Result>
 
-The bound $d(n) \ll n^\varepsilon$ will be used constantly: it says that losing a factor $d(n)$ costs only $x^\varepsilon$ in any estimate. The second statement (due to Wigert) shows that no bound of the form $(\log n)^A$ is possible.
+The bound $\tau(n) \ll n^\varepsilon$ will be used constantly: it says that losing a factor $\tau(n)$ costs only $x^\varepsilon$ in any estimate. The second statement (due to Wigert) shows that no bound of the form $(\log n)^A$ is possible.
 
 Since individual values are so erratic, we study averages.
 
 <Definition name="Divisor summatory function">
 $$
-D(x) = \sum_{n \le x} d(n) = \#\{(a, b) \in \mathbb{N}^2 : ab \le x\}.
+D(x) = \sum_{n \le x} \tau(n) = \#\{(a, b) \in \mathbb{N}^2 : ab \le x\}.
 $$
 </Definition>
 
@@ -50,7 +50,7 @@ Write $\lfloor x/a \rfloor = x/a - \{x/a\}$, where $0 \le \{t\} < 1$ is the frac
 $$
 D(x) = x \log x + O(x).
 $$
-In particular the average order of $d(n)$ is $\log n$: $\frac{1}{x} D(x) \sim \log x$.
+In particular the average order of $\tau(n)$ is $\log n$: $\frac{1}{x} D(x) \sim \log x$.
 </Result>
 
 This gives the main term but nothing more. The error $O(x)$ is the same size as the second-order term $\gamma x$, so this method cannot even determine the constant in $D(x) = x \log x + cx + o(x)$. The loss comes from the fractional parts: for $a$ larger than $\sqrt{x}$ the column height $x/a$ is small, and replacing $\lfloor x/a \rfloor$ by $x/a$ makes an error comparable to the quantity itself.
@@ -103,7 +103,7 @@ which sum to $291$. The hyperbola identity gives
 $$
 D(100) = 2 \cdot 291 - 10^2 = 482,
 $$
-using $10$ divisions instead of the $100$ needed by the trivial count (or the $100$ values of $d(n)$). The main terms give $100 \log 100 + (2\gamma - 1) \cdot 100 = 460.517 + 15.443 = 475.960$, so $\Delta(100) = 6.040$.
+using $10$ divisions instead of the $100$ needed by the trivial count (or the $100$ values of $\tau(n)$). The main terms give $100 \log 100 + (2\gamma - 1) \cdot 100 = 460.517 + 15.443 = 475.960$, so $\Delta(100) = 6.040$.
 
 <Example name="The error term numerically">
 The table lists $D(x)$, computed exactly with the hyperbola identity, against the main term.
@@ -128,7 +128,7 @@ Let $\theta$ be the infimum of exponents $a$ with $\Delta(x) \ll x^{a}$. Dirichl
 - (Hardy, 1916.) $\Delta(x) = \Omega_{\pm}(x^{1/4})$, so $\theta \ge \tfrac14$. Hardy and Landau conjectured $\theta = \tfrac14$, that is, $\Delta(x) \ll x^{1/4 + \varepsilon}$.
 - (Cramér, 1922.) In mean square the conjecture holds:
 $$
-\int_1^X \Delta(x)^2\, dx = C X^{3/2} + O(X^{5/4 + \varepsilon}), \qquad C = \frac{1}{6\pi^2} \sum_{n=1}^{\infty} \frac{d(n)^2}{n^{3/2}} = \frac{\zeta(3/2)^4}{6\pi^2 \zeta(3)} = 0.65428\ldots
+\int_1^X \Delta(x)^2\, dx = C X^{3/2} + O(X^{5/4 + \varepsilon}), \qquad C = \frac{1}{6\pi^2} \sum_{n=1}^{\infty} \frac{\tau(n)^2}{n^{3/2}} = \frac{\zeta(3/2)^4}{6\pi^2 \zeta(3)} = 0.65428\ldots
 $$
 - (Heath-Brown, 1992.) $\Delta(x)/x^{1/4}$ has a limiting distribution with a continuous, rapidly decaying density.
 </Result>
@@ -170,7 +170,7 @@ which oscillate because the phase $hx/a$ is a smooth function with controlled de
 
 - **Voronoi summation** goes the other way and expresses $\Delta(x)$ as an oscillating series over $n$. In truncated form,
 $$
-\Delta(x) = \frac{x^{1/4}}{\pi \sqrt{2}} \sum_{n \le N} \frac{d(n)}{n^{3/4}} \cos\!\left( 4\pi\sqrt{nx} - \frac{\pi}{4} \right) + O\!\left( x^{1/2 + \varepsilon} N^{-1/2} \right).
+\Delta(x) = \frac{x^{1/4}}{\pi \sqrt{2}} \sum_{n \le N} \frac{\tau(n)}{n^{3/4}} \cos\!\left( 4\pi\sqrt{nx} - \frac{\pi}{4} \right) + O\!\left( x^{1/2 + \varepsilon} N^{-1/2} \right).
 $$
 This "explains" the $x^{1/4}$: each term is of that size, and they behave like waves with incommensurable frequencies $\sqrt{n}$. Cramér's mean square comes from squaring this series and keeping the diagonal terms; Heath-Brown's limiting distribution comes from the near-independence of the frequencies.
 - **Exponent pairs** (van der Corput, developed by many later authors) package estimates for $\sum e(f(n))$ into pairs $(\kappa, \lambda)$, and any exponent pair gives $\theta \le (\kappa + \lambda)/(2(\kappa + 1))$. The trivial pair $(0, 1)$ gives $\tfrac12$, the pair $(\tfrac12, \tfrac12)$ gives Voronoi's $\tfrac13$, and the pair $(\tfrac{11}{30}, \tfrac{16}{30})$ gives van der Corput's $\tfrac{27}{82}$.
@@ -179,9 +179,9 @@ This "explains" the $x^{1/4}$: each term is of that size, and they behave like w
 
 ### Higher divisor functions and the Riemann hypothesis
 
-For $d_k$ the hyperbola method generalizes, and
+For $\tau_k$ the hyperbola method generalizes, and
 $$
-D_k(x) = \sum_{n \le x} d_k(n) = x P_{k-1}(\log x) + \Delta_k(x),
+D_k(x) = \sum_{n \le x} \tau_k(n) = x P_{k-1}(\log x) + \Delta_k(x),
 $$
 where $P_{k-1}$ is a polynomial of degree $k - 1$ coming from the pole of order $k$ of $\zeta(s)^k$ at $s = 1$. This is the **Piltz divisor problem**. Write $\alpha_k$ for the infimum of exponents with $\Delta_k(x) \ll x^{\alpha_k + \varepsilon}$.
 
@@ -203,35 +203,35 @@ The generating function $\zeta(s)^2$ has no poles other than $s = 1$. The zeros 
 
 ## The divisor function in short intervals
 
-How is $d(n)$ distributed over a short interval $(x, x + h]$ with $h$ much smaller than $x$? Differentiating the main term $x \log x + (2\gamma - 1) x$ gives
+How is $\tau(n)$ distributed over a short interval $(x, x + h]$ with $h$ much smaller than $x$? Differentiating the main term $x \log x + (2\gamma - 1) x$ gives
 $$
-\sum_{x \lt n \le x + h} d(n) = h \left( \log x + 2\gamma \right) + O\!\left( \frac{h^2}{x} \right) + \Delta(x + h) - \Delta(x).
+\sum_{x \lt n \le x + h} \tau(n) = h \left( \log x + 2\gamma \right) + O\!\left( \frac{h^2}{x} \right) + \Delta(x + h) - \Delta(x).
 $$
 So the expected count is $h \log x$, and the question is how small $h$ can be while $\Delta(x + h) - \Delta(x)$ stays smaller than $h \log x$.
 
-**Every interval.** Any bound $\Delta(x) \ll x^{\theta + \varepsilon}$ gives the asymptotic for all $x$ once $h \ge x^{\theta + 2\varepsilon}$, so the record exponents of the previous section translate directly. This route cannot go below $h = x^{1/4}$ because of Hardy's $\Omega$-result. Shiu (1980) proved a Brun–Titchmarsh-type upper bound $\sum_{x \lt n \le x + h} d(n) \ll h \log x$ for $h \ge x^{\kappa}$, any fixed $\kappa > 0$: the right order of magnitude, but no asymptotic.
+**Every interval.** Any bound $\Delta(x) \ll x^{\theta + \varepsilon}$ gives the asymptotic for all $x$ once $h \ge x^{\theta + 2\varepsilon}$, so the record exponents of the previous section translate directly. This route cannot go below $h = x^{1/4}$ because of Hardy's $\Omega$-result. Shiu (1980) proved a Brun–Titchmarsh-type upper bound $\sum_{x \lt n \le x + h} \tau(n) \ll h \log x$ for $h \ge x^{\kappa}$, any fixed $\kappa > 0$: the right order of magnitude, but no asymptotic.
 
 **Almost every interval.** Much shorter intervals can be handled if a small exceptional set of $x$ is allowed. Jutila (1984) computed the mean square
 $$
 \int_T^{2T} \left( \Delta(x + U) - \Delta(x) \right)^2 dx \asymp T U \log^3\!\left( \frac{\sqrt{T}}{U} \right) \qquad (T^{\varepsilon} \le U \le \tfrac12 \sqrt{T})
 $$
-and conjectured $\Delta(x + U) - \Delta(x) \ll x^{\varepsilon} U^{1/2}$. Ivić (2009) found the full asymptotic, with leading coefficient $8/\pi^2$; Coppola and Salerno (2004) obtained related results by a large-sieve argument. By Chebyshev's inequality, the asymptotic $\sum_{x \lt n \le x + h} d(n) \sim h \log x$ then holds for all but $o(T)$ values of $x \in [T, 2T]$ as soon as $h$ exceeds a suitable power of $\log T$. Ideas from the Matomäki–Radziwiłł theorem on multiplicative functions in short intervals have since been extended to divisor-bounded functions such as $d$ (Mangerel, 2023), giving "almost all" results for intervals whose length is only a power of $\log x$.
+and conjectured $\Delta(x + U) - \Delta(x) \ll x^{\varepsilon} U^{1/2}$. Ivić (2009) found the full asymptotic, with leading coefficient $8/\pi^2$; Coppola and Salerno (2004) obtained related results by a large-sieve argument. By Chebyshev's inequality, the asymptotic $\sum_{x \lt n \le x + h} \tau(n) \sim h \log x$ then holds for all but $o(T)$ values of $x \in [T, 2T]$ as soon as $h$ exceeds a suitable power of $\log T$. Ideas from the Matomäki–Radziwiłł theorem on multiplicative functions in short intervals have since been extended to divisor-bounded functions such as $\tau$ (Mangerel, 2023), giving "almost all" results for intervals whose length is only a power of $\log x$.
 
 **Distribution.** Lester and Yesha (2016) proved that for $h = \sqrt{X}/L$ with $L \to \infty$ slowly ($\log L = o(\log X)$), the normalized difference $(\Delta(x + h) - \Delta(x))/\sqrt{(8/\pi^2)\, h \log^3 L}$ for $x$ uniform in $[X, 2X]$ tends to a standard Gaussian. Gaussian behaviour is conjectured throughout $X^{\varepsilon} \lt h \lt X^{1/2 - \varepsilon}$.
 
-**Higher divisor functions and random matrices.** For $d_k$, Keating, Rodgers, Roditty-Gershon and Rudnick (2018) computed the variance of short-interval sums of $d_k$ for polynomials over a finite field $\mathbb{F}_q[t]$, as $q \to \infty$. There the variance becomes a matrix integral over the unitary group, which evaluates to a piecewise-polynomial function of $\log h / \log x$. This led to a precise conjecture for the integers, consistent with what is known for $k = 2$ (Jutila, Coppola–Salerno, Ivić) and with Lester's (2016) asymptotic for $k = 3$, which is unconditional, and for $k \ge 4$ under Lindelöf.
+**Higher divisor functions and random matrices.** For $\tau_k$, Keating, Rodgers, Roditty-Gershon and Rudnick (2018) computed the variance of short-interval sums of $\tau_k$ for polynomials over a finite field $\mathbb{F}_q[t]$, as $q \to \infty$. There the variance becomes a matrix integral over the unitary group, which evaluates to a piecewise-polynomial function of $\log h / \log x$. This led to a precise conjecture for the integers, consistent with what is known for $k = 2$ (Jutila, Coppola–Salerno, Ivić) and with Lester's (2016) asymptotic for $k = 3$, which is unconditional, and for $k \ge 4$ under Lindelöf.
 
-**The method.** Voronoi's formula turns $\Delta(x + h) - \Delta(x)$ into a sum of terms $d(n) n^{-3/4}$ times a difference of cosines, and the difference $\cos(4\pi\sqrt{n(x + h)}) - \cos(4\pi\sqrt{nx})$ is small when $n \ll x/h^2$. Squaring and integrating, only the diagonal survives. The terms with $n \le N = T/U^2$ contribute about $(U^2/\sqrt{T}) \sum_{n \le N} d(n)^2 n^{-1/2}$ each, and $\sum_{n \le N} d(n)^2 n^{-1/2} \asymp \sqrt{N} \log^3 N$, which gives Jutila's $T U \log^3(\sqrt{T}/U)$. Moments beyond the variance (Lester–Yesha) require showing that the frequencies $\sqrt{n}$ behave independently. For $d_k$ with $k \ge 3$ no Voronoi formula of comparable strength is available, and one works instead with mean values of $\zeta(\tfrac12 + it)^k$ via Plancherel — which is why the $d_k$ variance is tied to the $2k$-th moment of $\zeta$.
+**The method.** Voronoi's formula turns $\Delta(x + h) - \Delta(x)$ into a sum of terms $\tau(n) n^{-3/4}$ times a difference of cosines, and the difference $\cos(4\pi\sqrt{n(x + h)}) - \cos(4\pi\sqrt{nx})$ is small when $n \ll x/h^2$. Squaring and integrating, only the diagonal survives. The terms with $n \le N = T/U^2$ contribute about $(U^2/\sqrt{T}) \sum_{n \le N} \tau(n)^2 n^{-1/2}$ each, and $\sum_{n \le N} \tau(n)^2 n^{-1/2} \asymp \sqrt{N} \log^3 N$, which gives Jutila's $T U \log^3(\sqrt{T}/U)$. Moments beyond the variance (Lester–Yesha) require showing that the frequencies $\sqrt{n}$ behave independently. For $\tau_k$ with $k \ge 3$ no Voronoi formula of comparable strength is available, and one works instead with mean values of $\zeta(\tfrac12 + it)^k$ via Plancherel — which is why the $\tau_k$ variance is tied to the $2k$-th moment of $\zeta$.
 
 ## The divisor function in arithmetic progressions
 
 For $\gcd(a, q) = 1$, let
 $$
-D(x; q, a) = \sum_{\substack{n \le x \\ n \equiv a \ (\mathrm{mod}\ q)}} d(n).
+D(x; q, a) = \sum_{\substack{n \le x \\ n \equiv a \ (\mathrm{mod}\ q)}} \tau(n).
 $$
 Residue classes coprime to $q$ should share the total equally, which predicts
 $$
-D(x; q, a) \approx \frac{1}{\varphi(q)} \sum_{\substack{n \le x \\ \gcd(n, q) = 1}} d(n) = \frac{x\, \varphi(q)}{q^2} \left( \log x + 2\gamma - 1 + 2 \sum_{p \mid q} \frac{\log p}{p - 1} \right) + \cdots
+D(x; q, a) \approx \frac{1}{\varphi(q)} \sum_{\substack{n \le x \\ \gcd(n, q) = 1}} \tau(n) = \frac{x\, \varphi(q)}{q^2} \left( \log x + 2\gamma - 1 + 2 \sum_{p \mid q} \frac{\log p}{p - 1} \right) + \cdots
 $$
 (the right side is the residue at $s = 1$ of $\zeta(s)^2 \prod_{p \mid q} (1 - p^{-s})^2 x^s/s$, divided by $\varphi(q)$). The central question is the **level of distribution**: how large can $q$ be, as a power $x^{\vartheta}$, with the asymptotic still holding uniformly?
 
@@ -248,38 +248,38 @@ all within $72$ of the prediction — relative errors below $5 \times 10^{-5}$. 
 - **The $2/3$ barrier (1950s).** The asymptotic holds uniformly for $q \le x^{2/3 - \varepsilon}$. This is credited to Selberg (unpublished) and to Hooley, and in some accounts also to Linnik.
 - **Beyond $2/3$ on average over moduli.** Fouvry (1985) handled moduli $x^{2/3 + \eta} \le q \le x^{1 - \eta}$ on average, for a fixed residue $a$, and Fouvry and Iwaniec (1992, with an appendix by Katz) covered moduli around $x^{2/3}$. Averages over the residue $a$ with $q$ fixed were studied by Banks, Heath-Brown and Shparlinski (2005) and Blomer (2008), and the variance over residue classes by Motohashi (1973) and Lau and Zhao (2012).
 - **Beyond $2/3$ for special moduli.** Irving (2015) passed $2/3$ for individual moduli that are smooth (have only small prime factors), using a $q$-analogue of van der Corput's method.
-- **The ternary divisor function.** For $d_3$ the trivial level is $\tfrac12$. Friedlander and Iwaniec (1985) broke it, reaching $\tfrac12 + \tfrac{1}{230}$; Heath-Brown (1986) improved this to $\tfrac12 + \tfrac{1}{82}$; and Fouvry, Kowalski and Michel (2015) reached $\tfrac12 + \tfrac{1}{46}$ for prime moduli. Wei, Xue and Zhang (2016) passed $\tfrac12$ for all $d_k$ with smooth moduli, using the methods of Zhang's work on bounded gaps between primes.
-- **Variance and Gaussian behaviour.** Fouvry, Ganguly, Kowalski and Michel (2014) proved that $D(x; q, a)$, suitably normalized, becomes Gaussian as $a$ varies modulo a large prime $q$, in suitable ranges of $x$ relative to $q$. Rodgers and Soundararajan (2018) proved a version of the random-matrix variance conjecture for $d_k$ in progressions, on average over moduli.
+- **The ternary divisor function.** For $\tau_3$ the trivial level is $\tfrac12$. Friedlander and Iwaniec (1985) broke it, reaching $\tfrac12 + \tfrac{1}{230}$; Heath-Brown (1986) improved this to $\tfrac12 + \tfrac{1}{82}$; and Fouvry, Kowalski and Michel (2015) reached $\tfrac12 + \tfrac{1}{46}$ for prime moduli. Wei, Xue and Zhang (2016) passed $\tfrac12$ for all $\tau_k$ with smooth moduli, using the methods of Zhang's work on bounded gaps between primes.
+- **Variance and Gaussian behaviour.** Fouvry, Ganguly, Kowalski and Michel (2014) proved that $D(x; q, a)$, suitably normalized, becomes Gaussian as $a$ varies modulo a large prime $q$, in suitable ranges of $x$ relative to $q$. Rodgers and Soundararajan (2018) proved a version of the random-matrix variance conjecture for $\tau_k$ in progressions, on average over moduli.
 
 <Remark name="An application: the Titchmarsh divisor problem">
-How many divisors does $p - 1$ have on average, over primes $p$? Since $d(p - 1) = \sum_{q \mid p - 1} 1$, the sum $\sum_{p \le x} d(p - 1)$ counts primes in the progressions $1 \bmod q$, so it needs primes in progressions to moduli near $\sqrt{x}$. Titchmarsh (1930) treated it assuming the generalized Riemann hypothesis; Linnik (1961) proved
+How many divisors does $p - 1$ have on average, over primes $p$? Since $\tau(p - 1) = \sum_{q \mid p - 1} 1$, the sum $\sum_{p \le x} \tau(p - 1)$ counts primes in the progressions $1 \bmod q$, so it needs primes in progressions to moduli near $\sqrt{x}$. Titchmarsh (1930) treated it assuming the generalized Riemann hypothesis; Linnik (1961) proved
 $$
-\sum_{p \le x} d(p - 1) \sim \frac{\zeta(2)\zeta(3)}{\zeta(6)}\, x = 1.94359\ldots x
+\sum_{p \le x} \tau(p - 1) \sim \frac{\zeta(2)\zeta(3)}{\zeta(6)}\, x = 1.94359\ldots x
 $$
 unconditionally with his dispersion method, and after 1965 the Bombieri–Vinogradov theorem gave a short proof (Rodriquez, Halberstam). Fouvry (1985) and Bombieri, Friedlander and Iwaniec (1986) found the secondary main term.
 </Remark>
 
 ### The method
 
-1. **Voronoi summation in progressions.** Detect $n \equiv a \bmod q$ with additive characters and apply Voronoi's formula for $d(n) e(rn/q)$. The dual sum has length about $q^2/x$ and its coefficients are **Kloosterman sums**
+1. **Voronoi summation in progressions.** Detect $n \equiv a \bmod q$ with additive characters and apply Voronoi's formula for $\tau(n) e(rn/q)$. The dual sum has length about $q^2/x$ and its coefficients are **Kloosterman sums**
 $$
 S(m, n; q) = \sum_{\substack{u \bmod q \\ \gcd(u, q) = 1}} e\!\left( \frac{mu + n\bar{u}}{q} \right), \qquad u\bar{u} \equiv 1 \pmod q.
 $$
-2. **Weil's bound** $|S(m, n; q)| \le d(q) \sqrt{\gcd(m, n, q)}\, \sqrt{q}$ gives an error of roughly $x^{\varepsilon}(q^{1/2} + x^{1/3})$. This beats the main term $x/q$ only while $q \lt x^{2/3}$ — the source of the barrier.
-3. **Beyond the barrier** one must find cancellation in sums of Kloosterman sums themselves, not just in each one. The tools are the Kuznetsov trace formula and the spectral large sieve of Deshouillers and Iwaniec (on average over $q$), Deligne's Riemann hypothesis over finite fields and Katz's trace functions (for $d_3$ and the Fouvry–Iwaniec appendix), and the $q$-van der Corput method (for smooth moduli).
+2. **Weil's bound** $|S(m, n; q)| \le \tau(q) \sqrt{\gcd(m, n, q)}\, \sqrt{q}$ gives an error of roughly $x^{\varepsilon}(q^{1/2} + x^{1/3})$. This beats the main term $x/q$ only while $q \lt x^{2/3}$ — the source of the barrier.
+3. **Beyond the barrier** one must find cancellation in sums of Kloosterman sums themselves, not just in each one. The tools are the Kuznetsov trace formula and the spectral large sieve of Deshouillers and Iwaniec (on average over $q$), Deligne's Riemann hypothesis over finite fields and Katz's trace functions (for $\tau_3$ and the Fouvry–Iwaniec appendix), and the $q$-van der Corput method (for smooth moduli).
 
 ## Shifted convolutions: two terms and more
 
-The **additive divisor problem** asks for correlations of $d$ at shifted arguments,
+The **additive divisor problem** asks for correlations of $\tau$ at shifted arguments,
 $$
-D(x; h) = \sum_{n \le x} d(n)\, d(n + h), \qquad h \ne 0 \text{ fixed}.
+D(x; h) = \sum_{n \le x} \tau(n)\, \tau(n + h), \qquad h \ne 0 \text{ fixed}.
 $$
 Multiplicativity is no help: $n$ and $n + h$ share no prime factors beyond those of $h$, so there is no Dirichlet series identity. The problem is genuinely additive.
 
 <Result name="Ingham, 1927">
 For fixed $h \ge 1$,
 $$
-\sum_{n \le x} d(n)\, d(n + h) \sim \frac{6}{\pi^2}\, \sigma_{-1}(h)\, x \log^2 x, \qquad \sigma_{-1}(h) = \sum_{e \mid h} \frac{1}{e}.
+\sum_{n \le x} \tau(n)\, \tau(n + h) \sim \frac{6}{\pi^2}\, \sigma_{-1}(h)\, x \log^2 x, \qquad \sigma_{-1}(h) = \sum_{e \mid h} \frac{1}{e}.
 $$
 </Result>
 
@@ -292,70 +292,70 @@ The full main term is $x P_h(\log x)$ with $P_h$ quadratic, and the history of t
 | 1982 | Deshouillers–Iwaniec | $x^{2/3 + \varepsilon}$ | Kuznetsov formula, spectral large sieve |
 | 1994 | Motohashi | $x^{2/3 + \varepsilon}$, explicit spectral decomposition | spectral theory of $\mathrm{SL}_2(\mathbb{Z})$ |
 
-**Why it matters: the fourth moment of $\zeta$.** Since $|\zeta(\tfrac12 + it)|^4 = |\zeta(\tfrac12 + it)^2|^2$ and $\zeta(s)^2 = \sum d(n) n^{-s}$, expanding the fourth moment produces exactly the sums $\sum d(n) d(n + h)$, summed over $h$. Heath-Brown's 1979 paper used the additive divisor problem to get the error $O(T^{7/8 + \varepsilon})$ in the asymptotic for $\int_0^T |\zeta(\tfrac12 + it)|^4 dt$, and Motohashi's spectral decomposition gave an exact formula for that moment in terms of automorphic $L$-functions.
+**Why it matters: the fourth moment of $\zeta$.** Since $|\zeta(\tfrac12 + it)|^4 = |\zeta(\tfrac12 + it)^2|^2$ and $\zeta(s)^2 = \sum \tau(n) n^{-s}$, expanding the fourth moment produces exactly the sums $\sum \tau(n) \tau(n + h)$, summed over $h$. Heath-Brown's 1979 paper used the additive divisor problem to get the error $O(T^{7/8 + \varepsilon})$ in the asymptotic for $\int_0^T |\zeta(\tfrac12 + it)|^4 dt$, and Motohashi's spectral decomposition gave an exact formula for that moment in terms of automorphic $L$-functions.
 
-**Higher divisor functions.** For $\sum_{n \le x} d_k(n)\, d(n + h)$ Linnik's dispersion method gave an asymptotic, without a power saving. Power savings came from Bykovskii and Vinogradov (announced 1987), Drappeau (2017) and Topacogullari, who proved
+**Higher divisor functions.** For $\sum_{n \le x} \tau_k(n)\, \tau(n + h)$ Linnik's dispersion method gave an asymptotic, without a power saving. Power savings came from Bykovskii and Vinogradov (announced 1987), Drappeau (2017) and Topacogullari, who proved
 $$
-\sum_{n \le x} d_3(n)\, d(n + h) = x P_{3, h}(\log x) + O(x^{8/9 + \varepsilon}) \qquad (2016)
+\sum_{n \le x} \tau_3(n)\, \tau(n + h) = x P_{3, h}(\log x) + O(x^{8/9 + \varepsilon}) \qquad (2016)
 $$
-uniformly for $h \ll x^{2/3}$, and a power saving for every $d_k(n) d(n + h)$ (2018). No asymptotic is known for $\sum_{n \le x} d_3(n)\, d_3(n + h)$ for a single $h$. Conjectured main terms for $\sum d_k(n) d_l(n + h)$ were formulated by Conrey and Gonek and by Ivić, and Conrey and Keating (2015–2019) showed how such conjectures reproduce the conjectured high moments of $\zeta$. Ng (2021) showed that a conjectured formula for $d_3 d_3$, on average over $h$, implies the sixth moment of $\zeta$.
+uniformly for $h \ll x^{2/3}$, and a power saving for every $\tau_k(n) \tau(n + h)$ (2018). No asymptotic is known for $\sum_{n \le x} \tau_3(n)\, \tau_3(n + h)$ for a single $h$. Conjectured main terms for $\sum \tau_k(n) \tau_l(n + h)$ were formulated by Conrey and Gonek and by Ivić, and Conrey and Keating (2015–2019) showed how such conjectures reproduce the conjectured high moments of $\zeta$. Ng (2021) showed that a conjectured formula for $\tau_3 \tau_3$, on average over $h$, implies the sixth moment of $\zeta$.
 
-**Averaging over the shift.** Averaging over $h \le H$ makes the problem easier, and the goal is to make $H$ as small as possible. Baier, Browning, Marasingha and Zhao (2012) treated $d_3(n) d_3(n + h)$ on average over $h$. Matomäki, Radziwiłł and Tao proved the expected asymptotic for $d_k(n) d_l(n + h)$ for almost all $h \le H$, first for $H \ge x^{8/33 + \varepsilon}$ (2019, part I) and then for $H$ as small as a large power of $\log x$ (2019, part II).
+**Averaging over the shift.** Averaging over $h \le H$ makes the problem easier, and the goal is to make $H$ as small as possible. Baier, Browning, Marasingha and Zhao (2012) treated $\tau_3(n) \tau_3(n + h)$ on average over $h$. Matomäki, Radziwiłł and Tao proved the expected asymptotic for $\tau_k(n) \tau_l(n + h)$ for almost all $h \le H$, first for $H \ge x^{8/33 + \varepsilon}$ (2019, part I) and then for $H$ as small as a large power of $\log x$ (2019, part II).
 
 **Three terms.** For triple correlations such as
 $$
-\sum_{n \le x} d(n - h)\, d(n)\, d(n + h)
+\sum_{n \le x} \tau(n - h)\, \tau(n)\, \tau(n + h)
 $$
-no asymptotic is known for any single $h$; Browning (2011) conjectured it to be $\sim c_h x (\log x)^3$. On average over $h$ the problem is solved: Browning proved the asymptotic averaged over $h \le H$ with $H \ge x^{3/4 + \varepsilon}$, and Blomer (2017) got a power saving for $\sum_{h \le H} \sum_{n \le x} d(n) d(n + h) d(n + 2h)$ with $H \ge x^{1/3 + \varepsilon}$.
+no asymptotic is known for any single $h$; Browning (2011) conjectured it to be $\sim c_h x (\log x)^3$. On average over $h$ the problem is solved: Browning proved the asymptotic averaged over $h \le H$ with $H \ge x^{3/4 + \varepsilon}$, and Blomer (2017) got a power saving for $\sum_{h \le H} \sum_{n \le x} \tau(n) \tau(n + h) \tau(n + 2h)$ with $H \ge x^{1/3 + \varepsilon}$.
 
 ### The method
 
-- **Opening one divisor function.** Write $d(n) = \sum_{ab = n} 1$; then $\sum_n d(n) d(n + h)$ counts solutions of $ab - cd = -h$, or equivalently integers $m = n + h$ with $m \equiv h \bmod a$. The inner sum is a divisor sum in an arithmetic progression, so the previous section applies — but now with moduli as large as $\sqrt{x}$ and summed over all of them.
+- **Opening one divisor function.** Write $\tau(n) = \sum_{ab = n} 1$; then $\sum_n \tau(n) \tau(n + h)$ counts solutions of $ab - cd = -h$, or equivalently integers $m = n + h$ with $m \equiv h \bmod a$. The inner sum is a divisor sum in an arithmetic progression, so the previous section applies — but now with moduli as large as $\sqrt{x}$ and summed over all of them.
 - **Kloosterman sums.** Voronoi summation in each progression produces Kloosterman sums $S(h, m; a)$ summed over the modulus $a$. Weil's bound for each one gives $x^{5/6}$; Estermann's earlier, weaker bound gave $x^{11/12}$.
-- **Spectral theory.** Sums of Kloosterman sums over the modulus are exactly what the Kuznetsov formula converts into sums over Maass forms and holomorphic cusp forms. That gives $x^{2/3}$, and Motohashi's version makes every term explicit. The $\delta$-method of Duke, Friedlander and Iwaniec (1994) is a flexible alternative that handles $\sum d(m) d(n)$ over $am - bn = h$ uniformly in $a$ and $b$.
-- **Dispersion and averaging.** Linnik's dispersion method (Cauchy–Schwarz followed by an asymptotic for the resulting sum) handles $d_k(n) d(n + h)$; averaging over $h$ adds an extra variable that circle-method and mean-value techniques can exploit.
+- **Spectral theory.** Sums of Kloosterman sums over the modulus are exactly what the Kuznetsov formula converts into sums over Maass forms and holomorphic cusp forms. That gives $x^{2/3}$, and Motohashi's version makes every term explicit. The $\delta$-method of Duke, Friedlander and Iwaniec (1994) is a flexible alternative that handles $\sum \tau(m) \tau(n)$ over $am - bn = h$ uniformly in $a$ and $b$.
+- **Dispersion and averaging.** Linnik's dispersion method (Cauchy–Schwarz followed by an asymptotic for the resulting sum) handles $\tau_k(n) \tau(n + h)$; averaging over $h$ adds an extra variable that circle-method and mean-value techniques can exploit.
 
 ## Divisor sums over polynomial values
 
-The last question replaces $n$ by a polynomial: what is $\sum_{n \le x} d(f(n))$ for $f \in \mathbb{Z}[t]$? The simplest case already shows the flavour:
+The last question replaces $n$ by a polynomial: what is $\sum_{n \le x} \tau(f(n))$ for $f \in \mathbb{Z}[t]$? The simplest case already shows the flavour:
 $$
-\sum_{n \le 10} d(n^2 + 1) = 2 + 2 + 4 + 2 + 4 + 2 + 6 + 4 + 4 + 2 = 32 .
+\sum_{n \le 10} \tau(n^2 + 1) = 2 + 2 + 4 + 2 + 4 + 2 + 6 + 4 + 4 + 2 = 32 .
 $$
 
 <Result name="Order of magnitude (Erdős, 1952)">
 If $f$ is irreducible with integer coefficients, then for $x \ge 2$,
 $$
-c_1\, x \log x \le \sum_{n \le x} d(f(n)) \le c_2\, x \log x,
+c_1\, x \log x \le \sum_{n \le x} \tau(f(n)) \le c_2\, x \log x,
 $$
 with constants $c_1, c_2 > 0$ depending on $f$.
 </Result>
 
-Irreducibility matters: if $f$ factors, $d(f(n))$ is roughly a product of divisor functions of the factors and the sum can grow like $x \log^2 x$ (compare Ingham's theorem, which is the case $f(n) = n(n + h)$). Erdős asked whether $\sum_{n \le x} d(f(n)) \sim c_f\, x \log x$ for every irreducible $f$. The answer is known only for degree $2$.
+Irreducibility matters: if $f$ factors, $\tau(f(n))$ is roughly a product of divisor functions of the factors and the sum can grow like $x \log^2 x$ (compare Ingham's theorem, which is the case $f(n) = n(n + h)$). Erdős asked whether $\sum_{n \le x} \tau(f(n)) \sim c_f\, x \log x$ for every irreducible $f$. The answer is known only for degree $2$.
 
 **Quadratic polynomials.** For irreducible quadratic $f$ the asymptotic was found by Bellman and Shapiro, who did not publish it; the first published proof is Scourfield's (1961). For $f(n) = n^2 + 1$,
 $$
-\sum_{n \le x} d(n^2 + 1) = \frac{3}{\pi}\, x \log x + O(x).
+\sum_{n \le x} \tau(n^2 + 1) = \frac{3}{\pi}\, x \log x + O(x).
 $$
 Hooley (1963) obtained a second main term and the error $O(x^{8/9 + \varepsilon})$ for $n^2 + h$. Bykovskii (1984) reduced the error to $O(x^{2/3 + \varepsilon})$ using the spectral theory of automorphic functions. McKee (1995, 1999) gave the leading constant for a general irreducible quadratic in terms of class numbers.
 
-**Cubic and higher degree.** For $f(n) = n^3 + 2$, or any irreducible polynomial of degree $3$ or more, no asymptotic formula is known; only Erdős's order of magnitude. Nair and Tenenbaum (1998) gave sharp upper bounds of the right order for sums of $d(f(n))$, $d_k(f(n))$ and many similar functions over short intervals, and Henriot (2012) made them uniform in the discriminant of $f$.
+**Cubic and higher degree.** For $f(n) = n^3 + 2$, or any irreducible polynomial of degree $3$ or more, no asymptotic formula is known; only Erdős's order of magnitude. Nair and Tenenbaum (1998) gave sharp upper bounds of the right order for sums of $\tau(f(n))$, $\tau_k(f(n))$ and many similar functions over short intervals, and Henriot (2012) made them uniform in the discriminant of $f$.
 
 **Binary forms.** Using two variables makes polynomials of higher degree accessible, because the box $|a|, |b| \le P$ has $P^2$ points while the values have size $P^{\deg F}$. For an irreducible binary cubic form $F(a, b)$, Greaves (1970) proved
 $$
-\sum_{|a|, |b| \le P} d(F(a, b)) = c_0 P^2 \log P + c_1 P^2 + O(P^{2 - 1/14 + \varepsilon}),
+\sum_{|a|, |b| \le P} \tau(F(a, b)) = c_0 P^2 \log P + c_1 P^2 + O(P^{2 - 1/14 + \varepsilon}),
 $$
 and Daniel (1999) improved the exponent to $2 - \tfrac18 + \varepsilon$ and found the asymptotic for irreducible binary quartic forms (without a power saving). Reducible cubic and quartic forms were treated by Browning (2011) and by de la Bretèche and Browning (2010). Degree $4$ is the limit of current methods.
 
-**More variables.** For the ternary quadratic form $m_1^2 + m_2^2 + m_3^2$, Calderón and de Velasco (2000) found the leading term $\frac{8\zeta(3)}{5\zeta(5)} X^3 \log X$ for $\sum_{m_i \le X} d(m_1^2 + m_2^2 + m_3^2)$; Guo and Zhai (2012) and Zhao (2014) added the second main term and successively better error terms.
+**More variables.** For the ternary quadratic form $m_1^2 + m_2^2 + m_3^2$, Calderón and de Velasco (2000) found the leading term $\frac{8\zeta(3)}{5\zeta(5)} X^3 \log X$ for $\sum_{m_i \le X} \tau(m_1^2 + m_2^2 + m_3^2)$; Guo and Zhai (2012) and Zhao (2014) added the second main term and successively better error terms.
 
 ### The method
 
 1. **Switching divisors.** Use the symmetry $e \leftrightarrow m/e$ to write
 $$
-d(m) = 2 \#\{ e \mid m : e \lt \sqrt{m} \} + \mathbf{1}_{m \text{ is a square}} .
+\tau(m) = 2 \#\{ e \mid m : e \lt \sqrt{m} \} + \mathbf{1}_{m \text{ is a square}} .
 $$
 For $m = f(n)$ with $n \le x$ and $f$ of degree $g$, this needs divisors $e$ up to about $x^{g/2}$.
-2. **Counting in residue classes.** Then $\sum_n d(f(n))$ becomes $\sum_{e} \#\{ n \le x : f(n) \equiv 0 \bmod e \}$. Each $e$ contributes about $x \rho(e)/e$, where $\rho(e)$ is the number of roots of $f$ mod $e$, and $\sum_{e \le x} \rho(e)/e \sim c \log x$ produces the main term.
+2. **Counting in residue classes.** Then $\sum_n \tau(f(n))$ becomes $\sum_{e} \#\{ n \le x : f(n) \equiv 0 \bmod e \}$. Each $e$ contributes about $x \rho(e)/e$, where $\rho(e)$ is the number of roots of $f$ mod $e$, and $\sum_{e \le x} \rho(e)/e \sim c \log x$ produces the main term.
 3. **Equidistribution of roots.** The error depends on how the fractions $\nu/e$, for roots $\nu$ of $f \bmod e$, are spread in $[0, 1)$. Hooley (1964) proved they are equidistributed for irreducible $f$ of degree at least $2$; Duke, Friedlander and Iwaniec (1995) proved the much harder statement for prime moduli $e$ and quadratic $f$ of negative discriminant. For quadratics the relevant exponential sums are Salié and Kloosterman sums, which is why Weil's bound and then spectral theory give Hooley's and Bykovskii's error terms.
 4. **Why degree $3$ is hard.** For a quadratic, the divisors needed go up to about $x$, the length of the sum, so each residue class mod $e$ still contains at least one $n$ on average. For a cubic the moduli go up to $x^{3/2}$, beyond the length of the sum, and counting $n \le x$ in a single residue class mod $e \gt x$ is no longer an averaging problem. Binary forms escape this because the box has $P^2$ points while the divisors needed go up to $P^{\deg F/2}$, which is at most $P^2$ exactly when $\deg F \le 4$.
 

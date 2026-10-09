@@ -31,7 +31,19 @@ export const parts: Part[] = [
         slug: "divisor-function",
         title: "The Divisor Function",
         summary:
-          "Averaging d(n), first by the trivial count and then by Dirichlet's hyperbola method, and the research it leads to: sharper error terms, short intervals, arithmetic progressions, shifted convolutions and polynomial values.",
+          "Averaging τ(n), first by the trivial count and then by Dirichlet's hyperbola method, and the research it leads to: sharper error terms, short intervals, arithmetic progressions, shifted convolutions and polynomial values.",
+      },
+      {
+        slug: "squarefree",
+        title: "Squarefree Numbers",
+        summary:
+          "Counting integers with no repeated prime factor, why the error term is tied to the Riemann hypothesis, and the same research directions: short intervals, arithmetic progressions, correlations and polynomial values.",
+      },
+      {
+        slug: "gauss-circle",
+        title: "The Gauss Circle Problem",
+        summary:
+          "Counting lattice points in a disc, from Gauss's area argument to the hyperbola method and L(1, χ) = π/4, and the open problem of the error term and its relatives.",
       },
     ],
   },

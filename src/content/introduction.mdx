@@ -11,9 +11,9 @@ S_f(x) = \sum_{n \le x} f(n), \qquad x \ge 1 \text{ real}.
 $$
 </Definition>
 
-Typical examples are the indicator of the primes (whose summatory function is the prime-counting function $\pi(x)$), the number of divisors $d(n)$, and the von Mangoldt function $\Lambda(n)$, which equals $\log p$ when $n$ is a power of a prime $p$ and $0$ otherwise.
+Typical examples are the indicator of the primes (whose summatory function is the prime-counting function $\pi(x)$), the number of divisors $\tau(n)$, and the von Mangoldt function $\Lambda(n)$, which equals $\log p$ when $n$ is a power of a prime $p$ and $0$ otherwise.
 
-An individual value $f(n)$ is often wild: $d(p) = 2$ for every prime $p$, while $d(720720) = 240$. The summatory function is much tamer. The goal is an **asymptotic formula**
+An individual value $f(n)$ is often wild: $\tau(p) = 2$ for every prime $p$, while $\tau(720720) = 240$. The summatory function is much tamer. The goal is an **asymptotic formula**
 $$
 S_f(x) = M(x) + E(x),
 $$
@@ -61,7 +61,7 @@ wherever it converges. For $f = 1$ it is the **Riemann zeta function** $\zeta(s)
 
 Two features make Dirichlet series the right tool:
 
-1. **Multiplication of series is Dirichlet convolution.** If $h(n) = \sum_{ab = n} f(a) g(b)$, then $H(s) = F(s) G(s)$. For example, $d(n) = \sum_{ab = n} 1$, so $\sum_n d(n) n^{-s} = \zeta(s)^2$.
+1. **Multiplication of series is Dirichlet convolution.** If $h(n) = \sum_{ab = n} f(a) g(b)$, then $H(s) = F(s) G(s)$. For example, $\tau(n) = \sum_{ab = n} 1$, so $\sum_n \tau(n) n^{-s} = \zeta(s)^2$.
 2. **Unique factorization is an Euler product.** For $\sigma > 1$,
 $$
 \zeta(s) = \prod_{p} \left(1 - \frac{1}{p^s}\right)^{-1}.
@@ -140,7 +140,7 @@ Three lessons can be read off the table:
 
 The same three bridges extend in several directions that later lectures develop:
 
-- **Lattice-point problems.** $\sum_{n \le x} d(n)$ counts lattice points under the hyperbola $ab = x$, and $\sum_{n \le x} r_2(n)$ counts lattice points in a disc. The main term is an area, and the error term measures how lattice points fluctuate near a curved boundary — a problem in exponential sums.
+- **Lattice-point problems.** $\sum_{n \le x} \tau(n)$ counts lattice points under the hyperbola $ab = x$, and $\sum_{n \le x} r_2(n)$ counts lattice points in a disc. The main term is an area, and the error term measures how lattice points fluctuate near a curved boundary — a problem in exponential sums.
 - **$L$-functions.** Replacing $\zeta(s)$ by $L(s, \chi)$, or by $L$-functions attached to modular forms, carries the method to arithmetic progressions, quadratic forms and Fourier coefficients of automorphic forms.
 - **Sieve methods.** When an Euler product is not available, sieves estimate counts by inclusion–exclusion with carefully truncated weights, again producing main terms and error terms.
 - **The circle method.** Fourier analysis on $\mathbb{R}/\mathbb{Z}$ counts representations of integers as sums of primes or powers (Waring's problem, Goldbach-type problems).

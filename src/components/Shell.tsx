@@ -157,7 +157,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               Analytic Number Theory
             </span>
             <span className="hidden text-xs text-muted sm:inline">
-              Lecture Notes
+              Notes
             </span>
           </Link>
           <a

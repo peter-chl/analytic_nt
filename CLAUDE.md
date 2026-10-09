@@ -1,6 +1,6 @@
 # analytic_nt
 
-Static Next.js site of lecture notes on analytic number theory, deployed to
+Static Next.js site of notes on analytic number theory, deployed to
 GitHub Pages. Sibling of peter-chl/or_apps (same design and deploy setup,
 different subject).
 

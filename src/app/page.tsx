@@ -6,7 +6,7 @@ export default function Contents() {
     <div className="mx-auto max-w-3xl px-5 py-10 sm:px-8 lg:py-14">
       <header className="mb-12">
         <div className="text-xs font-semibold uppercase tracking-wider text-muted">
-          Lecture Notes
+          Notes
         </div>
         <h1 className="mt-2 font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
           Analytic Number Theory

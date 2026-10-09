@@ -5,11 +5,11 @@ import "./globals.css";
 const SITE_URL = "https://peter-chl.github.io/analytic_nt";
 const SITE_NAME = "analytic_nt";
 const DESCRIPTION =
-  "Lecture notes on analytic number theory — the distribution of primes, Dirichlet series, the Riemann zeta function, and sieve methods — with the arguments written out in full.";
+  "Notes on analytic number theory — the distribution of primes, Dirichlet series, the Riemann zeta function, and sieve methods — with the arguments written out in full.";
 
 export const metadata: Metadata = {
   title: {
-    default: "Analytic Number Theory — Lecture Notes",
+    default: "Analytic Number Theory — Notes",
     template: "%s — analytic_nt",
   },
   description: DESCRIPTION,
