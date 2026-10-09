@@ -1,0 +1,123 @@
+The number of divisors of $n$ jumps around without any visible pattern: $d(12) = 6$, $d(13) = 2$, $d(720720) = 240$. Averaged over $n \le x$, though, it settles down to a smooth function of $x$, and the question of *how* smooth turns out to be one of the oldest open problems in analytic number theory. The divisor function is also a model case. Almost every technique in the subject — elementary counting, contour integration, exponential sums, Kloosterman sums, spectral theory of automorphic forms — was either first developed for it or is most easily seen on it.
+
+This lecture first derives the average of $d(n)$ in two ways: a trivial count, and Dirichlet's hyperbola method, which does much better with no extra machinery. It then surveys five directions of current research that grow out of that one formula.
+
+## The divisor function
+
+<Definition name="Divisor functions">
+For a positive integer $n$, $d(n)$ is the number of positive divisors of $n$:
+$$
+d(n) = \sum_{a \mid n} 1 = \#\{(a, b) \in \mathbb{N}^2 : ab = n\}.
+$$
+More generally, for $k \ge 2$ the **$k$-fold divisor function** $d_k(n)$ counts ordered factorizations $n = a_1 a_2 \cdots a_k$, so $d_2 = d$.
+</Definition>
+
+Because $d(n)$ counts factorizations, it is multiplicative, with $d(p^a) = a + 1$ for a prime power. Hence if $n = p_1^{a_1} \cdots p_r^{a_r}$ then $d(n) = (a_1 + 1) \cdots (a_r + 1)$. Its Dirichlet series is the square of the zeta function:
+$$
+\sum_{n = 1}^{\infty} \frac{d(n)}{n^s} = \zeta(s)^2, \qquad \sum_{n = 1}^{\infty} \frac{d_k(n)}{n^s} = \zeta(s)^k \qquad (\sigma > 1).
+$$
+
+The values are very irregular. $d(p) = 2$ for every prime, so $d(n) = 2$ infinitely often. At the other extreme $d(n)$ is larger than any power of $\log n$ infinitely often, but it is smaller than any power of $n$:
+
+<Result name="Size of d(n)">
+For every $\varepsilon > 0$, $d(n) \ll_\varepsilon n^{\varepsilon}$. More precisely,
+$$
+\limsup_{n \to \infty} \frac{\log d(n)\, \log \log n}{\log n} = \log 2 .
+$$
+</Result>
+
+The bound $d(n) \ll n^\varepsilon$ will be used constantly: it says that losing a factor $d(n)$ costs only $x^\varepsilon$ in any estimate. The second statement (due to Wigert) shows that no bound of the form $(\log n)^A$ is possible.
+
+Since individual values are so erratic, we study averages.
+
+<Definition name="Divisor summatory function">
+$$
+D(x) = \sum_{n \le x} d(n) = \#\{(a, b) \in \mathbb{N}^2 : ab \le x\}.
+$$
+</Definition>
+
+The second expression is the key to everything that follows: **$D(x)$ counts the lattice points under the hyperbola $ab = x$** in the positive quadrant.
+
+## The trivial count
+
+Count the lattice points under the hyperbola column by column. For each $a \le x$ the admissible $b$ are $1, 2, \dots, \lfloor x/a \rfloor$, so
+$$
+D(x) = \sum_{a \le x} \left\lfloor \frac{x}{a} \right\rfloor .
+$$
+Write $\lfloor x/a \rfloor = x/a - \{x/a\}$, where $0 \le \{t\} < 1$ is the fractional part. The smooth part gives $x \sum_{a \le x} 1/a = x \log x + \gamma x + O(1)$ by Lecture 1, and the fractional parts contribute a sum of $\lfloor x \rfloor$ numbers each in $[0, 1)$. Therefore
+
+<Result name="Trivial estimate">
+$$
+D(x) = x \log x + O(x).
+$$
+In particular the average order of $d(n)$ is $\log n$: $\frac{1}{x} D(x) \sim \log x$.
+</Result>
+
+This gives the main term but nothing more. The error $O(x)$ is the same size as the second-order term $\gamma x$, so this method cannot even determine the constant in $D(x) = x \log x + cx + o(x)$. The loss comes from the fractional parts: for $a$ larger than $\sqrt{x}$ the column height $x/a$ is small, and replacing $\lfloor x/a \rfloor$ by $x/a$ makes an error comparable to the quantity itself.
+
+## Dirichlet's hyperbola method
+
+The region $ab \le x$ is symmetric in $a$ and $b$. Dirichlet's observation (1849) was to count the columns only up to $a \le \sqrt{x}$, where they are tall, and to use symmetry for the rest.
+
+Let $y = \sqrt{x}$. Every lattice point with $ab \le x$ has $a \le y$ or $b \le y$ (or both), since otherwise $ab > y^2 = x$. By inclusion–exclusion,
+$$
+D(x) = \underbrace{\sum_{a \le y} \left\lfloor \frac{x}{a} \right\rfloor}_{a \le y} + \underbrace{\sum_{b \le y} \left\lfloor \frac{x}{b} \right\rfloor}_{b \le y} - \underbrace{\lfloor y \rfloor^2}_{\text{both}} = 2 \sum_{a \le \sqrt{x}} \left\lfloor \frac{x}{a} \right\rfloor - \lfloor \sqrt{x} \rfloor^2 .
+$$
+This identity is exact. Now estimate each piece:
+
+- $\sum_{a \le y} x/a = x\left(\log y + \gamma + O(1/y)\right) = \tfrac12 x \log x + \gamma x + O(\sqrt{x})$.
+- The fractional parts now number only $\lfloor \sqrt{x} \rfloor$, so they contribute $O(\sqrt{x})$.
+- $\lfloor \sqrt{x} \rfloor^2 = (\sqrt{x} - \{\sqrt{x}\})^2 = x + O(\sqrt{x})$.
+
+Adding up:
+
+<Result name="Dirichlet, 1849">
+$$
+D(x) = x \log x + (2\gamma - 1)\, x + \Delta(x), \qquad \Delta(x) = O(\sqrt{x}).
+$$
+</Result>
+
+The two methods start from the same identity and use the same estimates; the only difference is which lattice points are counted directly.
+
+| | Trivial count | Hyperbola method |
+|---|---|---|
+| Columns summed | $a \le x$ | $a \le \sqrt{x}$ (twice) |
+| Fractional parts discarded | about $x$ | about $2\sqrt{x}$ |
+| Second main term $(2\gamma - 1)x$ | not visible | determined |
+| Error | $O(x)$ | $O(\sqrt{x})$ |
+| Work to evaluate $D(x)$ exactly | $x$ divisions | $\sqrt{x}$ divisions |
+
+The method applies to any Dirichlet convolution. If $h = f * g$, that is $h(n) = \sum_{ab = n} f(a) g(b)$, with summatory functions $F$ and $G$, then for any $1 \le y \le x$
+$$
+\sum_{n \le x} h(n) = \sum_{a \le y} f(a)\, G\!\left(\frac{x}{a}\right) + \sum_{b \le x/y} g(b)\, F\!\left(\frac{x}{b}\right) - F(y)\, G\!\left(\frac{x}{y}\right).
+$$
+The freedom to choose $y$ — balancing how well $F$ and $G$ are known — makes this one of the most useful elementary tools in the subject.
+
+## A worked example
+
+Take $x = 100$, so $\sqrt{x} = 10$. The column heights $\lfloor 100/a \rfloor$ for $a = 1, \dots, 10$ are
+$$
+100,\ 50,\ 33,\ 25,\ 20,\ 16,\ 14,\ 12,\ 11,\ 10,
+$$
+which sum to $291$. The hyperbola identity gives
+$$
+D(100) = 2 \cdot 291 - 10^2 = 482,
+$$
+using $10$ divisions instead of the $100$ needed by the trivial count (or the $100$ values of $d(n)$). The main terms give $100 \log 100 + (2\gamma - 1) \cdot 100 = 460.517 + 15.443 = 475.960$, so $\Delta(100) = 6.040$.
+
+<Example name="The error term numerically">
+The table lists $D(x)$, computed exactly with the hyperbola identity, against the main term.
+
+| $x$ | $D(x)$ | $x \log x + (2\gamma - 1) x$ | $\Delta(x)$ | $\Delta(x) / x^{1/4}$ | $(D(x) - x \log x)/x$ |
+|---|---|---|---|---|---|
+| $10^2$ | $482$ | $475.96$ | $6.04$ | $1.91$ | $0.2148$ |
+| $10^4$ | $93\,668$ | $93\,647.72$ | $20.28$ | $2.03$ | $0.1565$ |
+| $10^6$ | $13\,970\,034$ | $13\,969\,941.89$ | $92.11$ | $2.91$ | $0.1545$ |
+| $10^8$ | $1\,857\,511\,568$ | $1\,857\,511\,207.38$ | $360.62$ | $3.61$ | $0.15444$ |
+| $10^{10}$ | $231\,802\,823\,220$ | $231\,802\,822\,597.44$ | $622.56$ | $1.97$ | $0.154431$ |
+| $10^{12}$ | $27\,785\,452\,449\,086$ | $27\,785\,452\,445\,731.62$ | $3354.39$ | $3.35$ | $0.154431$ |
+
+The last column converges to $2\gamma - 1 = 0.154431\ldots$, the constant the trivial count cannot see. More striking is the fourth column: $\Delta(x)$ is far smaller than the bound $\sqrt{x}$ (which is $10^6$ at $x = 10^{12}$), and $\Delta(x)/x^{1/4}$ stays of order $1$. The rest of the lecture is, in large part, about explaining this.
+</Example>
+
+{/* RESEARCH SECTIONS */}

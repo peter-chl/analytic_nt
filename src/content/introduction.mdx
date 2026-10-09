@@ -1,28 +1,150 @@
-How many primes are there below a given bound $x$? Euclid showed there are infinitely many, but his argument says almost nothing about how often they occur. Analytic number theory answers questions like this by encoding arithmetic information in functions of a real or complex variable and then studying those functions with the tools of analysis.
+The integers are as discrete as anything in mathematics. There is no limit, no derivative and no integral in the statement "there are $25$ primes up to $100$". Yet some of the deepest facts about the integers — how many primes lie below $x$, how they split among residue classes, how often $n$ has many divisors — were first proved, and in many cases can only be proved, with calculus, complex analysis and Fourier analysis. This lecture explains why that works.
 
-This lecture is a placeholder while the table of contents is settled.
+The short answer: most natural questions about the integers are not questions about one integer but about **how many** integers have a property, up to a large bound $x$. A count up to $x$ is a function of a real variable. As $x$ grows, the individual integers blur together and the count starts to behave like a smooth function — and smooth functions are what analysis is built for.
 
-## The prime-counting function
+## Counting functions and asymptotics
 
-<Definition name="Prime-counting function">
-For real $x \ge 1$, let $\pi(x)$ denote the number of primes $p \le x$.
+<Definition name="Arithmetic function">
+An **arithmetic function** is any function $f : \mathbb{N} \to \mathbb{C}$. Its **summatory function** is
+$$
+S_f(x) = \sum_{n \le x} f(n), \qquad x \ge 1 \text{ real}.
+$$
 </Definition>
 
-<Example>
-The primes up to $30$ are $2, 3, 5, 7, 11, 13, 17, 19, 23, 29$, so $\pi(30) = 10$.
-</Example>
+Typical examples are the indicator of the primes (whose summatory function is the prime-counting function $\pi(x)$), the number of divisors $d(n)$, and the von Mangoldt function $\Lambda(n)$, which equals $\log p$ when $n$ is a power of a prime $p$ and $0$ otherwise.
+
+An individual value $f(n)$ is often wild: $d(p) = 2$ for every prime $p$, while $d(720720) = 240$. The summatory function is much tamer. The goal is an **asymptotic formula**
+$$
+S_f(x) = M(x) + E(x),
+$$
+where the main term $M(x)$ is an explicit smooth function and the error term $E(x)$ is provably smaller. We use the standard notation:
+
+- $f = O(g)$ or $f \ll g$: there is a constant $C$ with $|f(x)| \le C g(x)$ for all large $x$.
+- $f = o(g)$: $f(x)/g(x) \to 0$; and $f \sim g$: $f(x)/g(x) \to 1$.
+- $f = \Omega(g)$: $f = o(g)$ is false, so $|f(x)| \ge c\, g(x)$ for some $c > 0$ and arbitrarily large $x$.
+- $\varepsilon$ denotes an arbitrarily small positive number, and implied constants may depend on it.
+
+Much of the subject is a contest over error terms: the main term is usually easy to guess, and the work lies in proving how small $E(x)$ is — and showing it cannot be smaller.
+
+## Why analysis applies
+
+There are three main bridges from the discrete to the continuous. Every later lecture uses at least one of them.
+
+### Sums become integrals
+
+A sum of a smooth function over the integers is close to the corresponding integral. The basic tool is summation by parts, the discrete analogue of integration by parts.
+
+<Result name="Abel summation">
+Let $a(n)$ be an arithmetic function with $A(x) = \sum_{n \le x} a(n)$, and let $\phi$ be continuously differentiable on $[1, x]$. Then
+$$
+\sum_{n \le x} a(n)\, \phi(n) = A(x)\, \phi(x) - \int_1^x A(t)\, \phi'(t)\, dt .
+$$
+</Result>
+
+Taking $a(n) = 1$, so that $A(t) = \lfloor t \rfloor = t - \{t\}$, and $\phi(t) = 1/t$ gives
+$$
+\sum_{n \le x} \frac{1}{n} = \log x + \gamma + O\!\left(\frac{1}{x}\right),
+$$
+where $\gamma = 0.5772\ldots$ is Euler's constant. The integer part $\lfloor t \rfloor$ has been split into a smooth piece $t$, which produces the main term $\log x$, and a bounded oscillating piece $\{t\}$, which produces the constant and the error. This "smooth part plus fluctuation" split recurs throughout the subject; Lecture 2 applies it to the divisor function.
+
+### Generating functions turn multiplication into analysis
+
+Multiplicative structure — every integer factors uniquely into primes — is encoded by **Dirichlet series**.
+
+<Definition name="Dirichlet series">
+The Dirichlet series of an arithmetic function $f$ is
+$$
+F(s) = \sum_{n=1}^{\infty} \frac{f(n)}{n^s}, \qquad s = \sigma + it \in \mathbb{C},
+$$
+wherever it converges. For $f = 1$ it is the **Riemann zeta function** $\zeta(s) = \sum_{n \ge 1} n^{-s}$, which converges absolutely for $\sigma > 1$.
+</Definition>
+
+Two features make Dirichlet series the right tool:
+
+1. **Multiplication of series is Dirichlet convolution.** If $h(n) = \sum_{ab = n} f(a) g(b)$, then $H(s) = F(s) G(s)$. For example, $d(n) = \sum_{ab = n} 1$, so $\sum_n d(n) n^{-s} = \zeta(s)^2$.
+2. **Unique factorization is an Euler product.** For $\sigma > 1$,
+$$
+\zeta(s) = \prod_{p} \left(1 - \frac{1}{p^s}\right)^{-1}.
+$$
+Expanding each factor as a geometric series and multiplying out produces every $n^{-s}$ exactly once — which is the statement that every $n$ factors uniquely into primes.
+
+The Euler product already proves something. As $s \to 1^+$, the left side tends to infinity because the harmonic series diverges. Taking logarithms of the right side, $\log \zeta(s) = \sum_p p^{-s} + O(1)$, so $\sum_p 1/p$ must diverge. In particular there are infinitely many primes, and more: they are dense enough that their reciprocals diverge, which is false for the squares. Euler gave this argument in the eighteenth century. It is the prototype of the subject: **arithmetic information about primes is read off from the analytic behaviour of $\zeta(s)$ near a singularity.**
+
+The bridge back from the Dirichlet series to the sum is Perron's formula, a contour integral that recovers $\sum_{n \le x} f(n)$ from $F(s)$:
+$$
+\sum_{n \le x} f(n) = \frac{1}{2\pi i} \int_{c - i\infty}^{c + i\infty} F(s)\, \frac{x^s}{s}\, ds \qquad (c \text{ large enough},\ x \notin \mathbb{Z}).
+$$
+Shifting the contour to the left picks up residues at the poles of $F(s)\, x^s / s$. A pole at $s = 1$ produces a main term of size $x$; the remaining integral is the error term, and its size depends on how large $F$ is further to the left. For the primes, $F(s) = -\zeta'(s)/\zeta(s)$ has poles at the zeros of $\zeta$, so **the zeros of the zeta function control the error in counting primes**. That is why the Riemann hypothesis, a statement about where a complex function vanishes, is a statement about primes.
+
+### Fourier analysis detects congruences
+
+To count integers in a residue class or with an additive property, we expand the condition in a Fourier series on the finite group $\mathbb{Z}/q\mathbb{Z}$:
+$$
+\mathbf{1}_{n \equiv a \ (\mathrm{mod}\ q)} = \frac{1}{q} \sum_{r=0}^{q-1} e\!\left(\frac{r(n - a)}{q}\right), \qquad e(\theta) = e^{2\pi i \theta}.
+$$
+For multiplicative questions one uses Dirichlet characters instead of additive characters, which leads to Dirichlet $L$-functions — the tool Dirichlet introduced in 1837 to prove that every residue class $a$ mod $q$ with $\gcd(a, q) = 1$ contains infinitely many primes. Additive characters lead to exponential sums $\sum e(f(n))$, whose cancellation is the engine behind most improved error terms in Lecture 2.
+
+## The main results this leads to
+
+Combining these bridges gives the landmark theorems of the subject.
 
 <Result name="Prime number theorem">
 As $x \to \infty$,
 $$
-\pi(x) \sim \frac{x}{\log x}.
+\pi(x) \sim \frac{x}{\log x}, \qquad \text{and more precisely} \qquad \pi(x) = \operatorname{li}(x) + O\!\left(x\, e^{-c\sqrt{\log x}}\right),
+$$
+where $\operatorname{li}(x) = \int_2^x dt/\log t$ and $c > 0$ is a constant. It was proved independently by Hadamard and by de la Vallée Poussin in 1896, by showing that $\zeta(s)$ has no zeros on the line $\sigma = 1$.
+</Result>
+
+<Result name="Riemann hypothesis, prime form">
+The Riemann hypothesis — that every non-trivial zero of $\zeta(s)$ has real part $\tfrac12$ — is equivalent to
+$$
+\pi(x) = \operatorname{li}(x) + O\!\left(x^{1/2 + \varepsilon}\right) \quad \text{for every } \varepsilon > 0.
 $$
 </Result>
 
-<Remark>
-Here $f \sim g$ means $f(x)/g(x) \to 1$.
-</Remark>
+<Result name="Mertens">
+$$
+\sum_{p \le x} \frac{1}{p} = \log \log x + M + O\!\left(\frac{1}{\log x}\right),
+$$
+where $M = 0.2614972\ldots$ is the Meissel–Mertens constant.
+</Result>
 
-## Further reading
+None of these statements mentions analysis, but none has a proof that avoids estimating sums by integrals or using the analytic structure of $\zeta(s)$ in some form. (Elementary proofs of the prime number theorem exist, but they are still analytic in spirit: they are built on asymptotic estimates of sums.)
 
-Davenport, *Multiplicative Number Theory*; Montgomery and Vaughan, *Multiplicative Number Theory I: Classical Theory*.
+## A worked example
+
+The table compares three discrete sums with their smooth approximations. Every entry was computed exactly.
+
+| $x$ | $\sum_{n \le x} 1/n$ | $\log x + \gamma$ | $\sum_{p \le x} 1/p$ | $\log\log x + M$ | $\pi(x)$ | $x/\log x$ | $\operatorname{li}(x)$ |
+|---|---|---|---|---|---|---|---|
+| $10$ | $2.92897$ | $2.87980$ | $1.17619$ | $1.09553$ | $4$ | $4.34$ | $6.17$ |
+| $100$ | $5.18738$ | $5.18239$ | $1.80282$ | $1.78868$ | $25$ | $21.71$ | $30.13$ |
+| $10^3$ | $7.48547$ | $7.48497$ | $2.19808$ | $2.19414$ | $168$ | $144.76$ | $177.61$ |
+| $10^4$ | $9.78761$ | $9.78756$ | $2.48306$ | $2.48182$ | $1229$ | $1085.74$ | $1246.14$ |
+| $10^6$ | $14.392727$ | $14.392726$ | $2.88733$ | $2.88729$ | $78498$ | $72382.41$ | $78627.55$ |
+
+(Here $\operatorname{li}(x) = \int_0^x dt/\log t$ in the principal-value sense; it differs from $\int_2^x$ by the constant $1.045\ldots$.)
+
+<Example name="Checking the smallest row by hand">
+For $x = 10$: $1 + \tfrac12 + \cdots + \tfrac{1}{10} = 7381/2520 = 2.92897$, while $\log 10 + \gamma = 2.30259 + 0.57722 = 2.87980$. The difference $0.04917$ is close to $1/(2x) = 0.05$, the next term in the expansion. The primes up to $10$ are $2, 3, 5, 7$, so $\pi(10) = 4$ and $\sum_{p \le 10} 1/p = \tfrac12 + \tfrac13 + \tfrac15 + \tfrac17 = 247/210 = 1.17619$.
+</Example>
+
+Three lessons can be read off the table:
+
+- **The smooth approximation improves as $x$ grows**, in relative terms and, for the harmonic sum, in absolute terms too: its error is $1/(2x)$ to leading order, about $5 \times 10^{-7}$ at $x = 10^6$.
+- **Different sums converge at very different speeds.** The harmonic error shrinks like $1/x$, the Mertens error far more slowly. That speed reflects the analytic object behind the sum: $\lfloor t \rfloor$ for the harmonic sum, the zeros of $\zeta$ for sums over primes.
+- **The right main term matters.** $\pi(x) / (x/\log x)$ is $1.084$ at $x = 10^6$ and approaches $1$ only slowly, while $\pi(x)/\operatorname{li}(x) = 0.998$. Both are correct asymptotically, but $\operatorname{li}(x)$ is the main term that Perron's formula actually produces.
+
+## Extensions
+
+The same three bridges extend in several directions that later lectures develop:
+
+- **Lattice-point problems.** $\sum_{n \le x} d(n)$ counts lattice points under the hyperbola $ab = x$, and $\sum_{n \le x} r_2(n)$ counts lattice points in a disc. The main term is an area, and the error term measures how lattice points fluctuate near a curved boundary — a problem in exponential sums.
+- **$L$-functions.** Replacing $\zeta(s)$ by $L(s, \chi)$, or by $L$-functions attached to modular forms, carries the method to arithmetic progressions, quadratic forms and Fourier coefficients of automorphic forms.
+- **Sieve methods.** When an Euler product is not available, sieves estimate counts by inclusion–exclusion with carefully truncated weights, again producing main terms and error terms.
+- **The circle method.** Fourier analysis on $\mathbb{R}/\mathbb{Z}$ counts representations of integers as sums of primes or powers (Waring's problem, Goldbach-type problems).
+
+Lecture 2 puts all of this to work on a single arithmetic function: the number of divisors.
+
+Further reading: T. M. Apostol, *Introduction to Analytic Number Theory* (the gentlest start); H. Davenport, *Multiplicative Number Theory*; H. L. Montgomery and R. C. Vaughan, *Multiplicative Number Theory I: Classical Theory*; G. Tenenbaum, *Introduction to Analytic and Probabilistic Number Theory*; H. Iwaniec and E. Kowalski, *Analytic Number Theory*.

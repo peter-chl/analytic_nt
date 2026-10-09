@@ -20,7 +20,18 @@ export const parts: Part[] = [
         slug: "introduction",
         title: "What Is Analytic Number Theory?",
         summary:
-          "Counting primes with the tools of analysis, and how the rest of these notes are organized.",
+          "Why a continuous subject can answer discrete questions: counting functions, Dirichlet series and the Euler product, Perron's formula, and Fourier analysis on residue classes.",
+      },
+    ],
+  },
+  {
+    title: "Arithmetic Functions",
+    lectures: [
+      {
+        slug: "divisor-function",
+        title: "The Divisor Function",
+        summary:
+          "Averaging d(n), first by the trivial count and then by Dirichlet's hyperbola method, and the research it leads to: sharper error terms, short intervals, arithmetic progressions, shifted convolutions and polynomial values.",
       },
     ],
   },
