@@ -10,6 +10,14 @@ interface Section {
   text: string;
 }
 
+// Visible text of a heading. KaTeX renders math twice (MathML for screen
+// readers plus HTML), so drop the MathML copy before reading textContent.
+function headingText(h: HTMLElement): string {
+  const clone = h.cloneNode(true) as HTMLElement;
+  clone.querySelectorAll(".katex-mathml").forEach((m) => m.remove());
+  return clone.textContent ?? "";
+}
+
 // Reads the current lecture's <h2> headings from the DOM so the sidebar can
 // list them without each MDX file declaring its own outline.
 function useSections(pathname: string) {
@@ -21,7 +29,7 @@ function useSections(pathname: string) {
       document.querySelectorAll<HTMLHeadingElement>(".lecture h2[id]"),
     );
     // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing from DOM
-    setSections(headings.map((h) => ({ id: h.id, text: h.textContent ?? "" })));
+    setSections(headings.map((h) => ({ id: h.id, text: headingText(h) })));
     setActive(headings[0]?.id ?? null);
     if (headings.length === 0) return;
 

@@ -1,0 +1,318 @@
+An integer is **squarefree** if no prime divides it twice: $30 = 2 \cdot 3 \cdot 5$ is squarefree, $12 = 2^2 \cdot 3$ is not. Squarefree numbers are everywhere in number theory. The discriminant of a quadratic field is essentially a squarefree number, the Möbius function $\mu(n)$ is nonzero exactly on squarefree $n$, and many questions about polynomials, elliptic curves and number fields reduce to asking how often some integer is squarefree.
+
+Whether $n$ is squarefree depends on its factorization, so individual values look as erratic as $\tau(n)$ did. On average the picture is simple. An integer is divisible by $p^2$ with "probability" $1/p^2$, and if these events were independent, the proportion of squarefree integers would be
+$$
+\prod_p \left( 1 - \frac{1}{p^2} \right) = \frac{1}{\zeta(2)} = \frac{6}{\pi^2} = 0.6079\ldots
+$$
+This heuristic turns out to be exactly right, and it is easy to prove. What is hard is the error term. Here the story differs sharply from the divisor problem of Lecture 2: the generating function of squarefree numbers is $\zeta(s)/\zeta(2s)$, which has a pole at every zero of $\zeta(2s)$, so the error term is tied directly to the Riemann hypothesis.
+
+This lecture first counts squarefree numbers in two ways: a sieve over small primes, and a count organized by the size of the square divisor, which does much better. It then surveys five research directions parallel to those of Lecture 2.
+
+## The squarefree indicator
+
+<Definition name="Squarefree numbers">
+A positive integer $n$ is **squarefree** if $p^2 \nmid n$ for every prime $p$. Its indicator function is $\mu^2(n)$, the square of the Möbius function: $\mu^2(n) = 1$ if $n$ is squarefree and $\mu^2(n) = 0$ otherwise. The counting function is
+$$
+Q(x) = \sum_{n \le x} \mu^2(n) = \#\{ n \le x : n \text{ squarefree} \}.
+$$
+</Definition>
+
+Every $n$ can be written uniquely as $n = a^2 b$ with $b$ squarefree; the "square part" $a^2$ is the largest square dividing $n$. The divisors $d$ with $d^2 \mid n$ are exactly the divisors of $a$, so $\sum_{d^2 \mid n} \mu(d) = \sum_{d \mid a} \mu(d)$, which is $1$ if $a = 1$ and $0$ otherwise. This is the key identity:
+
+<Result name="Möbius detects squarefree numbers">
+$$
+\mu^2(n) = \sum_{d^2 \mid n} \mu(d).
+$$
+</Result>
+
+Like $\tau$, the function $\mu^2$ is multiplicative, with $\mu^2(p) = 1$ and $\mu^2(p^a) = 0$ for $a \ge 2$. Its Euler product is $\prod_p (1 + p^{-s}) = \prod_p (1 - p^{-2s})/(1 - p^{-s})$, so
+$$
+\sum_{n = 1}^{\infty} \frac{\mu^2(n)}{n^s} = \frac{\zeta(s)}{\zeta(2s)} \qquad (\sigma > 1).
+$$
+The pole of $\zeta(s)$ at $s = 1$ has residue $1$, so the residue of $\zeta(s)/\zeta(2s)$ there is $1/\zeta(2) = 6/\pi^2$ — the expected density. But $\zeta(2s)$ in the denominator contributes a pole at $s = \rho/2$ for every zero $\rho$ of $\zeta$. That single fact governs most of this lecture.
+
+Some basic facts are elementary. Among any four consecutive integers one is divisible by $4$, so there are never more than three consecutive squarefree numbers. In the other direction, the Chinese remainder theorem gives an $n$ with $n + i \equiv 0 \pmod{p_i^2}$ for $i = 1, \dots, k$, where $p_i$ is the $i$-th prime, so there are arbitrarily long runs of consecutive non-squarefree numbers.
+
+We write the error term as
+$$
+E(x) = Q(x) - \frac{6}{\pi^2}\, x .
+$$
+
+## A trivial count
+
+The direct approach is a sieve. An integer is squarefree if it is not divisible by $p^2$ for any prime $p$, so by inclusion–exclusion over the primes,
+$$
+Q(x) = \sum_{d \mid P} \mu(d) \left\lfloor \frac{x}{d^2} \right\rfloor, \qquad P = \prod_{p \le \sqrt{x}} p .
+$$
+The sum has $2^{\pi(\sqrt{x})}$ terms. Replacing each $\lfloor x/d^2 \rfloor$ by $x/d^2$ costs at most $1$ per term, which is hopeless: for $x = 10^{12}$ there are $\pi(10^6) = 78\,498$ primes and the error bound is $2^{78\,498} \approx 10^{23\,630}$.
+
+Legendre's remedy, as for primes, is to sieve only by the primes up to a parameter $z$. Let $S(x, z)$ count the $n \le x$ with $p^2 \nmid n$ for all $p \le z$. The same inclusion–exclusion, now with $2^{\pi(z)}$ terms, gives
+$$
+S(x, z) = x \prod_{p \le z} \left( 1 - \frac{1}{p^2} \right) + O\!\left( 2^{\pi(z)} \right).
+$$
+Every squarefree number is counted by $S(x, z)$, and the integers counted wrongly are divisible by $p^2$ for some $p \gt z$. There are at most $\sum_{p > z} x/p^2 \le x/z$ of them. The product differs from $6/\pi^2$ by $O(1/z)$, for the same reason. Choosing $z = \log x$ makes $2^{\pi(z)} \le 2^z \le x$ small compared with $x/z$, and therefore
+
+<Result name="Trivial estimate">
+$$
+Q(x) = \frac{6}{\pi^2}\, x + O\!\left( \frac{x}{\log x} \right).
+$$
+In particular the squarefree numbers have density $6/\pi^2$.
+</Result>
+
+This gives the density and nothing more. The error comes from the $2^{\pi(z)}$ rounding errors, which force $z$ to stay tiny, and from the primes $p \gt z$, which are not sieved at all.
+
+## Organizing the count by the square divisor
+
+The way out is to notice what the trivial count ignored: the term for $d$ vanishes as soon as $d^2 \gt x$. Summing the key identity over $n \le x$ and swapping the order of summation,
+$$
+Q(x) = \sum_{n \le x} \sum_{d^2 \mid n} \mu(d) = \sum_{d \le \sqrt{x}} \mu(d) \left\lfloor \frac{x}{d^2} \right\rfloor .
+$$
+This is the same inclusion–exclusion as before, with the vanishing terms deleted. Only the squarefree $d \le \sqrt{x}$ survive, so there are fewer than $\sqrt{x}$ terms instead of $2^{\pi(\sqrt{x})}$. Now estimate:
+
+- Replacing $\lfloor x/d^2 \rfloor$ by $x/d^2$ costs at most $1$ per term, so $O(\sqrt{x})$ in all.
+- $\sum_{d \le \sqrt{x}} \mu(d)/d^2 = 1/\zeta(2) - \sum_{d > \sqrt{x}} \mu(d)/d^2$, and the tail is at most $\sum_{d > \sqrt{x}} 1/d^2 \ll 1/\sqrt{x}$.
+
+Adding up:
+
+<Result name="Squarefree numbers, elementary bound">
+$$
+Q(x) = \frac{6}{\pi^2}\, x + E(x), \qquad E(x) = O(\sqrt{x}).
+$$
+</Result>
+
+The contrast with the trivial count:
+
+| | Trivial count (sieve by $p \le z$) | Count by the square divisor |
+|---|---|---|
+| Terms | $2^{\pi(z)}$, so $z$ must be about $\log x$ | squarefree $d \le \sqrt{x}$ only |
+| Large primes $p \gt z$ | bounded crudely by $x/z$ | handled exactly |
+| Error | $O(x / \log x)$ | $O(\sqrt{x})$ |
+| Work to evaluate $Q(x)$ exactly | test each $n \le x$ | $\sqrt{x}$ divisions and $\mu(d)$ for $d \le \sqrt{x}$ |
+
+The comparison with primes is instructive. For primes, the Legendre sieve is a sum of $\mu(d) \lfloor x/d \rfloor$ over $d \mid P$, and $\lfloor x/d \rfloor$ vanishes only for $d \gt x$. The products of primes up to $\sqrt{x}$ go far beyond $x$, so most of the $2^{\pi(\sqrt{x})}$ terms are near zero but not zero, and no reorganization saves the sieve. For squarefree numbers the square makes the terms disappear early, and the sieve becomes exact and short.
+
+### The hyperbola method again
+
+The sum $Q(x) = \sum_{d^2 m \le x} \mu(d)$ runs over the lattice points $(d, m)$ under the curve $d^2 m = x$, just as $D(x)$ in Lecture 2 counted the points under $ab = x$. Dirichlet's hyperbola method applies. With the Mertens function $M(y) = \sum_{d \le y} \mu(d)$ and any $1 \le y \le \sqrt{x}$,
+$$
+Q(x) = \sum_{d \le y} \mu(d) \left\lfloor \frac{x}{d^2} \right\rfloor + \sum_{m \le x/y^2} M\!\left( \sqrt{x/m} \right) - M(y) \left\lfloor \frac{x}{y^2} \right\rfloor .
+$$
+(Every point has $d \le y$ or $m \le x/y^2$, and the last term removes the points with both.) This identity shows where the difficulty lies. The first sum is a sum of fractional parts, like the divisor problem; the second and third are controlled by the Mertens function, that is, by the zeros of $\zeta$.
+
+## A worked example
+
+Take $x = 100$. The squarefree $d \le 10$ are $1, 2, 3, 5, 6, 7, 10$, and the terms $\mu(d) \lfloor 100/d^2 \rfloor$ are
+$$
+100,\ -25,\ -11,\ -4,\ 2,\ -2,\ 1,
+$$
+so $Q(100) = 61$. Equivalently, there are $39$ non-squarefree numbers up to $100$, starting $4, 8, 9, 12, 16, 18, 20, \ldots$, which can be checked by hand. The main term is $600/\pi^2 = 60.793$, so $E(100) = 0.207$. The hyperbola identity with $y = 4$ gives the same value.
+
+<Example name="The error term numerically">
+The table lists $Q(x)$, computed exactly from the sum over $d \le \sqrt{x}$ (for $x = 10^{16}$ this needs $\mu(d)$ for $d \le 10^8$), against the main term.
+
+| $x$ | $Q(x)$ | $6x/\pi^2$ | $E(x)$ | $E(x)/x^{1/4}$ |
+|---|---|---|---|---|
+| $10^2$ | $61$ | $60.79$ | $0.21$ | $0.066$ |
+| $10^4$ | $6\,083$ | $6\,079.27$ | $3.73$ | $0.373$ |
+| $10^6$ | $607\,926$ | $607\,927.10$ | $-1.10$ | $-0.035$ |
+| $10^8$ | $60\,792\,694$ | $60\,792\,710.19$ | $-16.19$ | $-0.162$ |
+| $10^{10}$ | $6\,079\,270\,942$ | $6\,079\,271\,018.54$ | $-76.54$ | $-0.242$ |
+| $10^{12}$ | $607\,927\,102\,274$ | $607\,927\,101\,854.03$ | $419.97$ | $0.420$ |
+| $10^{14}$ | $60\,792\,710\,185\,947$ | $60\,792\,710\,185\,402.66$ | $544.34$ | $0.172$ |
+| $10^{16}$ | $6\,079\,271\,018\,540\,405$ | $6\,079\,271\,018\,540\,266.29$ | $138.71$ | $0.014$ |
+
+At $x = 10^{16}$ the bound $\sqrt{x}$ is $10^8$, while the actual error is $139$. As in Lecture 2, $E(x)/x^{1/4}$ stays of order $1$ and changes sign. The difference is in the explanation: here the size $x^{1/4}$ comes from the zeros of $\zeta$.
+</Example>
+
+## Better error terms, and what RH says
+
+Let $\vartheta$ be the infimum of exponents $a$ with $E(x) \ll x^{a}$. The elementary argument gives $\vartheta \le \tfrac12$, and remarkably, **no unconditional bound $E(x) \ll x^{1/2 - \delta}$ is known for any fixed $\delta > 0$**. The best unconditional result follows from the Vinogradov–Korobov zero-free region for $\zeta$, through Walfisz's work on the prime number theorem (1963):
+$$
+E(x) \ll x^{1/2} \exp\!\left( -c\, (\log x)^{3/5} (\log \log x)^{-1/5} \right)
+$$
+for some $c > 0$. This saves less than any power of $x$, exactly like the error term in the prime number theorem — and for the same reason.
+
+<Remark name="Here RH does help">
+Lecture 2 explained that RH does not help the divisor problem, because $\zeta(s)^2$ has no pole at a zero of $\zeta$. For squarefree numbers the opposite holds. Perron's formula gives
+$$
+Q(x) = \frac{1}{2\pi i} \int_{c - i\infty}^{c + i\infty} \frac{\zeta(s)}{\zeta(2s)} \frac{x^s}{s}\, ds ,
+$$
+and moving the contour left picks up the main term at $s = 1$ and then a residue at each $s = \rho/2$. For a simple zero $\rho$ this residue is
+$$
+\frac{\zeta(\rho/2)}{\rho\, \zeta'(\rho)}\, x^{\rho/2} ,
+$$
+which has size $x^{\beta/2}$ if $\rho = \beta + i\gamma$. A zero off the critical line, with $\beta \gt \tfrac12$, would make $E(x)$ larger than $x^{1/4}$ by a power. Conversely, $E(x) \ll x^{1/4 + \varepsilon}$ would imply RH: by partial summation it would continue $\zeta(s)/\zeta(2s)$ analytically to $\sigma \gt \tfrac14$ apart from $s = 1$, so any zero $\rho$ of $\zeta$ with $\beta \gt \tfrac12$ would force $\zeta(\rho/2) = 0$; by the functional equation $1 - \bar\rho/2$ is then a zero with real part above $\tfrac12$ and imaginary part halved, and repeating this produces zeros of $\zeta$ in the critical strip arbitrarily close to the real axis, which do not exist.
+</Remark>
+
+So the conjecture $\vartheta = \tfrac14$ is stronger than RH, and RH is the natural hypothesis to work under. The $x^{1/4}$ cannot be lowered: $E(x) = \Omega(x^{1/4})$ is known. Under RH alone, the hyperbola identity already gives an improvement: RH implies $M(y) \ll y^{1/2 + \varepsilon}$, and choosing $y = x^{2/5}$ balances the fractional parts (size $y$) against the Mertens terms (size $x y^{-3/2}$), giving $E(x) \ll x^{2/5 + \varepsilon}$. Every further step treats the fractional-part sum with exponential sums.
+
+### Milestones under RH
+
+| Year | Author(s) | $\vartheta \le$ (assuming RH) |
+|---|---|---|
+| — | hyperbola identity with $M(y) \ll y^{1/2 + \varepsilon}$ | $2/5 = 0.4$ |
+| 1981 | Montgomery–Vaughan | $9/28 \approx 0.3214$ |
+| — | Graham | $8/25 = 0.32$ |
+| 1985 | Baker–Pintz | $7/22 \approx 0.3182$ |
+| 1993 | Jia | $17/54 \approx 0.3148$ |
+| 2016 | Liu | $11/35 \approx 0.3143$ |
+
+Even on RH the gap between $\tfrac{11}{35}$ and $\tfrac14$ is wide, and Jia's exponent is often described as close to the limit of current exponential-sum methods. Meng studied the error term for $k$-free numbers assuming RH and further hypotheses on the zeros: $E(x)/x^{1/4}$ then has a limiting distribution (in the logarithmic scale $x = e^y$) whose behaviour is governed by the values $\zeta'(\rho)$, which matches the oscillation in the table above.
+
+### The method
+
+- **Splitting the square divisor.** Write $Q(x) = \sum_{d} \mu(d) \lfloor x/d^2 \rfloor$ and split at a parameter $D$. For $d \le D$, write $\lfloor t \rfloor = t - \tfrac12 - \psi(t)$; the error is a sum of $\mu(d)\, \psi(x/d^2)$. For $d \gt D$, reverse the roles as in the hyperbola identity, so the error is a sum of values of $M$.
+- **Exponential sums.** The sums $\sum_{d \sim D} \mu(d)\, \psi(x/d^2)$ are handled like the divisor problem: expand $\psi$ in a Fourier series and bound sums $\sum e(hx/d^2)$. Because of the factor $\mu(d)$, one first decomposes $\mu$ into bilinear (Type I and Type II) pieces, and the resulting double exponential sums are where Montgomery–Vaughan, Graham, Baker–Pintz, Jia and Liu made their improvements.
+- **The zeros.** The large-$d$ part is controlled by $M(y)$, and the only way to bound $M(y)$ by $y^{1/2 + \varepsilon}$ is RH. Unconditionally, the zero-free region gives only the saving of the Walfisz bound above.
+
+## Squarefree numbers in short intervals
+
+The expected number of squarefree integers in $(x, x + h]$ is $6h/\pi^2$, and any bound $E(x) \ll x^{\vartheta + \varepsilon}$ gives this asymptotic once $h \ge x^{\vartheta + 2\varepsilon}$. For squarefree numbers, though, there are good methods that do not go through $E(x)$, and they reach much shorter intervals.
+
+**Gaps.** How long can a gap between consecutive squarefree numbers be? The Chinese remainder argument of the first section shows that up to $x$ there are gaps of length at least $c \log x / \log \log x$, since the product of the squares of the first $k$ primes grows like $e^{2k \log k}$. It is expected that every interval $(x, x + x^{\varepsilon}]$ contains a squarefree number for large $x$. The proven results:
+
+| Year | Author(s) | Every interval $(x, x + x^{\theta}]$ contains a squarefree number for $\theta =$ |
+|---|---|---|
+| 1941 | Fogels | $2/5 + \varepsilon$ |
+| 1951 | Roth | $1/4 + \varepsilon$ elementarily; $3/13 \approx 0.2308$ (with a log factor) |
+| 1954 | Richert | $2/9 \approx 0.2222$ (with a log factor) |
+| 1955 | Rankin | $\approx 0.2220$ |
+| 1988 | Graham–Kolesnik | $109556/494419 \approx 0.2216$ |
+| 1990, 1992 | Filaseta–Trifonov | intervals of length $c\, x^{1/5} \log x$ |
+
+Schmidt (1964) and Trifonov also contributed small improvements along the way. The exponent $\tfrac15$ stood for three decades; a 2024 preprint of Pandey announces $\tfrac15 - \eta$ for some small, inexplicit $\eta \gt 0$. Assuming the $abc$ conjecture, Granville showed that every exponent $\theta \gt 0$ is admissible.
+
+<Example name="Record gaps">
+The first occurrences of record gaps between consecutive squarefree numbers below $10^8$:
+
+| Gap | $3$ | $4$ | $5$ | $6$ | $7$ | $8$ | $9$ | $10$ |
+|---|---|---|---|---|---|---|---|---|
+| From | $7$ | $47$ | $241$ | $843$ | $22\,019$ | $217\,069$ | $1\,092\,746$ | $8\,870\,023$ |
+
+For example $47$ and $51$ are squarefree while $48 = 2^4 \cdot 3$, $49 = 7^2$ and $50 = 2 \cdot 5^2$ are not. The record gap grows very slowly, consistent with a logarithmic rate.
+</Example>
+
+**Variance and Gaussian behaviour.** Let $N(x, H)$ be the number of squarefree integers in $(x, x + H]$. Hall (1982) proved that, as $x$ varies up to $X$, its variance grows like $A\sqrt{H}$, with
+$$
+A = \frac{\zeta(3/2)}{\pi} \prod_p \left( 1 - \frac{3}{p^2} + \frac{2}{p^3} \right) = 0.23844\ldots,
+$$
+for $H$ up to about $X^{2/9}$. The variance is far below the $H$ that independent events would give: squarefree numbers are more evenly spread than random. Gorodetsky, Matomäki, Radziwiłł and Rodgers (2021) extended the asymptotic to $H \lt X^{6/11 - \varepsilon}$, and to $H \lt X^{2/3 - \varepsilon}$ assuming the Lindelöf hypothesis. They also showed that a bound for the variance sharp up to a factor $H^{\varepsilon}$, in the full range $H \lt X^{1 - \varepsilon}$, is equivalent to RH. Gorodetsky, Mangerel and Rodgers (2023) proved that $N(x, H)$, suitably normalized, has a Gaussian limiting distribution when $H \to \infty$ with $H = X^{o(1)}$, answering a question raised by Hall, and that the counts converge to fractional Brownian motion with Hurst parameter $\tfrac14$.
+
+<Example name="The variance numerically">
+For $0 \le x \lt X \approx 10^8$, the mean of $(N(x, H) - 6H/\pi^2)^2$ against Hall's prediction:
+
+| $H$ | $10$ | $30$ | $100$ | $1000$ |
+|---|---|---|---|---|
+| Variance | $0.832$ | $1.389$ | $2.097$ | $7.146$ |
+| $A\sqrt{H}$ | $0.754$ | $1.306$ | $2.384$ | $7.540$ |
+
+The variance indeed grows like $\sqrt{H}$, not like $H$; the ratio stays between $0.88$ and $1.11$.
+</Example>
+
+**Function fields.** Keating and Rudnick (2016) studied squarefree polynomials in short intervals and arithmetic progressions in $\mathbb{F}_q[t]$ as $q \to \infty$. Using Katz's equidistribution theorems, they expressed the variances as matrix integrals over unitary groups and evaluated them, in ranges much wider than are known over the integers.
+
+### The method
+
+- **Small and large square divisors.** Write $N(x, h) = \sum_d \mu(d) \#\{ m : x \lt d^2 m \le x + h \}$. For $d \le \sqrt{h}$ the inner count is $h/d^2 + O(1)$, which is fine. For $d \gt \sqrt{h}$ each $d$ contributes at most a few multiples, so the problem is to show that few $d$ have a multiple of $d^2$ in the interval — a count of lattice points $(d, m)$ close to the curve $m = x/d^2$.
+- **Exponential sums** (Roth, Richert, Rankin, Graham–Kolesnik) detect the condition $\{x/d^2\} \gt 1 - h/d^2$ with Fourier analysis, as in the divisor problem.
+- **Divided differences** (Filaseta–Trifonov). If several nearby $d$ all have $d^2 m_d$ in the interval, the values $m_d$ nearly lie on the smooth curve $x/d^2$; a divided difference of integers that is small enough must vanish, which forces an algebraic relation and limits the number of such $d$. This is elementary and gives $\tfrac15$.
+- **Variance heuristics.** For $d \gt \sqrt{H}$, an interval of length $H$ contains a multiple of $d^2$ with probability about $H/d^2$, and these events behave nearly independently. Summing the variances $H/d^2$ over $d \gt \sqrt{H}$ gives about $\sqrt{H}$, which is Hall's growth rate; making this rigorous over long ranges needs the zeros of $\zeta$ once more.
+
+## Squarefree numbers in arithmetic progressions
+
+For $\gcd(a, q) = 1$, let $Q(x; q, a)$ count squarefree $n \le x$ with $n \equiv a \pmod q$. A squarefree $n$ coprime to $q$ avoids $p^2 \mid n$ automatically for $p \mid q$, which predicts
+$$
+Q(x; q, a) \approx \frac{6}{\pi^2} \frac{x}{q} \prod_{p \mid q} \left( 1 - \frac{1}{p^2} \right)^{-1} .
+$$
+The question, as for $\tau$, is the **level of distribution**: for which $q \le x^{\vartheta}$ does this hold uniformly?
+
+<Example name="Equidistribution mod 7">
+For $x = 10^6$ and $q = 7$ the prediction is $88\,656.04$. The exact values of $Q(10^6; 7, a)$ for $a = 1, \dots, 6$ are
+$$
+88\,646,\quad 88\,660,\quad 88\,659,\quad 88\,654,\quad 88\,653,\quad 88\,660,
+$$
+all within $11$ of the prediction. The class $a = 0$ gets $75\,994$, fewer than its share, since a squarefree multiple of $7$ is $7m$ with $m$ squarefree and coprime to $7$; that count is predicted to be $\frac{6}{\pi^2} \frac{x}{7} (1 + \frac17)^{-1} = 75\,990.89$.
+</Example>
+
+### Milestones
+
+- **The $2/3$ barrier.** Prachar (1958) proved the asymptotic uniformly for $q \le x^{2/3 - \varepsilon}$, and Hooley sharpened the error term to about $x^{1/2} q^{-1/2} + q^{1/2 + \varepsilon}$, which is smaller than the main term $x/q$ exactly when $q \lt x^{2/3}$. It is widely believed that every $\vartheta \lt 1$ is admissible.
+- **Beyond $2/3$.** Nunes passed the barrier for prime moduli, with level $\tfrac{13}{19} = \tfrac23 + \tfrac{1}{57}$, using bilinear forms in Kloosterman-type sums, and obtained the level $\tfrac{25}{36}$ for squarefree moduli. Mangerel (2021) reached $\tfrac{196}{261} \approx 0.751$ for squarefree moduli that are smooth (have only small prime factors).
+- **Variance over residue classes.** For a fixed modulus $q$, the variance of $Q(x; q, a)$ over $a$ was bounded by Blomer and then, with improvements, by Nunes and by Le Boudec. Montgomery conjectured that the error in each class is $O((x/q)^{1/4 + \varepsilon})$, the analogue of $\vartheta = \tfrac14$. Gorodetsky, Matomäki, Radziwiłł and Rodgers (2021) also obtained asymptotics for the variance in progressions, alongside their short-interval result.
+
+### The method
+
+1. **Small square divisors.** As before, $Q(x; q, a) = \sum_{\gcd(d, q) = 1} \mu(d) \#\{ m \le x/d^2 : d^2 m \equiv a \bmod q \}$. For each $d$ the condition fixes $m \equiv a \bar{d}^2 \pmod q$, so for $d \le \sqrt{x/q}$ the count is $x/(d^2 q) + O(1)$.
+2. **Large square divisors.** For $d \gt \sqrt{x/q}$ the range $m \le x/d^2$ is shorter than $q$, so each $d$ contributes $0$ or $1$ according to where the residue $a\bar{d}^2 \bmod q$ falls. One needs the fractions $a\bar{d}^2/q$ to be equidistributed as $d$ varies, which leads to exponential sums $\sum_d e(h a \bar{d}^2/q)$ — close relatives of Kloosterman sums.
+3. **Weil's bound** for these sums gives square-root cancellation and the error $q^{1/2 + \varepsilon}$; this is the source of $\tfrac23$. Going further requires cancellation in bilinear sums over $d$ (Nunes), or the $q$-van der Corput method for smooth moduli (Mangerel), exactly as for $\tau$ in Lecture 2.
+
+## Correlations: consecutive squarefree numbers and $k$-tuples
+
+How often are $n$ and $n + 1$ both squarefree? For each prime $p$, the pair avoids $p^2$ unless $n \equiv 0$ or $-1 \pmod{p^2}$, so the expected density is
+$$
+\prod_p \left( 1 - \frac{2}{p^2} \right) = 0.322634\ldots
+$$
+Unlike the additive divisor problem, this is easy to prove: Carlitz (1932) showed
+$$
+\sum_{n \le x} \mu^2(n)\, \mu^2(n + 1) = \prod_p \left( 1 - \frac{2}{p^2} \right) x + O(x^{2/3 + \varepsilon}).
+$$
+The same argument works for any pattern $n + h_1, \dots, n + h_k$: the density is $\prod_p (1 - \nu(p)/p^2)$, where $\nu(p)$ is the number of residues mod $p^2$ hit by $-h_1, \dots, -h_k$. Pillai studied these general patterns, and Mirsky (1947) treated them for $r$-free numbers and reduced the error term.
+
+<Example name="Consecutive squarefree numbers">
+| $x$ | $\#\{ n \le x : n,\ n + 1 \text{ squarefree} \}$ | $0.322634\ldots \cdot x$ |
+|---|---|---|
+| $10^4$ | $3\,230$ | $3\,226.34$ |
+| $10^6$ | $322\,619$ | $322\,634.10$ |
+| $10^7$ | $3\,226\,343$ | $3\,226\,341.03$ |
+</Example>
+
+The error term has improved in two further steps, each using a new counting method:
+
+| Year | Author(s) | Error exponent | Method |
+|---|---|---|---|
+| 1932 | Carlitz | $2/3 \approx 0.6667$ | elementary |
+| 1984 | Heath-Brown | $7/11 \approx 0.6364$ | the square sieve |
+| 2014 | Reuss | $(26 + \sqrt{433})/81 \approx 0.5779$ | approximate determinant method |
+
+**Why it is easy, and what is hard.** The function $\mu^2$ is a combination of periodic functions: $\mu^2(n) = \sum_{d^2 \mid n} \mu(d)$, and the indicator of $d^2 \mid n$ has period $d^2$. The terms with large $d$ are rare. This makes correlations of $\mu^2$ tractable for every pattern. For the Möbius function itself the analogous statement, $\sum_{n \le x} \mu(n)\, \mu(n + 1) = o(x)$, is Chowla's conjecture and is open; Tao (2016) proved a logarithmically averaged version.
+
+### The method
+
+- **Small divisors by CRT.** Expand both factors: $\mu^2(n)\mu^2(n + 1) = \sum_{d, e} \mu(d)\mu(e)\, \mathbf{1}[d^2 \mid n,\ e^2 \mid n + 1]$. For $d, e$ coprime and not too large, the Chinese remainder theorem gives the count $x/(d^2 e^2) + O(1)$, and these terms produce the main term.
+- **Large divisors.** The remaining terms count solutions of $e^2 b - d^2 a = 1$ with $d^2 a \le x$ and one of $d, e$ large: integer points on a family of quadratic curves. Carlitz bounded them directly.
+- **Square sieve and determinant method.** Heath-Brown's square sieve detects when an integer is a square using Legendre symbols, turning the count into character sums. The determinant method (in Reuss's approximate version) instead shows that the integer points lie on few auxiliary curves. The same tools appear in the next section.
+
+## Squarefree values of polynomials
+
+Let $f \in \mathbb{Z}[t]$ have no repeated factors, and suppose $f$ has no fixed square divisor (no prime $p$ with $p^2 \mid f(n)$ for all $n$). Write $\rho(p^2)$ for the number of roots of $f$ mod $p^2$. The natural conjecture is
+$$
+\#\{ n \le x : f(n) \text{ squarefree} \} \sim c_f\, x, \qquad c_f = \prod_p \left( 1 - \frac{\rho(p^2)}{p^2} \right) \gt 0 .
+$$
+For $f(n) = n^2 + 1$ the value is never divisible by $4$, and for odd $p$ it is divisible by $p^2$ for two residues mod $p^2$ if $p \equiv 1 \pmod 4$ and none otherwise, so $c_f = \prod_{p \equiv 1 (4)} (1 - 2/p^2) = 0.89484\ldots$
+
+<Example name="Squarefree values of n² + 1">
+The first $n$ with $n^2 + 1$ not squarefree are $7, 18, 32, 38, 41, 43, 57$; for instance $7^2 + 1 = 2 \cdot 5^2$ and $18^2 + 1 = 5^2 \cdot 13$.
+
+| $x$ | $\#\{ n \le x : n^2 + 1 \text{ squarefree} \}$ | $0.89484\ldots \cdot x$ |
+|---|---|---|
+| $10^2$ | $88$ | $89.48$ |
+| $10^4$ | $8\,952$ | $8\,948.41$ |
+| $10^6$ | $894\,856$ | $894\,841.23$ |
+</Example>
+
+**Degree at most $2$.** For linear and quadratic $f$ the conjecture follows from a sieve like the one in this lecture. Estermann (1931) proved it for $n^2 + 1$ with error $O(x^{2/3} \log x)$. Heath-Brown (2012) improved the error to $O(x^{7/12 + \varepsilon})$, by counting rational points near a curve with the determinant method; he also observed that the error is $\Omega(\log x)$, because there are intervals of length $c \log x$ in which every $n^2 + 1$ has a square factor.
+
+**Degree $3$.** Erdős (1953) proved that an irreducible cubic, under the natural local conditions, takes infinitely many squarefree values, and Hooley later proved the asymptotic $c_f x$. Helfgott (2014) proved the much harder statement for prime arguments: for cubic $f$ satisfying the local conditions, $f(p)$ is squarefree for infinitely many primes $p$, a problem posed by Erdős. Booker and Browning (2016) combined squarefree and almost-prime conditions for reducible polynomials whose factors have degree at most $3$.
+
+**Degree $4$ and higher.** For a single irreducible polynomial of degree $4$ or more — even for $n^4 + 2$ — it is not known that $f(n)$ is squarefree infinitely often. Granville (1998) proved that the $abc$ conjecture implies the asymptotic $c_f x$ for every $f$, and Poonen (2003) extended this to polynomials in several variables, again assuming $abc$; Poonen also proved the corresponding statement for $\gcd(f(\mathbf{x}), g(\mathbf{x})) = 1$ unconditionally.
+
+**Many variables.** With more variables the problem gets easier, as for divisor sums of binary forms in Lecture 2. Bhargava's **geometric sieve** (2014) determines the density of squarefree values for invariant polynomials of certain group actions, including discriminants. One consequence: a positive proportion of $S_n$-number fields of degree $n = 3, 4, 5$ have squarefree discriminant, with the density computed exactly. Bhargava, Shankar and Wang (2025) proved that integral binary forms of any given degree have squarefree discriminant with positive lower density.
+
+### The method
+
+1. **Small primes.** Sieving by $p^2$ for $p \le \xi$ is easy: the $n \le x$ with $p^2 \mid f(n)$ fall into $\rho(p^2)$ residue classes mod $p^2$, giving the main term $c_f x$ with a small error.
+2. **Medium primes**, $\xi \lt p \le y$, are handled by the trivial bound: each contributes $O(x/p^2 + 1)$, for a total of $O(x/\xi + y)$, which is $o(x)$ when $\xi \to \infty$ and $y = o(x)$.
+3. **Large primes**, $p \gt y$, are the difficulty. For $f$ of degree $g$ they go up to about $x^{g/2}$, and a residue class mod $p^2 \gt x$ contains at most one $n \le x$, so counting residue classes no longer helps. Instead write $f(n) = p^2 m$ with $m \ll x^{g}/y^2$. For $g = 2$ and $y$ close to $x$, $m$ is bounded, and for each $m$ one counts solutions of Pell-type equations such as $n^2 + 1 = p^2 m$ (Estermann), or rational points near a curve (Heath-Brown). For $g = 3$, $m$ can be as large as about $x$, and Erdős's and Hooley's arguments need extra ideas to control these solutions. For $g \ge 4$ the range of $m$ is too large and no unconditional argument is known.
+4. **Why $abc$ helps.** If $f(n) = p^2 m$ with $p$ huge, then $f(n)$ has unusually small radical. The $abc$ conjecture (applied to a homogenized form of $f$, via Belyi maps in Granville's argument) says this almost never happens, which disposes of the large primes in every degree.
+
+Further reading: H. L. Montgomery and R. C. Vaughan, *Multiplicative Number Theory I*, and G. Tenenbaum, *Introduction to Analytic and Probabilistic Number Theory*, for the elementary theory and the link between $\zeta(2s)$ and the error term; F. Pappalardi, "A survey on $k$-freeness", for error terms, short intervals and progressions; A. Granville, "ABC allows us to count squarefrees" (IMRN, 1998), for polynomial values; O. Gorodetsky, K. Matomäki, M. Radziwiłł and B. Rodgers, "On the variance of squarefree integers in short intervals and arithmetic progressions" (GAFA, 2021), whose introduction surveys the modern variance results; J. P. Keating and Z. Rudnick, "Squarefree polynomials and Möbius values in short intervals and arithmetic progressions" (Algebra & Number Theory, 2016), for the function-field picture.

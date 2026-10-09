@@ -1,0 +1,308 @@
+How many points of the integer lattice $\mathbb{Z}^2$ lie in a disc of radius $R$ centred at the origin? The answer is close to the area $\pi R^2$, and for $R = 10^9$ it is $3\,141\,592\,653\,589\,764\,829$, whose first fourteen digits are those of $\pi$. The question of *how* close is the **Gauss circle problem**. It is the twin of the Dirichlet divisor problem of Lecture 2: there we counted lattice points under a hyperbola, here inside a circle, and the two problems share their history, their methods and their best known exponents almost line for line.
+
+The circle problem is also a problem about arithmetic. A lattice point $(a, b)$ lies in the disc exactly when $a^2 + b^2 \le R^2$, so counting lattice points is the same as averaging the number of ways an integer can be written as a sum of two squares. This lecture first derives the count in two ways — Gauss's geometric argument and Dirichlet's hyperbola method, which explains where $\pi$ comes from arithmetically — and then surveys the same five directions of research as Lecture 2.
+
+## Sums of two squares
+
+<Definition name="The functions r₂ and N">
+For an integer $n \ge 0$, $r_2(n)$ is the number of ways to write $n$ as a sum of two squares, counting signs and order:
+$$
+r_2(n) = \#\{(a, b) \in \mathbb{Z}^2 : a^2 + b^2 = n\}.
+$$
+The **lattice point count** is
+$$
+N(x) = \#\{(a, b) \in \mathbb{Z}^2 : a^2 + b^2 \le x\} = \sum_{0 \le n \le x} r_2(n),
+$$
+the number of lattice points in the closed disc of radius $\sqrt{x}$, and the error term is $P(x) = N(x) - \pi x$.
+</Definition>
+
+We use the radius squared, $x = R^2$, as the variable throughout, so that $N(x)$ is a summatory function in the sense of Lecture 1. Exponents below refer to $x$; papers that use the radius $R$ double them.
+
+For example $r_2(0) = 1$, $r_2(1) = 4$ (from $(\pm 1, 0)$ and $(0, \pm 1)$), $r_2(3) = 0$, $r_2(5) = 8$ (from $(\pm 1, \pm 2)$ and $(\pm 2, \pm 1)$) and $r_2(25) = 12$. Unlike $\tau(n)$, the function $r_2(n)$ is not multiplicative as it stands, but $r_2(n)/4$ is, and there is an exact formula in terms of the non-principal character modulo $4$,
+$$
+\chi_{-4}(n) = \begin{cases} 1 & n \equiv 1 \pmod 4, \\ -1 & n \equiv 3 \pmod 4, \\ 0 & n \text{ even}. \end{cases}
+$$
+
+<Result name="Jacobi's two-square formula">
+For $n \ge 1$,
+$$
+r_2(n) = 4 \sum_{d \mid n} \chi_{-4}(d) = 4\left( \#\{d \mid n : d \equiv 1 \bmod 4\} - \#\{d \mid n : d \equiv 3 \bmod 4\} \right).
+$$
+Equivalently, the Dirichlet series of $r_2$ factors as
+$$
+\sum_{n = 1}^{\infty} \frac{r_2(n)}{n^s} = 4\, \zeta(s)\, L(s, \chi_{-4}) \qquad (\sigma > 1).
+$$
+</Result>
+
+The proof is a computation in the Gaussian integers $\mathbb{Z}[i]$, which have unique factorization: $r_2(n)$ counts the elements $a + bi$ of norm $n$, and counting ideals of norm $n$ prime by prime gives the formula. The Dirichlet series is the Dedekind zeta function of $\mathbb{Q}(i)$, times $4$ (the number of units). Compare $\sum \tau(n) n^{-s} = \zeta(s)^2$: the circle problem replaces one factor $\zeta(s)$ of the divisor problem by $L(s, \chi_{-4})$.
+
+Several basic facts follow at once.
+
+- **When $r_2(n) > 0$.** The sum $\sum_{d \mid n} \chi_{-4}(d)$ is multiplicative, equal to $a + 1$ at $p^a$ for $p \equiv 1 \bmod 4$, to $1$ at powers of $2$, and to $1$ or $0$ at $p^a$ for $p \equiv 3 \bmod 4$ according as $a$ is even or odd. So $n$ is a sum of two squares exactly when every prime $p \equiv 3 \bmod 4$ divides $n$ to an even power.
+- **Size.** Since $|\chi_{-4}(d)| \le 1$, we have $r_2(n) \le 4\tau(n) \ll_\varepsilon n^{\varepsilon}$, and $r_2(n)$ is as irregular as $\tau(n)$: $r_2(5) = 8$, $r_2(65) = 16$, $r_2(1105) = 32$ for products of the first primes $\equiv 1 \bmod 4$, while $r_2(n) = 0$ for every $n \equiv 3 \bmod 4$.
+- **Average.** The average of $r_2(n)$ is $\pi$, since $N(x) \sim \pi x$. Proving that, with an error term, is the subject of the next two sections.
+
+A different question is how many integers are sums of two squares at all, without multiplicity. Let $B(x)$ be the number of $n \le x$ with $r_2(n) > 0$.
+
+<Result name="Landau, 1908">
+$$
+B(x) \sim K \frac{x}{\sqrt{\log x}}, \qquad K = \frac{1}{\sqrt{2}} \prod_{p \equiv 3 \bmod 4} \left( 1 - \frac{1}{p^2} \right)^{-1/2} = 0.764223653\ldots
+$$
+</Result>
+
+The constant $K$ is the **Landau–Ramanujan constant**; Ramanujan rediscovered the result and stated it in his first letter to Hardy. So the integers that are sums of two squares have density zero, yet the total number of representations is $\pi x$: a thin set of integers carries many representations each. The convergence is slow. For $x = 10^6$ one has $B(x) = 216\,341$, while $K x/\sqrt{\log x} = 205\,606.6$, so $B(x)\sqrt{\log x}/x = 0.8041$, still well above $K$; the next term in the asymptotic is only smaller by a factor $1/\log x$.
+
+## The trivial count
+
+Gauss's argument is purely geometric. Attach to each lattice point $(a, b)$ the unit square centred at it. These squares do not overlap, each has area $1$, and each lies within distance $\tfrac{1}{\sqrt 2}$ (half a diagonal) of its centre. Hence:
+
+- every square attached to a point of the disc of radius $\sqrt{x}$ lies inside the disc of radius $\sqrt{x} + \tfrac{1}{\sqrt 2}$;
+- every point of the disc of radius $\sqrt{x} - \tfrac{1}{\sqrt 2}$ lies in a square attached to a lattice point of the disc of radius $\sqrt{x}$.
+
+Comparing areas,
+$$
+\pi\left(\sqrt{x} - \tfrac{1}{\sqrt 2}\right)^2 \le N(x) \le \pi\left(\sqrt{x} + \tfrac{1}{\sqrt 2}\right)^2 .
+$$
+
+<Result name="Gauss's estimate">
+$$
+N(x) = \pi x + P(x), \qquad |P(x)| \le \pi\sqrt{2}\, \sqrt{x} + \tfrac{\pi}{2} .
+$$
+</Result>
+
+Unlike the trivial count of Lecture 2, this already gives an error term of size $\sqrt{x}$, the length of the boundary. The reason is geometric: only the squares that meet the boundary circle are counted wrongly, and there are about as many of them as the circumference. The argument works for any reasonable convex region, and it never uses arithmetic. In particular $\pi$ enters only as an area.
+
+## Dirichlet's hyperbola method
+
+Jacobi's formula turns the circle problem into a divisor-type problem. Summing $r_2(n) = 4 \sum_{ab = n} \chi_{-4}(a)$ over $1 \le n \le x$ and adding $r_2(0) = 1$,
+$$
+N(x) = 1 + 4 \sum_{ab \le x} \chi_{-4}(a),
+$$
+a weighted count of lattice points under the hyperbola $ab = x$. Now Dirichlet's hyperbola identity from Lecture 2 applies to the convolution $\chi_{-4} * 1$. The summatory function of $\chi_{-4}$ is
+$$
+F(t) = \sum_{a \le t} \chi_{-4}(a) = \begin{cases} 1 & \lfloor t \rfloor \equiv 1, 2 \pmod 4, \\ 0 & \lfloor t \rfloor \equiv 0, 3 \pmod 4, \end{cases}
+$$
+which is bounded, and that of $1$ is $\lfloor t \rfloor$. With $y = \sqrt{x}$,
+$$
+\sum_{ab \le x} \chi_{-4}(a) = \sum_{a \le y} \chi_{-4}(a) \left\lfloor \frac{x}{a} \right\rfloor + \sum_{b \le y} F\!\left( \frac{x}{b} \right) - F(y) \lfloor y \rfloor .
+$$
+This is exact. Estimating the pieces:
+
+- $\sum_{a \le y} \chi_{-4}(a)\, x/a = x\left( L(1, \chi_{-4}) - \sum_{a > y} \chi_{-4}(a)/a \right) = x\, L(1, \chi_{-4}) + O(x/y)$, since the tail of an alternating series is at most its first term.
+- The fractional parts in the first sum, the whole second sum and the last term are each $O(y)$, because $F$ is bounded.
+
+So $N(x) = 4 L(1, \chi_{-4})\, x + O(\sqrt{x})$. Finally,
+$$
+L(1, \chi_{-4}) = 1 - \frac13 + \frac15 - \frac17 + \cdots = \frac{\pi}{4},
+$$
+which is Leibniz's series.
+
+<Result name="The hyperbola method for the circle">
+$$
+N(x) = 1 + 4 \sum_{ab \le x} \chi_{-4}(a) = 4 L(1, \chi_{-4})\, x + O(\sqrt{x}) = \pi x + O(\sqrt{x}).
+$$
+</Result>
+
+Here the two methods give the same error term, and the comparison is about what else each one gives.
+
+| | Gauss (area) | Hyperbola method |
+|---|---|---|
+| Input | geometry of the disc | Jacobi's formula $r_2 = 4(\chi_{-4} * 1)$ |
+| Where $\pi$ comes from | area of the disc | $4 L(1, \chi_{-4})$, Leibniz's series |
+| Error | $O(\sqrt{x})$ | $O(\sqrt{x})$ |
+| Work to evaluate $N(x)$ exactly | about $\sqrt{x}$ square roots | about $\sqrt{x}$ divisions |
+| Generalizes to | any convex region | any Dirichlet convolution |
+
+What the hyperbola route buys is the connection to $L$-functions. Replace $a^2 + b^2$ by another positive definite binary quadratic form, or sum over all forms of a given discriminant $-D$, and the same argument gives a main term proportional to $L(1, \chi_{-D})$; via Dirichlet's class number formula this is how class numbers enter lattice point counts. The geometric argument sees only the area, which for an ellipse $Q(a, b) \le x$ is $2\pi x/\sqrt{D}$, and cannot tell that the count over a whole genus of forms is governed by an $L$-value. Conversely, the geometric argument needs no arithmetic and works equally for regions with no number theory in them.
+
+## A worked example
+
+Take $x = 25$, the disc of radius $5$. Counting by columns, the column at $a$ contains $2\lfloor \sqrt{25 - a^2} \rfloor + 1$ points, which for $a = 0, \pm 1, \pm 2, \pm 3, \pm 4, \pm 5$ is
+$$
+11,\quad 9,\quad 9,\quad 9,\quad 7,\quad 1,
+$$
+so $N(25) = 11 + 2(9 + 9 + 9 + 7 + 1) = 81$. The same number comes from summing representations: the values $r_2(0), r_2(1), \dots, r_2(25)$ are
+$$
+1, 4, 4, 0, 4, 8, 0, 0, 4, 4, 8, 0, 0, 8, 0, 0, 4, 8, 4, 0, 8, 0, 0, 0, 0, 12,
+$$
+which add up to $81$. The hyperbola identity, with $y = 5$, needs
+$$
+\sum_{a \le 5} \chi_{-4}(a) \left\lfloor \frac{25}{a} \right\rfloor = 25 - 8 + 5 = 22, \qquad \sum_{b \le 5} F\!\left( \frac{25}{b} \right) = 1 + 0 + 0 + 1 + 1 = 3, \qquad F(5) \cdot 5 = 5,
+$$
+and gives $N(25) = 1 + 4(22 + 3 - 5) = 81$ again. Since $25\pi = 78.540$, the error is $P(25) = 2.460$, well inside Gauss's bound $\pi\sqrt{2} \cdot 5 + \tfrac{\pi}{2} = 23.8$.
+
+<Example name="The error term numerically">
+The table lists $N(x)$, computed exactly by summing the columns $2\lfloor \sqrt{x - a^2} \rfloor + 1$ with integer square roots (and checked against the hyperbola identity up to $x = 10^{10}$).
+
+| $x$ | $N(x)$ | $\pi x$ | $P(x)$ | $P(x)/x^{1/4}$ | $N(x)/x$ |
+|---|---|---|---|---|---|
+| $10^2$ | $317$ | $314.16$ | $2.84$ | $0.90$ | $3.17$ |
+| $10^4$ | $31\,417$ | $31\,415.93$ | $1.07$ | $0.11$ | $3.1417$ |
+| $10^6$ | $3\,141\,549$ | $3\,141\,592.65$ | $-43.65$ | $-1.38$ | $3.141549$ |
+| $10^8$ | $314\,159\,053$ | $314\,159\,265.36$ | $-212.36$ | $-2.12$ | $3.14159053$ |
+| $10^{10}$ | $31\,415\,925\,457$ | $31\,415\,926\,535.90$ | $-1\,078.90$ | $-3.41$ | $3.1415925457$ |
+| $10^{12}$ | $3\,141\,592\,649\,625$ | $3\,141\,592\,653\,589.79$ | $-3\,964.79$ | $-3.96$ | $3.141592649625$ |
+| $10^{14}$ | $314\,159\,265\,350\,589$ | $314\,159\,265\,358\,979.32$ | $-8\,390.32$ | $-2.65$ | $3.14159265350589$ |
+| $10^{16}$ | $31\,415\,926\,535\,867\,961$ | $31\,415\,926\,535\,897\,932.38$ | $-29\,971.38$ | $-3.00$ | $3.1415926535867961$ |
+| $10^{18}$ | $3\,141\,592\,653\,589\,764\,829$ | $3\,141\,592\,653\,589\,793\,238.46$ | $-28\,409.46$ | $-0.90$ | $3.141592653589764829$ |
+
+The last column agrees with $\pi$ to about three quarters as many digits as $x$ has, which is what an error of size $x^{1/4}$ predicts; Gauss's bound would only guarantee about half. As in Lecture 2, $P(x)$ is far below $\sqrt{x}$ (which is $10^9$ at the last row), and $P(x)/x^{1/4}$ stays of order $1$.
+</Example>
+
+## Better error terms, and what RH says
+
+Let $\theta$ be the infimum of exponents $a$ with $P(x) \ll x^{a}$. Gauss's argument gives $\theta \le \tfrac12$. The circle problem asks for the true value of $\theta$; it is open, and the conjecture is $\theta = \tfrac14$.
+
+<Result name="The circle problem: what is known">
+- (Hardy, 1916.) $P(x) = \Omega_{-}\big( (x \log x)^{1/4} \big)$ and $P(x) = \Omega_{+}(x^{1/4})$, so $\theta \ge \tfrac14$.
+- (Mean square; Kátai, 1965, refining earlier work of Landau and Cramér.)
+$$
+\int_0^X P(x)^2\, dx = C X^{3/2} + O(X \log^2 X), \qquad C = \frac{1}{3\pi^2} \sum_{n=1}^{\infty} \frac{r_2(n)^2}{n^{3/2}} = 1.69396\ldots
+$$
+- (Heath-Brown, 1992.) $P(x)/x^{1/4}$ has a limiting distribution with a continuous density that decays roughly like $\exp(-|t|^4)$. The distribution is not Gaussian.
+</Result>
+
+The constant $C$ can be computed from the identity $\sum r_2(n)^2 n^{-s} = 16\, \zeta(s)^2 L(s, \chi_{-4})^2 / \big( (1 + 2^{-s}) \zeta(2s) \big)$; for $X = 10^6$ the integral divided by $X^{3/2}$ is already $1.6947$. Hafner (1981) and Soundararajan (2003) sharpened Hardy's $\Omega$-result by powers of $\log \log x$, by the same methods as for the divisor problem; recent work using the resonance method pushes these further. None of this decides whether $P(x) \ll x^{1/4 + \varepsilon}$.
+
+### Milestones for the upper bound
+
+| Year | Author(s) | $\theta \le$ | Method |
+|---|---|---|---|
+| — | Gauss | $1/2 = 0.5$ | area argument |
+| 1906 | Sierpiński | $1/3 \approx 0.3333$ | Voronoi's method |
+| 1923 | van der Corput | $33/100 = 0.33$ | exponential sums |
+| 1920s | Nieland | $27/82 \approx 0.3293$ | van der Corput's method |
+| 1942 | Hua | $13/40 = 0.325$ | exponential sums |
+| 1962, 1963 | Yin; Chen | $12/37 \approx 0.3243$ | exponential sums |
+| 1988 | Iwaniec–Mozzochi | $7/22 \approx 0.3182$ | Bombieri–Iwaniec method |
+| 1993 | Huxley | $23/73 \approx 0.3151$ | Bombieri–Iwaniec–Huxley |
+| 2003 | Huxley | $131/416 \approx 0.3149$ | Bombieri–Iwaniec–Huxley |
+
+The table shows the same exponents as the divisor problem, often in the same papers. The two later preprints of Lecture 2 also treat both problems: Bourgain and Watt (2017) announced $\theta \le 517/1648 \approx 0.3137$, and X. Li and X. Yang (2023) obtained $\theta \le 0.31448\ldots$. Landau (1912) gave a shorter proof of Sierpiński's $\tfrac13$.
+
+### The method
+
+The reduction to exponential sums parallels Lecture 2, with the circle in place of the hyperbola. Every lattice point $(a, b)$ with $a, b \ge 1$ and $a^2 + b^2 \le x$ has $\min(a, b) \le \sqrt{x/2}$, so by the same inclusion–exclusion as in the hyperbola method,
+$$
+N(x) = 1 + 4\lfloor \sqrt{x} \rfloor + 4\left( 2 \sum_{1 \le a \le \sqrt{x/2}} \left\lfloor \sqrt{x - a^2} \right\rfloor - \left\lfloor \sqrt{x/2} \right\rfloor^2 \right),
+$$
+exactly. Writing $\lfloor t \rfloor = t - \tfrac12 - \psi(t)$ and evaluating the smooth part by Euler–Maclaurin gives
+$$
+P(x) = -8 \sum_{1 \le a \le \sqrt{x/2}} \psi\!\left( \sqrt{x - a^2} \right) + O(1),
+$$
+a sum of $\psi$ along an arc of the circle instead of along the hyperbola. From here the tools are those of Lecture 2.
+
+- **The Hardy–Voronoi series.** The analogue of Voronoi's formula is
+$$
+P(x) = \frac{x^{1/4}}{\pi} \sum_{n=1}^{\infty} \frac{r_2(n)}{n^{3/4}} \cos\!\left( 2\pi\sqrt{nx} - \frac{3\pi}{4} \right) + (\text{lower order}),
+$$
+with $r_2(n)$ in place of $\tau(n)$ and phases $2\pi\sqrt{nx}$ instead of $4\pi\sqrt{nx}$ (for $x = 1000.5$, the first $10^6$ terms give $5.77$ against the true $P(x) = 5.84$). Squaring and keeping the diagonal gives Kátai's mean square; the near-independence of the frequencies gives Heath-Brown's limiting distribution. The series comes from Poisson summation in two variables: the Fourier transform of the indicator of a disc is a Bessel function, and the cosines are its asymptotic form.
+- **Exponent pairs and Bombieri–Iwaniec.** The phase $h\sqrt{x - a^2}$ has derivatives of the same sizes as $hx/a$, so van der Corput's estimates, exponent pairs and the Bombieri–Iwaniec method apply with the same numerology. Iwaniec and Mozzochi treated the two problems together, and so did Huxley.
+
+<Remark name="RH does not help the circle problem">
+The generating function $4\zeta(s) L(s, \chi_{-4})$ is holomorphic except for the simple pole of $\zeta(s)$ at $s = 1$, whose residue gives $\pi x$; $L(s, \chi_{-4})$ is entire. Zeros of $\zeta$ or of $L(s, \chi_{-4})$ are zeros of the generating function, so they contribute no residues in Perron's formula. As for the divisor problem, the Riemann hypothesis for both functions enters only through bounds on their size in the critical strip, and these give no exponent below Sierpiński's unconditional $\tfrac13$. The conjecture $P(x) \ll x^{1/4 + \varepsilon}$ is not known to follow from the generalized Riemann hypothesis. The difficulty is the oscillation of the Hardy–Voronoi series, not the location of zeros.
+</Remark>
+
+## Lattice points in thin annuli and short intervals
+
+The number of lattice points in the annulus $x \lt a^2 + b^2 \le x + h$ is
+$$
+\sum_{x \lt n \le x + h} r_2(n) = \pi h + P(x + h) - P(x).
+$$
+In terms of radii, an annulus of inner radius $\sqrt{x}$ and width $w$ corresponds to $h \approx 2w\sqrt{x}$, so annuli of fixed width correspond to $h \asymp \sqrt{x}$ and **thin annuli** (width tending to $0$) to $h = o(\sqrt{x})$.
+
+**Every interval.** Any bound $P(x) \ll x^{\theta + \varepsilon}$ gives the asymptotic $\pi h$ for all $x$ once $h \ge x^{\theta + 2\varepsilon}$, and Hardy's $\Omega$-result means this route cannot go below $h = x^{1/4}$. For the weaker question of whether $(x, x + h]$ contains a sum of two squares at all, there is a simple elementary answer.
+
+<Result name="Bambah and Chowla, 1947">
+Every interval $[x, x + c x^{1/4}]$, for a suitable absolute constant $c$ and all $x \ge 1$, contains a sum of two squares. Equivalently, consecutive sums of two squares $s_k \lt s_{k+1}$ satisfy $s_{k+1} - s_k \ll s_k^{1/4}$.
+</Result>
+
+The proof is a two-step greedy choice: take $a = \lfloor \sqrt{x} \rfloor$, so that $0 \le x - a^2 \le 2\sqrt{x}$, and then $b = \lceil \sqrt{x - a^2} \rceil$, so that $a^2 + b^2 - x \le 2b + 1 \ll x^{1/4}$. Nobody has improved the exponent $\tfrac14$, and whether the gaps are $o(x^{1/4})$ is open. The truth is believed to be far smaller: up to $2 \times 10^6$ the longest gap between sums of two squares is $48$, from $1\,853\,866$ to $1\,853\,914$, where $x^{1/4} = 36.9$ and $\log x = 14.4$. In the other direction, Richards (1982) showed that gaps of length at least $(\tfrac14 - \varepsilon)\log s_k$ occur infinitely often, and Dietmann, Elsholtz, Kalmynin, Konyagin and Maynard improved the constant $\tfrac14$ to $390/449 = 0.868\ldots$
+
+**Almost every interval.** Hooley (1971) proved that if $y/\sqrt{\log x} \to \infty$, then for almost all $x$ the interval $(x, x + y]$ contains a number of sums of two squares of the expected order $y/\sqrt{\log x}$. Balog and Wooley (2000) showed that this cannot hold for every interval: adapting Maier's method, they found intervals of length a power of $\log x$ with noticeably more, and others with noticeably fewer, sums of two squares than average. Maynard showed that some intervals of length $y$ contain at least a constant times $y^{1/10}$ sums of two squares, which exceeds the average when $y = o((\log x)^{5/9})$.
+
+**Thin annuli and Gaussian behaviour.** For the count with multiplicity, the natural question is the distribution of $P(x + h) - P(x)$ as $x$ varies. Bleher and Lebowitz (1994), motivated by energy-level statistics of quantum systems, studied the number of lattice points in annuli of various widths. For wide annuli the fluctuations have a non-Gaussian limiting distribution, like Heath-Brown's; they conjectured that in the thin-annulus regime — width tending to $0$ while the area tends to infinity — the fluctuations, normalized by their standard deviation, become Gaussian. Hughes and Rudnick (2004) proved this conjecture for circles and the lattice $\mathbb{Z}^2$, provided the width shrinks slower than any power of the radius. Wigman extended it to generic rectangular lattices and to some elliptic annuli. The parallel with Lecture 2 is close: this is the circle analogue of the Lester–Yesha theorem for $\Delta(x + h) - \Delta(x)$, which came later.
+
+**The method.** As in Lecture 2, Hardy's series turns $P(x + h) - P(x)$ into a sum of terms $r_2(n) n^{-3/4}$ times a difference of cosines that is small when $n$ is small compared with $x/h^2$. The variance comes from the diagonal, and Gaussian behaviour from computing higher moments and showing that the frequencies $\sqrt{n}$, for $n$ a sum of two squares, cancel against each other only in trivial ways. For the set of sums of two squares (without multiplicity) the tools are sieve methods instead, since its indicator is not a convolution with a nice Dirichlet series: its generating function involves $\big( \zeta(s) L(s, \chi_{-4}) \big)^{1/2}$, which is why $\sqrt{\log x}$ appears.
+
+## Sums of two squares in arithmetic progressions
+
+For an integer $a$ and modulus $q$, let
+$$
+N(x; q, a) = \sum_{\substack{1 \le n \le x \\ n \equiv a \ (\mathrm{mod}\ q)}} r_2(n).
+$$
+This counts lattice points $(u, v)$ in the disc with $u^2 + v^2 \equiv a \bmod q$, which is determined by $(u, v) \bmod q$. So if $\eta_a(q)$ is the number of solutions of $u^2 + v^2 \equiv a \pmod q$, each residue pair modulo $q$ should get its share $\pi x/q^2$ of the area, and the prediction is
+$$
+N(x; q, a) \approx \frac{\pi\, \eta_a(q)}{q^2}\, x .
+$$
+Unlike the divisor case, the prediction need not be the same for all classes coprime to $q$ (modulo $4$ the class $3$ gets nothing at all), and it covers non-coprime classes as well.
+
+<Example name="Equidistribution mod 7">
+For the prime $q = 7 \equiv 3 \bmod 4$, the congruence $u^2 + v^2 \equiv a$ has $\eta_a(7) = 8$ solutions for each $a \not\equiv 0$, and just one, $(0, 0)$, for $a \equiv 0$. With $x = 10^6$ the predicted value for $a = 1, \dots, 6$ is $\pi \cdot 8 \cdot 10^6/49 = 512\,913.1$, and the exact values of $N(10^6; 7, a)$ are
+$$
+512\,952,\quad 512\,880,\quad 512\,936,\quad 512\,896,\quad 512\,808,\quad 513\,000,
+$$
+all within $106$ of the prediction. The class $a = 0$ gets $64\,076$ against the predicted $\pi \cdot 10^6/49 = 64\,114.1$: about one eighth as much, because $7 \mid u^2 + v^2$ forces $7 \mid u$ and $7 \mid v$.
+</Example>
+
+### Milestones
+
+- **The $2/3$ barrier.** R. A. Smith (1968) proved the asymptotic $N(x; q, a) \sim \pi \eta_a(q) x/q^2$ uniformly for $q \le x^{2/3 - \varepsilon}$, with an explicit error term. Smith's motivation was the shifted convolution problem of the next section. Varbanets (1970) improved the error term for $a = 1$, and Tolev (2012) improved it in general.
+- **Sums of two squares without multiplicity.** Prachar proved that the integers that are sums of two squares are equidistributed in arithmetic progressions: for $a$ coprime to a fixed $q$, their number up to $x$ in the class $a \bmod q$ has a Landau-type asymptotic $c_q\, x/\sqrt{\log x}$. Iwaniec's half-dimensional sieve (1972) gives results in which $q$ may grow with $x$.
+- **Bias.** Gorodetsky (2023) showed that sums of two squares are strongly biased towards quadratic residues: for example, assuming the generalized Riemann hypothesis and a Chowla-type conjecture on non-vanishing of $L$-functions at $\tfrac12$, the sums of two squares up to $x$ that are $\equiv 1 \bmod 3$ outnumber those $\equiv 2 \bmod 3$ for all $x$ outside a set of density zero. This is much stronger than Chebyshev's bias for primes, which holds only in logarithmic density. Numerically the effect is small but visible: up to $10^6$ there are $94\,913$ sums of two squares $\equiv 1 \bmod 3$ and $94\,878$ that are $\equiv 2 \bmod 3$.
+
+### The method
+
+1. **Theta functions.** The generating function $\sum_{n \ge 0} r_2(n) e(nz) = \theta(z)^2$, with $\theta(z) = \sum_{m \in \mathbb{Z}} e(m^2 z)$, is a modular form of weight $1$ for $\Gamma_0(4)$ with character $\chi_{-4}$. It plays the role that $\zeta(s)^2$ and the Eisenstein series play for $\tau(n)$, and the corresponding Voronoi formula for $r_2(n) e(rn/q)$ follows from the transformation law of $\theta$.
+2. **Exponential sums.** Detecting $n \equiv a \bmod q$ with additive characters and applying that summation formula leads, as for $\tau$, to dual sums with arithmetic exponential sums modulo $q$ as coefficients, and square-root cancellation in each of them gives the level $x^{2/3}$, as in Lecture 2.
+3. **Sieve methods.** For the set of sums of two squares, Jacobi's formula is no help, because its indicator is not a convolution of nice functions. The half-dimensional sieve exploits that this set is defined by excluding primes $p \equiv 3 \bmod 4$ (to odd powers), half of all primes, so that its density is of order $1/\sqrt{\log x}$.
+
+## Shifted convolutions
+
+The **additive problem for $r_2$** asks for
+$$
+\sum_{n \le x} r_2(n)\, r_2(n + h), \qquad h \ne 0 \text{ fixed},
+$$
+which counts the integer points $(a, b, c, d)$ with $a^2 + b^2 \le x$ and $c^2 + d^2 - a^2 - b^2 = h$: lattice points on a quadric in four variables. As with $\tau(n)\tau(n + h)$, multiplicativity gives no help.
+
+<Result name="Shifted convolution of r₂">
+Estermann (1932) found the asymptotic formula $\sum_{n \le x} r_2(n) r_2(n + h) \sim c(h)\, x$, with an explicit constant depending on the $2$-part of $h$. For odd $h$, Iwaniec proved by spectral methods that
+$$
+\sum_{n \le x} r_2(n)\, r_2(n + h) = 8 \sigma_{-1}(h)\, x + O\!\left( h^{1/3} x^{2/3} \right), \qquad \sigma_{-1}(h) = \sum_{d \mid h} \frac{1}{d}.
+$$
+</Result>
+
+Numerically, for $x = 10^6$ the sum divided by $x$ is $8.0034$ for $h = 1$ (prediction $8$), $10.6562$ for $h = 3$ (prediction $32/3 = 10.6667$) and $9.6007$ for $h = 5$ (prediction $48/5 = 9.6$). For even $h$ the constant is different: for $h = 2$ the ratio is $3.9990$, not $8\sigma_{-1}(2) = 12$, because $n$ and $n + 2$ have the same parity and odd sums of two squares are $\equiv 1 \bmod 4$. Note that the main term is of order $x$, with no logarithm: unlike $\tau$, the average of $r_2$ is a constant.
+
+The exponent $\tfrac23$ matches the Deshouillers–Iwaniec bound for $\tau(n)\tau(n + h)$ in Lecture 2, and it has the same source.
+
+**Counting pairs of sums of two squares.** Without multiplicity, one asks how many $n \le x$ have both $n$ and $n + 1$ sums of two squares. Treating the two events as independent, each of probability about $1/\sqrt{\log x}$, predicts about $x/\log x$ such $n$. Indlekofer (1974) proved a sharp lower bound for the counting function of these "$B$-twins", as he called them; an asymptotic formula is not known.
+
+### The method
+
+- **Opening one $r_2$.** Write $r_2(n + h) = 4 \sum_{d \mid n + h} \chi_{-4}(d)$; then the sum becomes a sum of $r_2(n)$ over the progressions $n \equiv -h \bmod d$, weighted by $\chi_{-4}(d)$. This is where Smith's progression results enter, and why he needed them for moduli as large as $\sqrt{x}$.
+- **Kloosterman sums and spectral theory.** The resulting sums of Kloosterman-type sums over the modulus are handled by the Kuznetsov formula for $\Gamma_0(4)$, exactly as in Lecture 2, which gives $x^{2/3}$.
+- **Quadratic forms.** Alternatively, the sum counts integer zeros of the indefinite quaternary form $c^2 + d^2 - a^2 - b^2 - h$ in a growing region. Versions of the circle method designed for quadratic forms, such as the $\delta$-method of Duke, Friedlander and Iwaniec, give a second route to the asymptotic.
+
+## Sums of two squares at polynomial values
+
+Finally, one can ask about $r_2(f(n))$, or about $f(n)$ being a sum of two squares, for a polynomial $f$. The simplest case reduces to Lecture 2. Every odd divisor $d$ of $n^2 + 1$ is a product of primes $\equiv 1 \bmod 4$, so $\chi_{-4}(d) = 1$, and $4 \nmid n^2 + 1$. Jacobi's formula therefore gives
+$$
+r_2(n^2 + 1) = \begin{cases} 4\, \tau(n^2 + 1) & n \text{ even}, \\ 2\, \tau(n^2 + 1) & n \text{ odd}, \end{cases}
+$$
+for instance $\sum_{n \le 10} r_2(n^2 + 1) = 4 + 8 + 8 + 8 + 8 + 8 + 12 + 16 + 8 + 8 = 88$. So the asymptotic for $\sum \tau(n^2 + 1)$ from Lecture 2 shows that $\sum_{n \le x} r_2(n^2 + 1)$ has order $x \log x$, and the same methods (split by the parity of $n$) give its asymptotic. For other quadratics, and for higher degree, the situation is the same as for $\tau(f(n))$: quadratics are understood, cubics are open.
+
+The deeper questions are about primes. Since a prime $p$ is a sum of two squares exactly when $p = 2$ or $p \equiv 1 \bmod 4$, the primes $p = a^2 + b^2$ are well understood, but restricting $a$ or $b$ to a sparse set is hard.
+
+- **Shifted forms.** Iwaniec (1972) introduced the half-dimensional sieve to show that shifted binary quadratic forms such as $a^2 + b^2 + 1$ take prime values infinitely often, with upper and lower bounds of the right order. Equivalently, there are infinitely many primes $p$ with $p - 1$ a sum of two squares.
+- **Primes with a prime coordinate.** Fouvry and Iwaniec (1997) gave an asymptotic formula for the number of primes $p = a^2 + b^2 \le x$ with $b$ also prime, and more generally with $b$ restricted to suitable sets of density as small as $(\log x)^{-C}$.
+- **A thin polynomial.** Friedlander and Iwaniec (1998) proved that $a^2 + b^4$ takes infinitely many prime values, with an asymptotic formula for their number. This is remarkable because fewer than $x^{3/4}$ integers up to $x$ have this form, so the set is far too thin for the usual sieve arguments. Heath-Brown (2001) did the same for $a^3 + 2b^3$, a set of integers of size about $x^{2/3}$.
+- **Open.** Whether $n^2 + 1$ is prime infinitely often — the one-variable case $b = 1$ of all of the above — is open.
+
+### The method
+
+1. **Reduction to divisor sums.** When $f(n)$ is automatically a norm from $\mathbb{Z}[i]$, as for $n^2 + 1 = (n + i)(n - i)$, Jacobi's formula makes $r_2(f(n))$ a divisor sum with a character, and the methods of Lecture 2 (switching divisors, roots of $f$ modulo $d$ and their equidistribution) apply directly.
+2. **Half-dimensional sieve.** To detect whether $f(n)$ is a sum of two squares one must sift out the primes $p \equiv 3 \bmod 4$ dividing $f(n)$ to an odd power. That is a sieve of dimension $\tfrac12$, where — unlike in dimension $1$ — Iwaniec showed that upper and lower bounds of the same order can be obtained.
+3. **Bilinear forms and the parity barrier.** Selberg's parity problem prevents sieve methods alone from detecting primes. Friedlander and Iwaniec overcame it for $a^2 + b^4$ by proving an estimate for bilinear forms (Type II sums) in the Gaussian integers, using the factorization $a^2 + b^4 = (a + b^2 i)(a - b^2 i)$; Heath-Brown did the same in $\mathbb{Z}[\sqrt[3]{2}]$ for $a^3 + 2b^3$.
+
+Further reading: E. Grosswald, *Representations of Integers as Sums of Squares*, for Jacobi's formula and its relatives; M. N. Huxley, *Area, Lattice Points, and Exponential Sums*, for the circle problem and the Bombieri–Iwaniec method; A. Ivić, E. Krätzel, M. Kühleitner and W. G. Nowak, "Lattice points in large regions and related arithmetic functions: recent developments in a very classic topic", for a survey of the circle problem and its variants; H. Iwaniec and E. Kowalski, *Analytic Number Theory*, for theta functions, Kloosterman sums and the Kuznetsov formula; J. Friedlander and H. Iwaniec, *Opera de Cribro*, for the semi-linear (half-dimensional) sieve and the parity problem.
