@@ -45,6 +45,12 @@ export const parts: Part[] = [
         summary:
           "Counting lattice points in a disc, from Gauss's area argument to the hyperbola method and L(1, χ) = π/4, and the open problem of the error term and its relatives.",
       },
+      {
+        slug: "sums-of-two-squares",
+        title: "Integers That Are Sums of Two Squares",
+        summary:
+          "The indicator b(n) rather than the representation count: Landau's x/√(log x) law and why its generating function has a branch point instead of a pole, then gaps and short intervals, arithmetic progressions, consecutive sums of two squares and polynomial values.",
+      },
     ],
   },
 ];
