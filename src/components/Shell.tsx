@@ -62,7 +62,7 @@ function Sidebar({
     .replace(/^index$/, "");
 
   return (
-    <nav className="space-y-6 text-sm" aria-label="Lectures">
+    <nav className="space-y-6 text-sm" aria-label="Sections">
       <Link
         href="/"
         onClick={onNavigate}

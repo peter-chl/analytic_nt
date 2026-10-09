@@ -1,6 +1,6 @@
 The number of divisors of $n$ jumps around without any visible pattern: $\tau(12) = 6$, $\tau(13) = 2$, $\tau(720720) = 240$. Averaged over $n \le x$, though, it settles down to a smooth function of $x$, and the question of *how* smooth turns out to be one of the oldest open problems in analytic number theory. The divisor function is also a model case. Almost every technique in the subject — elementary counting, contour integration, exponential sums, Kloosterman sums, spectral theory of automorphic forms — was either first developed for it or is most easily seen on it.
 
-This lecture first derives the average of $\tau(n)$ in two ways: a trivial count, and Dirichlet's hyperbola method, which does much better with no extra machinery. It then surveys five directions of current research that grow out of that one formula.
+This section first derives the average of $\tau(n)$ in two ways: a trivial count, and Dirichlet's hyperbola method, which does much better with no extra machinery. It then surveys five directions of current research that grow out of that one formula.
 
 ## The divisor function
 
@@ -44,7 +44,7 @@ Count the lattice points under the hyperbola column by column. For each $a \le x
 $$
 D(x) = \sum_{a \le x} \left\lfloor \frac{x}{a} \right\rfloor .
 $$
-Write $\lfloor x/a \rfloor = x/a - \{x/a\}$, where $0 \le \{t\} < 1$ is the fractional part. The smooth part gives $x \sum_{a \le x} 1/a = x \log x + \gamma x + O(1)$ by Lecture 1, and the fractional parts contribute a sum of $\lfloor x \rfloor$ numbers each in $[0, 1)$. Therefore
+Write $\lfloor x/a \rfloor = x/a - \{x/a\}$, where $0 \le \{t\} < 1$ is the fractional part. The smooth part gives $x \sum_{a \le x} 1/a = x \log x + \gamma x + O(1)$ by Section 1, and the fractional parts contribute a sum of $\lfloor x \rfloor$ numbers each in $[0, 1)$. Therefore
 
 <Result name="Trivial estimate">
 $$
@@ -117,7 +117,7 @@ The table lists $D(x)$, computed exactly with the hyperbola identity, against th
 | $10^{10}$ | $231\,802\,823\,220$ | $231\,802\,822\,597.44$ | $622.56$ | $1.97$ | $0.154431$ |
 | $10^{12}$ | $27\,785\,452\,449\,086$ | $27\,785\,452\,445\,731.62$ | $3354.39$ | $3.35$ | $0.154431$ |
 
-The last column converges to $2\gamma - 1 = 0.154431\ldots$, the constant the trivial count cannot see. More striking is the fourth column: $\Delta(x)$ is far smaller than the bound $\sqrt{x}$ (which is $10^6$ at $x = 10^{12}$), and $\Delta(x)/x^{1/4}$ stays of order $1$. The rest of the lecture is, in large part, about explaining this.
+The last column converges to $2\gamma - 1 = 0.154431\ldots$, the constant the trivial count cannot see. More striking is the fourth column: $\Delta(x)$ is far smaller than the bound $\sqrt{x}$ (which is $10^6$ at $x = 10^{12}$), and $\Delta(x)/x^{1/4}$ stays of order $1$. The rest of the section is, in large part, about explaining this.
 </Example>
 
 ## Better error terms, and what RH says

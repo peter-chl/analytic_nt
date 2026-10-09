@@ -4,9 +4,9 @@ Whether $n$ is squarefree depends on its factorization, so individual values loo
 $$
 \prod_p \left( 1 - \frac{1}{p^2} \right) = \frac{1}{\zeta(2)} = \frac{6}{\pi^2} = 0.6079\ldots
 $$
-This heuristic turns out to be exactly right, and it is easy to prove. What is hard is the error term. Here the story differs sharply from the divisor problem of Lecture 2: the generating function of squarefree numbers is $\zeta(s)/\zeta(2s)$, which has a pole at every zero of $\zeta(2s)$, so the error term is tied directly to the Riemann hypothesis.
+This heuristic turns out to be exactly right, and it is easy to prove. What is hard is the error term. Here the story differs sharply from the divisor problem of Section 2: the generating function of squarefree numbers is $\zeta(s)/\zeta(2s)$, which has a pole at every zero of $\zeta(2s)$, so the error term is tied directly to the Riemann hypothesis.
 
-This lecture first counts squarefree numbers in two ways: a sieve over small primes, and a count organized by the size of the square divisor, which does much better. It then surveys five research directions parallel to those of Lecture 2.
+This section first counts squarefree numbers in two ways: a sieve over small primes, and a count organized by the size of the square divisor, which does much better. It then surveys five research directions parallel to those of Section 2.
 
 ## The squarefree indicator
 
@@ -29,7 +29,7 @@ Like $\tau$, the function $\mu^2$ is multiplicative, with $\mu^2(p) = 1$ and $\m
 $$
 \sum_{n = 1}^{\infty} \frac{\mu^2(n)}{n^s} = \frac{\zeta(s)}{\zeta(2s)} \qquad (\sigma > 1).
 $$
-The pole of $\zeta(s)$ at $s = 1$ has residue $1$, so the residue of $\zeta(s)/\zeta(2s)$ there is $1/\zeta(2) = 6/\pi^2$ — the expected density. But $\zeta(2s)$ in the denominator contributes a pole at $s = \rho/2$ for every zero $\rho$ of $\zeta$. That single fact governs most of this lecture.
+The pole of $\zeta(s)$ at $s = 1$ has residue $1$, so the residue of $\zeta(s)/\zeta(2s)$ there is $1/\zeta(2) = 6/\pi^2$ — the expected density. But $\zeta(2s)$ in the denominator contributes a pole at $s = \rho/2$ for every zero $\rho$ of $\zeta$. That single fact governs most of this section.
 
 Some basic facts are elementary. Among any four consecutive integers one is divisible by $4$, so there are never more than three consecutive squarefree numbers. In the other direction, the Chinese remainder theorem gives an $n$ with $n + i \equiv 0 \pmod{p_i^2}$ for $i = 1, \dots, k$, where $p_i$ is the $i$-th prime, so there are arbitrarily long runs of consecutive non-squarefree numbers.
 
@@ -93,7 +93,7 @@ The comparison with primes is instructive. For primes, the Legendre sieve is a s
 
 ### The hyperbola method again
 
-The sum $Q(x) = \sum_{d^2 m \le x} \mu(d)$ runs over the lattice points $(d, m)$ under the curve $d^2 m = x$, just as $D(x)$ in Lecture 2 counted the points under $ab = x$. Dirichlet's hyperbola method applies. With the Mertens function $M(y) = \sum_{d \le y} \mu(d)$ and any $1 \le y \le \sqrt{x}$,
+The sum $Q(x) = \sum_{d^2 m \le x} \mu(d)$ runs over the lattice points $(d, m)$ under the curve $d^2 m = x$, just as $D(x)$ in Section 2 counted the points under $ab = x$. Dirichlet's hyperbola method applies. With the Mertens function $M(y) = \sum_{d \le y} \mu(d)$ and any $1 \le y \le \sqrt{x}$,
 $$
 Q(x) = \sum_{d \le y} \mu(d) \left\lfloor \frac{x}{d^2} \right\rfloor + \sum_{m \le x/y^2} M\!\left( \sqrt{x/m} \right) - M(y) \left\lfloor \frac{x}{y^2} \right\rfloor .
 $$
@@ -121,7 +121,7 @@ The table lists $Q(x)$, computed exactly from the sum over $d \le \sqrt{x}$ (for
 | $10^{14}$ | $60\,792\,710\,185\,947$ | $60\,792\,710\,185\,402.66$ | $544.34$ | $0.172$ |
 | $10^{16}$ | $6\,079\,271\,018\,540\,405$ | $6\,079\,271\,018\,540\,266.29$ | $138.71$ | $0.014$ |
 
-At $x = 10^{16}$ the bound $\sqrt{x}$ is $10^8$, while the actual error is $139$. As in Lecture 2, $E(x)/x^{1/4}$ stays of order $1$ and changes sign. The difference is in the explanation: here the size $x^{1/4}$ comes from the zeros of $\zeta$.
+At $x = 10^{16}$ the bound $\sqrt{x}$ is $10^8$, while the actual error is $139$. As in Section 2, $E(x)/x^{1/4}$ stays of order $1$ and changes sign. The difference is in the explanation: here the size $x^{1/4}$ comes from the zeros of $\zeta$.
 </Example>
 
 ## Better error terms, and what RH says
@@ -133,7 +133,7 @@ $$
 for some $c > 0$. This saves less than any power of $x$, exactly like the error term in the prime number theorem — and for the same reason.
 
 <Remark name="Here RH does help">
-Lecture 2 explained that RH does not help the divisor problem, because $\zeta(s)^2$ has no pole at a zero of $\zeta$. For squarefree numbers the opposite holds. Perron's formula gives
+Section 2 explained that RH does not help the divisor problem, because $\zeta(s)^2$ has no pole at a zero of $\zeta$. For squarefree numbers the opposite holds. Perron's formula gives
 $$
 Q(x) = \frac{1}{2\pi i} \int_{c - i\infty}^{c + i\infty} \frac{\zeta(s)}{\zeta(2s)} \frac{x^s}{s}\, ds ,
 $$
@@ -244,7 +244,7 @@ all within $11$ of the prediction. The class $a = 0$ gets $75\,994$, fewer than 
 
 1. **Small square divisors.** As before, $Q(x; q, a) = \sum_{\gcd(d, q) = 1} \mu(d) \#\{ m \le x/d^2 : d^2 m \equiv a \bmod q \}$. For each $d$ the condition fixes $m \equiv a \bar{d}^2 \pmod q$, so for $d \le \sqrt{x/q}$ the count is $x/(d^2 q) + O(1)$.
 2. **Large square divisors.** For $d \gt \sqrt{x/q}$ the range $m \le x/d^2$ is shorter than $q$, so each $d$ contributes $0$ or $1$ according to where the residue $a\bar{d}^2 \bmod q$ falls. One needs the fractions $a\bar{d}^2/q$ to be equidistributed as $d$ varies, which leads to exponential sums $\sum_d e(h a \bar{d}^2/q)$ — close relatives of Kloosterman sums.
-3. **Weil's bound** for these sums gives square-root cancellation and the error $q^{1/2 + \varepsilon}$; this is the source of $\tfrac23$. Going further requires cancellation in bilinear sums over $d$ (Nunes), or the $q$-van der Corput method for smooth moduli (Mangerel), exactly as for $\tau$ in Lecture 2.
+3. **Weil's bound** for these sums gives square-root cancellation and the error $q^{1/2 + \varepsilon}$; this is the source of $\tfrac23$. Going further requires cancellation in bilinear sums over $d$ (Nunes), or the $q$-van der Corput method for smooth moduli (Mangerel), exactly as for $\tau$ in Section 2.
 
 ## Correlations: consecutive squarefree numbers and $k$-tuples
 
@@ -300,13 +300,13 @@ The first $n$ with $n^2 + 1$ not squarefree are $7, 18, 32, 38, 41, 43, 57$; for
 | $10^6$ | $894\,856$ | $894\,841.23$ |
 </Example>
 
-**Degree at most $2$.** For linear and quadratic $f$ the conjecture follows from a sieve like the one in this lecture. Estermann (1931) proved it for $n^2 + 1$ with error $O(x^{2/3} \log x)$. Heath-Brown (2012) improved the error to $O(x^{7/12 + \varepsilon})$, by counting rational points near a curve with the determinant method; he also observed that the error is $\Omega(\log x)$, because there are intervals of length $c \log x$ in which every $n^2 + 1$ has a square factor.
+**Degree at most $2$.** For linear and quadratic $f$ the conjecture follows from a sieve like the one in this section. Estermann (1931) proved it for $n^2 + 1$ with error $O(x^{2/3} \log x)$. Heath-Brown (2012) improved the error to $O(x^{7/12 + \varepsilon})$, by counting rational points near a curve with the determinant method; he also observed that the error is $\Omega(\log x)$, because there are intervals of length $c \log x$ in which every $n^2 + 1$ has a square factor.
 
 **Degree $3$.** Erdős (1953) proved that an irreducible cubic, under the natural local conditions, takes infinitely many squarefree values, and Hooley later proved the asymptotic $c_f x$. Helfgott (2014) proved the much harder statement for prime arguments: for cubic $f$ satisfying the local conditions, $f(p)$ is squarefree for infinitely many primes $p$, a problem posed by Erdős. Booker and Browning (2016) combined squarefree and almost-prime conditions for reducible polynomials whose factors have degree at most $3$.
 
 **Degree $4$ and higher.** For a single irreducible polynomial of degree $4$ or more — even for $n^4 + 2$ — it is not known that $f(n)$ is squarefree infinitely often. Granville (1998) proved that the $abc$ conjecture implies the asymptotic $c_f x$ for every $f$, and Poonen (2003) extended this to polynomials in several variables, again assuming $abc$; Poonen also proved the corresponding statement for $\gcd(f(\mathbf{x}), g(\mathbf{x})) = 1$ unconditionally.
 
-**Many variables.** With more variables the problem gets easier, as for divisor sums of binary forms in Lecture 2. Bhargava's **geometric sieve** (2014) determines the density of squarefree values for invariant polynomials of certain group actions, including discriminants. One consequence: a positive proportion of $S_n$-number fields of degree $n = 3, 4, 5$ have squarefree discriminant, with the density computed exactly. Bhargava, Shankar and Wang (2025) proved that integral binary forms of any given degree have squarefree discriminant with positive lower density.
+**Many variables.** With more variables the problem gets easier, as for divisor sums of binary forms in Section 2. Bhargava's **geometric sieve** (2014) determines the density of squarefree values for invariant polynomials of certain group actions, including discriminants. One consequence: a positive proportion of $S_n$-number fields of degree $n = 3, 4, 5$ have squarefree discriminant, with the density computed exactly. Bhargava, Shankar and Wang (2025) proved that integral binary forms of any given degree have squarefree discriminant with positive lower density.
 
 ### The method
 

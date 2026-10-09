@@ -1,4 +1,4 @@
-The integers are as discrete as anything in mathematics. There is no limit, no derivative and no integral in the statement "there are $25$ primes up to $100$". Yet some of the deepest facts about the integers — how many primes lie below $x$, how they split among residue classes, how often $n$ has many divisors — were first proved, and in many cases can only be proved, with calculus, complex analysis and Fourier analysis. This lecture explains why that works.
+The integers are as discrete as anything in mathematics. There is no limit, no derivative and no integral in the statement "there are $25$ primes up to $100$". Yet some of the deepest facts about the integers — how many primes lie below $x$, how they split among residue classes, how often $n$ has many divisors — were first proved, and in many cases can only be proved, with calculus, complex analysis and Fourier analysis. This section explains why that works.
 
 The short answer: most natural questions about the integers are not questions about one integer but about **how many** integers have a property, up to a large bound $x$. A count up to $x$ is a function of a real variable. As $x$ grows, the individual integers blur together and the count starts to behave like a smooth function — and smooth functions are what analysis is built for.
 
@@ -28,7 +28,7 @@ Much of the subject is a contest over error terms: the main term is usually easy
 
 ## Why analysis applies
 
-There are three main bridges from the discrete to the continuous. Every later lecture uses at least one of them.
+There are three main bridges from the discrete to the continuous. Every later section uses at least one of them.
 
 ### Sums become integrals
 
@@ -45,7 +45,7 @@ Taking $a(n) = 1$, so that $A(t) = \lfloor t \rfloor = t - \{t\}$, and $\phi(t) 
 $$
 \sum_{n \le x} \frac{1}{n} = \log x + \gamma + O\!\left(\frac{1}{x}\right),
 $$
-where $\gamma = 0.5772\ldots$ is Euler's constant. The integer part $\lfloor t \rfloor$ has been split into a smooth piece $t$, which produces the main term $\log x$, and a bounded oscillating piece $\{t\}$, which produces the constant and the error. This "smooth part plus fluctuation" split recurs throughout the subject; Lecture 2 applies it to the divisor function.
+where $\gamma = 0.5772\ldots$ is Euler's constant. The integer part $\lfloor t \rfloor$ has been split into a smooth piece $t$, which produces the main term $\log x$, and a bounded oscillating piece $\{t\}$, which produces the constant and the error. This "smooth part plus fluctuation" split recurs throughout the subject; Section 2 applies it to the divisor function.
 
 ### Generating functions turn multiplication into analysis
 
@@ -82,7 +82,7 @@ To count integers in a residue class or with an additive property, we expand the
 $$
 \mathbf{1}_{n \equiv a \ (\mathrm{mod}\ q)} = \frac{1}{q} \sum_{r=0}^{q-1} e\!\left(\frac{r(n - a)}{q}\right), \qquad e(\theta) = e^{2\pi i \theta}.
 $$
-For multiplicative questions one uses Dirichlet characters instead of additive characters, which leads to Dirichlet $L$-functions — the tool Dirichlet introduced in 1837 to prove that every residue class $a$ mod $q$ with $\gcd(a, q) = 1$ contains infinitely many primes. Additive characters lead to exponential sums $\sum e(f(n))$, whose cancellation is the engine behind most improved error terms in Lecture 2.
+For multiplicative questions one uses Dirichlet characters instead of additive characters, which leads to Dirichlet $L$-functions — the tool Dirichlet introduced in 1837 to prove that every residue class $a$ mod $q$ with $\gcd(a, q) = 1$ contains infinitely many primes. Additive characters lead to exponential sums $\sum e(f(n))$, whose cancellation is the engine behind most improved error terms in Section 2.
 
 ## The main results this leads to
 
@@ -138,13 +138,13 @@ Three lessons can be read off the table:
 
 ## Extensions
 
-The same three bridges extend in several directions that later lectures develop:
+The same three bridges extend in several directions that later sections develop:
 
 - **Lattice-point problems.** $\sum_{n \le x} \tau(n)$ counts lattice points under the hyperbola $ab = x$, and $\sum_{n \le x} r_2(n)$ counts lattice points in a disc. The main term is an area, and the error term measures how lattice points fluctuate near a curved boundary — a problem in exponential sums.
 - **$L$-functions.** Replacing $\zeta(s)$ by $L(s, \chi)$, or by $L$-functions attached to modular forms, carries the method to arithmetic progressions, quadratic forms and Fourier coefficients of automorphic forms.
 - **Sieve methods.** When an Euler product is not available, sieves estimate counts by inclusion–exclusion with carefully truncated weights, again producing main terms and error terms.
 - **The circle method.** Fourier analysis on $\mathbb{R}/\mathbb{Z}$ counts representations of integers as sums of primes or powers (Waring's problem, Goldbach-type problems).
 
-Lecture 2 puts all of this to work on a single arithmetic function: the number of divisors.
+Section 2 puts all of this to work on a single arithmetic function: the number of divisors.
 
 Further reading: T. M. Apostol, *Introduction to Analytic Number Theory* (the gentlest start); H. Davenport, *Multiplicative Number Theory*; H. L. Montgomery and R. C. Vaughan, *Multiplicative Number Theory I: Classical Theory*; G. Tenenbaum, *Introduction to Analytic and Probabilistic Number Theory*; H. Iwaniec and E. Kowalski, *Analytic Number Theory*.

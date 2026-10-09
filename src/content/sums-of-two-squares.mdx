@@ -1,8 +1,8 @@
-Lecture 4 counted lattice points in a disc, which is the same as averaging $r_2(n)$, the number of ways to write $n$ as a sum of two squares. A more basic question ignores multiplicity: **which** integers are sums of two squares, and how many are there up to $x$? The integers $1, 2, 4, 5, 8, 9, 10, 13, \ldots$ are; $3, 6, 7, 11, 12, \ldots$ are not. The answer to the counting question is due to Landau (1908): about $0.764\, x/\sqrt{\log x}$ of the integers up to $x$ are sums of two squares. So they have density zero, yet the total number of representations is $\pi x$ — a thin set of integers carries many representations each.
+Section 4 counted lattice points in a disc, which is the same as averaging $r_2(n)$, the number of ways to write $n$ as a sum of two squares. A more basic question ignores multiplicity: **which** integers are sums of two squares, and how many are there up to $x$? The integers $1, 2, 4, 5, 8, 9, 10, 13, \ldots$ are; $3, 6, 7, 11, 12, \ldots$ are not. The answer to the counting question is due to Landau (1908): about $0.764\, x/\sqrt{\log x}$ of the integers up to $x$ are sums of two squares. So they have density zero, yet the total number of representations is $\pi x$ — a thin set of integers carries many representations each.
 
-The two functions behave very differently. The representation count has a clean Dirichlet series, $4\zeta(s) L(s, \chi_{-4})$, with a simple pole at $s = 1$; that pole gives $\pi x$, and the difficulty of the circle problem lies entirely in the error term. The indicator of sums of two squares has a generating function that behaves like $\big( \zeta(s) L(s, \chi_{-4}) \big)^{1/2}$: a square root of a pole, which is a **branch point**. The factor $1/\sqrt{\log x}$ is the trace of that square root, and it is also why the error term is only a power of $\log x$ smaller than the main term, never a power of $x$. Branch points are a new phenomenon in this course, and the tool built for them, the Selberg–Delange method, is the main technique of this lecture.
+The two functions behave very differently. The representation count has a clean Dirichlet series, $4\zeta(s) L(s, \chi_{-4})$, with a simple pole at $s = 1$; that pole gives $\pi x$, and the difficulty of the circle problem lies entirely in the error term. The indicator of sums of two squares has a generating function that behaves like $\big( \zeta(s) L(s, \chi_{-4}) \big)^{1/2}$: a square root of a pole, which is a **branch point**. The factor $1/\sqrt{\log x}$ is the trace of that square root, and it is also why the error term is only a power of $\log x$ smaller than the main term, never a power of $x$. Branch points are a new phenomenon in this course, and the tool built for them, the Selberg–Delange method, is the main technique of this section.
 
-As in Lectures 2–4, we first count in two ways — elementary bounds and Landau's analytic method — and then survey five directions of research.
+As in Sections 2–4, we first count in two ways — elementary bounds and Landau's analytic method — and then survey five directions of research.
 
 ## Sums of two squares without multiplicity
 
@@ -13,7 +13,7 @@ B(x) = \sum_{n \le x} b(n) = \#\{ n \le x : n \text{ is a sum of two squares} \}
 $$
 </Definition>
 
-Since $r_2(n) \ge 4$ whenever $r_2(n) > 0$ (change the signs and order of a representation), we have $b(n) = \mathbf{1}[r_2(n) > 0]$ and $b(n) \le r_2(n)/4$ for $n \ge 1$. Lecture 4 read off from Jacobi's formula which $n$ have $r_2(n) > 0$:
+Since $r_2(n) \ge 4$ whenever $r_2(n) > 0$ (change the signs and order of a representation), we have $b(n) = \mathbf{1}[r_2(n) > 0]$ and $b(n) \le r_2(n)/4$ for $n \ge 1$. Section 4 read off from Jacobi's formula which $n$ have $r_2(n) > 0$:
 
 <Result name="Fermat and Euler; the characterization">
 A prime $p$ is a sum of two squares exactly when $p = 2$ or $p \equiv 1 \pmod 4$. A positive integer $n$ is a sum of two squares exactly when every prime $p \equiv 3 \pmod 4$ divides $n$ to an even power.
@@ -23,9 +23,9 @@ The first statement is Fermat's two-squares theorem, first proved by Euler; the 
 
 - **Multiplicativity.** $b$ is multiplicative, with $b(2^k) = 1$, $b(p^k) = 1$ for $p \equiv 1 \bmod 4$, and $b(p^k) = 1$ or $0$ for $p \equiv 3 \bmod 4$ according as $k$ is even or odd. It is not completely multiplicative, since $b(3)^2 = 0$ while $b(9) = 1$, but the identity above gives $b(mn) \ge b(m) b(n)$ for all $m, n$.
 - **Local obstructions.** Odd sums of two squares are $\equiv 1 \bmod 4$, and $b(2n) = b(n)$. Among four consecutive integers one is $\equiv 3 \bmod 4$, so there are never four consecutive sums of two squares; three occur, for instance $8, 9, 10$.
-- **Square part.** Write $n = m^2 s$ with $s$ squarefree. Then $b(n) = 1$ exactly when $s$ has no prime factor $\equiv 3 \bmod 4$. If $\sigma(s)$ is the indicator of such squarefree $s$, then $b(n) = \sum_{m^2 \mid n} \sigma(n/m^2)$, as for squarefree numbers in Lecture 3.
+- **Square part.** Write $n = m^2 s$ with $s$ squarefree. Then $b(n) = 1$ exactly when $s$ has no prime factor $\equiv 3 \bmod 4$. If $\sigma(s)$ is the indicator of such squarefree $s$, then $b(n) = \sum_{m^2 \mid n} \sigma(n/m^2)$, as for squarefree numbers in Section 3.
 
-The Euler product of $b$ explains the rest of the lecture. It is
+The Euler product of $b$ explains the rest of the section. It is
 $$
 F(s) = \sum_{n=1}^{\infty} \frac{b(n)}{n^s} = \frac{1}{1 - 2^{-s}} \prod_{p \equiv 1 \bmod 4} \frac{1}{1 - p^{-s}} \prod_{p \equiv 3 \bmod 4} \frac{1}{1 - p^{-2s}} \qquad (\sigma > 1).
 $$
@@ -42,13 +42,13 @@ Near $s = 1$, $\zeta(s) L(s, \chi_{-4})$ has a simple pole with residue $L(1, \c
 
 ## Elementary bounds
 
-The square part identity gives an exact count, the analogue of the count by the square divisor in Lecture 3:
+The square part identity gives an exact count, the analogue of the count by the square divisor in Section 3:
 $$
 B(x) = \sum_{m \le \sqrt{x}} S\!\left( \frac{x}{m^2} \right), \qquad S(y) = \#\{ s \le y : s \text{ squarefree, no prime factor} \equiv 3 \bmod 4 \}.
 $$
-Unlike in Lecture 3, this does not lead to an asymptotic formula: $S$ is just as hard to count as $B$. What one can get cheaply are bounds.
+Unlike in Section 3, this does not lead to an asymptotic formula: $S$ is just as hard to count as $B$. What one can get cheaply are bounds.
 
-**An upper bound by sieving.** If $b(n) = 1$, then no prime $p \equiv 3 \bmod 4$ divides $n$ exactly once. Fix $z$ and keep only the primes $p \equiv 3 \bmod 4$ with $p \le z$. Whether $p$ divides $n$ exactly once depends only on $n \bmod p^2$, and happens for a proportion $(p - 1)/p^2$ of all $n$. Inclusion–exclusion over the subsets of these primes, as in the sieve of Lecture 3, gives
+**An upper bound by sieving.** If $b(n) = 1$, then no prime $p \equiv 3 \bmod 4$ divides $n$ exactly once. Fix $z$ and keep only the primes $p \equiv 3 \bmod 4$ with $p \le z$. Whether $p$ divides $n$ exactly once depends only on $n \bmod p^2$, and happens for a proportion $(p - 1)/p^2$ of all $n$. Inclusion–exclusion over the subsets of these primes, as in the sieve of Section 3, gives
 $$
 B(x) \le x \prod_{\substack{p \le z \\ p \equiv 3 \bmod 4}} \left( 1 - \frac{p - 1}{p^2} \right) + O\big( 3^{\pi(z)} \big).
 $$
@@ -58,7 +58,7 @@ The product behaves like $\prod_{p \le z,\, p \equiv 3 (4)} (1 - 1/p)$, which by
 $$
 \Big( \sum_{1 \le n \le x} r_2(n) \Big)^2 \le B(x) \sum_{n \le x} r_2(n)^2 .
 $$
-The left side is $(N(x) - 1)^2 \sim \pi^2 x^2$ by Lecture 4. The Dirichlet series of $r_2(n)^2$, given there, has a double pole at $s = 1$, and its leading coefficient gives $\sum_{n \le x} r_2(n)^2 \sim 4x \log x$. Hence $B(x) \ge (\tfrac{\pi^2}{4} + o(1))\, x/\log x$. At $x = 10^6$ this inequality, with the exact sums $3\,141\,548$ and $63\,325\,040$, gives $B(10^6) \ge 155\,852$; the true value is $216\,341$.
+The left side is $(N(x) - 1)^2 \sim \pi^2 x^2$ by Section 4. The Dirichlet series of $r_2(n)^2$, given there, has a double pole at $s = 1$, and its leading coefficient gives $\sum_{n \le x} r_2(n)^2 \sim 4x \log x$. Hence $B(x) \ge (\tfrac{\pi^2}{4} + o(1))\, x/\log x$. At $x = 10^6$ this inequality, with the exact sums $3\,141\,548$ and $63\,325\,040$, gives $B(10^6) \ge 155\,852$; the true value is $216\,341$.
 
 <Result name="Elementary bounds">
 $$
@@ -74,7 +74,7 @@ Perron's formula gives, for $c > 1$,
 $$
 B(x) = \frac{1}{2\pi i} \int_{c - i\infty}^{c + i\infty} F(s) \frac{x^s}{s}\, ds .
 $$
-In Lectures 2–4 the next step was to move the contour to the left and collect residues. Here $F(s) = (s - 1)^{-1/2} H(s)$ with $H$ holomorphic near $s = 1$, and $(s - 1)^{-1/2}$ needs a branch cut, which we place along the real axis to the left of $1$. The contour can still be moved left, but it must wrap around the cut. That piece is a **Hankel contour**, and the basic integral over it is
+In Sections 2–4 the next step was to move the contour to the left and collect residues. Here $F(s) = (s - 1)^{-1/2} H(s)$ with $H$ holomorphic near $s = 1$, and $(s - 1)^{-1/2}$ needs a branch cut, which we place along the real axis to the left of $1$. The contour can still be moved left, but it must wrap around the cut. That piece is a **Hankel contour**, and the basic integral over it is
 $$
 \frac{1}{2\pi i} \int_{\mathcal{H}} (s - 1)^{-w} x^{s}\, ds = \frac{x (\log x)^{w - 1}}{\Gamma(w)} + (\text{small}).
 $$
@@ -151,7 +151,7 @@ M(x) = \frac{1}{\pi} \int_{1/2}^{1} \sqrt{|\zeta(\sigma)|\, L(\sigma, \chi_{-4})
 $$
 which is the column $M(x)$ of the table. It tracks $B(x)$ to within $0.22\sqrt{x}$ throughout the table, compared with an error of $0.003 x$ for two terms of the expansion at $x = 10^{10}$.
 
-How small $B(x) - M(x)$ is depends on how far left the contour can be moved, which is decided by the zeros of $\zeta(s)$ and $L(s, \chi_{-4})$. Each zero $\rho$ is a branch point of $F$, because $F$ involves their square root, and it needs its own cut. Unconditionally, the classical zero-free region gives $B(x) = M(x) + O\big( x e^{-c\sqrt{\log x}} \big)$, like the prime number theorem. Assuming the Riemann hypothesis for $\zeta$ and $L(s, \chi_{-4})$, all the cuts start on the line $\sigma = \tfrac12$, and the same contour argument gives $B(x) = M(x) + O(x^{1/2 + \varepsilon})$. So here, as for squarefree numbers in Lecture 3 and unlike for the divisor and circle problems, RH controls the error term: a zero with real part $\beta \gt \tfrac12$ would make itself felt as a term of size about $x^{\beta}$.
+How small $B(x) - M(x)$ is depends on how far left the contour can be moved, which is decided by the zeros of $\zeta(s)$ and $L(s, \chi_{-4})$. Each zero $\rho$ is a branch point of $F$, because $F$ involves their square root, and it needs its own cut. Unconditionally, the classical zero-free region gives $B(x) = M(x) + O\big( x e^{-c\sqrt{\log x}} \big)$, like the prime number theorem. Assuming the Riemann hypothesis for $\zeta$ and $L(s, \chi_{-4})$, all the cuts start on the line $\sigma = \tfrac12$, and the same contour argument gives $B(x) = M(x) + O(x^{1/2 + \varepsilon})$. So here, as for squarefree numbers in Section 3 and unlike for the divisor and circle problems, RH controls the error term: a zero with real part $\beta \gt \tfrac12$ would make itself felt as a term of size about $x^{\beta}$.
 
 ### Milestones
 
@@ -275,7 +275,7 @@ Both ratios decrease slowly, as one expects from lower-order terms in powers of 
 ### The method
 
 - **Upper bounds** come from the sieve: sifting both $n$ and $n + h$ by primes $p \equiv 3 \bmod 4$ is a sieve of dimension $1$ (two conditions of dimension $\tfrac12$), which gives $x/\log x$ up to a constant.
-- **Lower bounds** of the right order need more, since lower-bound sieves in dimension $1$ lose information. One way in is to replace one of the two indicators by $r_2$, which is a divisor sum: $\sum_n b(n)\, r_2(n + 1)$ opens into sums of $b$ over progressions to moduli $d$, as in the shifted convolution problem of Lecture 4.
+- **Lower bounds** of the right order need more, since lower-bound sieves in dimension $1$ lose information. One way in is to replace one of the two indicators by $r_2$, which is a divisor sum: $\sum_n b(n)\, r_2(n + 1)$ opens into sums of $b$ over progressions to moduli $d$, as in the shifted convolution problem of Section 4.
 - **Constructions** like the Pell argument produce special infinite families but no density.
 
 ## Sums of two squares at polynomial values
@@ -284,10 +284,10 @@ For a polynomial $f$, how often is $f(n)$ a sum of two squares? For norm forms t
 
 The independence heuristic predicts about $x/(\log x)^{3/2}$ such $p \le x$: the probability $1/\log x$ of being prime times $1/\sqrt{\log x}$.
 
-- **Infinitely many.** Linnik (1960) proved an asymptotic formula for $\sum_{p \le x} r_2(p - 1)$, using his dispersion method. This is the analogue for $r_2$ of the Titchmarsh divisor problem of Lecture 2, and it gives the first unconditional proof that infinitely many primes have the form $p = u^2 + v^2 + 1$.
+- **Infinitely many.** Linnik (1960) proved an asymptotic formula for $\sum_{p \le x} r_2(p - 1)$, using his dispersion method. This is the analogue for $r_2$ of the Titchmarsh divisor problem of Section 2, and it gives the first unconditional proof that infinitely many primes have the form $p = u^2 + v^2 + 1$.
 - **The right order.** Iwaniec (1972) introduced the half-dimensional sieve to show that the number of primes $p = u^2 + v^2 + 1 \le x$ is of exact order $x/(\log x)^{3/2}$, with upper and lower bounds of the same order. An asymptotic formula is not known unconditionally.
 - **Refinements.** Matomäki (2007) found such primes in short intervals. Teräväinen (2018) showed that almost all even integers satisfying the necessary local conditions are sums of two primes of this form, and that these primes contain infinitely many three-term arithmetic progressions. Nath and Xie (2026) combined the condition with $p + 2$ having a bounded number of prime factors.
-- **Primes that are sums of two squares** with a restriction on the coordinates, such as $p = a^2 + b^2$ with $b$ prime (Fouvry–Iwaniec) or $p = a^2 + b^4$ (Friedlander–Iwaniec), are counted with multiplicity and appear in Lecture 4.
+- **Primes that are sums of two squares** with a restriction on the coordinates, such as $p = a^2 + b^2$ with $b$ prime (Fouvry–Iwaniec) or $p = a^2 + b^4$ (Friedlander–Iwaniec), are counted with multiplicity and appear in Section 4.
 
 <Example name="Shifted primes">
 Up to $10^8$ there are $5\,761\,455$ primes, and $881\,536$ of them have $p - 1$ a sum of two squares ($880\,702$ have $p + 1$ a sum of two squares). The first few are $2, 3, 5, 11, 17, 19, 37, 41, 53, 59$. The ratio of the count to $x/(\log x)^{3/2}$ is $0.731$ at $x = 10^6$ and $0.697$ at $x = 10^8$, slowly decreasing as in the previous example.
@@ -295,8 +295,8 @@ Up to $10^8$ there are $5\,761\,455$ primes, and $881\,536$ of them have $p - 1$
 
 ### The method
 
-1. **Linnik's dispersion method** treats $\sum_p r_2(p - 1) = 4 \sum_p \sum_{d \mid p - 1} \chi_{-4}(d)$ as a problem about primes in progressions to moduli up to $\sqrt{x}$, like $\sum_p \tau(p - 1)$ in Lecture 2, where the Bombieri–Vinogradov theorem later gave a shorter route.
+1. **Linnik's dispersion method** treats $\sum_p r_2(p - 1) = 4 \sum_p \sum_{d \mid p - 1} \chi_{-4}(d)$ as a problem about primes in progressions to moduli up to $\sqrt{x}$, like $\sum_p \tau(p - 1)$ in Section 2, where the Bombieri–Vinogradov theorem later gave a shorter route.
 2. **The half-dimensional sieve.** To detect whether $p - 1$ is a sum of two squares one must sift out the primes $q \equiv 3 \bmod 4$ dividing it to an odd power, among the shifted primes. That is a sieve of dimension $\tfrac12$, and Iwaniec showed that in this dimension — unlike in dimension $1$ — upper and lower bounds of the same order can be obtained. The input is the level of distribution of primes in progressions, from Bombieri–Vinogradov.
 3. **Why there is no asymptotic.** Sieves give bounds of the right order but, because of the parity problem, not asymptotics. Replacing $b$ by $r_2$ removes the sieve and gives Linnik's asymptotic, but $r_2(p - 1)$ is large exactly when $p - 1$ has many prime factors $\equiv 1 \bmod 4$, so it cannot be converted back into a count.
 
-Further reading: G. H. Hardy, *Ramanujan: Twelve Lectures on Subjects Suggested by His Life and Work*, Lecture IV, for Landau's theorem and Ramanujan's version of it; G. Tenenbaum, *Introduction to Analytic and Probabilistic Number Theory*, for the Selberg–Delange method; D. Shanks, "The second-order term in the asymptotic expansion of $B(x)$" (Math. Comp., 1964), for $c_1$; B. C. Berndt and P. Moree, "Sums of two squares and the tau-function: Ramanujan's trail", for the history; O. Gorodetsky, "Sums of two squares are strongly biased towards quadratic residues" (Algebra & Number Theory, 2023), whose introduction surveys the distribution of sums of two squares; J. Friedlander and H. Iwaniec, *Opera de Cribro*, for the semi-linear (half-dimensional) sieve.
+Further reading: G. H. Hardy, *Ramanujan: Twelve Sections on Subjects Suggested by His Life and Work*, Section IV, for Landau's theorem and Ramanujan's version of it; G. Tenenbaum, *Introduction to Analytic and Probabilistic Number Theory*, for the Selberg–Delange method; D. Shanks, "The second-order term in the asymptotic expansion of $B(x)$" (Math. Comp., 1964), for $c_1$; B. C. Berndt and P. Moree, "Sums of two squares and the tau-function: Ramanujan's trail", for the history; O. Gorodetsky, "Sums of two squares are strongly biased towards quadratic residues" (Algebra & Number Theory, 2023), whose introduction surveys the distribution of sums of two squares; J. Friedlander and H. Iwaniec, *Opera de Cribro*, for the semi-linear (half-dimensional) sieve.

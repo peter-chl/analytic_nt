@@ -48,7 +48,7 @@ export default async function LecturePage({
     >
       <header className="mb-10">
         <div className="text-xs font-semibold uppercase tracking-wider text-muted">
-          Lecture {lecture.number} · {lecture.part}
+          Section {lecture.number} · {lecture.part}
         </div>
         <h1 className="mt-2 font-serif text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
           {lecture.title}
@@ -68,7 +68,7 @@ export default async function LecturePage({
             href={`/${prev.slug}`}
             className="rounded-md border border-border px-4 py-3 transition-colors hover:border-accent"
           >
-            <div className="text-xs text-muted">← Lecture {prev.number}</div>
+            <div className="text-xs text-muted">← Section {prev.number}</div>
             <div className="mt-0.5 text-sm font-medium">{prev.title}</div>
           </Link>
         ) : (
@@ -79,7 +79,7 @@ export default async function LecturePage({
             href={`/${next.slug}`}
             className="rounded-md border border-border px-4 py-3 text-right transition-colors hover:border-accent"
           >
-            <div className="text-xs text-muted">Lecture {next.number} →</div>
+            <div className="text-xs text-muted">Section {next.number} →</div>
             <div className="mt-0.5 text-sm font-medium">{next.title}</div>
           </Link>
         )}

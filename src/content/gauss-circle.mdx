@@ -1,6 +1,6 @@
-How many points of the integer lattice $\mathbb{Z}^2$ lie in a disc of radius $R$ centred at the origin? The answer is close to the area $\pi R^2$, and for $R = 10^9$ it is $3\,141\,592\,653\,589\,764\,829$, whose first fourteen digits are those of $\pi$. The question of *how* close is the **Gauss circle problem**. It is the twin of the Dirichlet divisor problem of Lecture 2: there we counted lattice points under a hyperbola, here inside a circle, and the two problems share their history, their methods and their best known exponents almost line for line.
+How many points of the integer lattice $\mathbb{Z}^2$ lie in a disc of radius $R$ centred at the origin? The answer is close to the area $\pi R^2$, and for $R = 10^9$ it is $3\,141\,592\,653\,589\,764\,829$, whose first fourteen digits are those of $\pi$. The question of *how* close is the **Gauss circle problem**. It is the twin of the Dirichlet divisor problem of Section 2: there we counted lattice points under a hyperbola, here inside a circle, and the two problems share their history, their methods and their best known exponents almost line for line.
 
-The circle problem is also a problem about arithmetic. A lattice point $(a, b)$ lies in the disc exactly when $a^2 + b^2 \le R^2$, so counting lattice points is the same as averaging the number of ways an integer can be written as a sum of two squares. This lecture first derives the count in two ways — Gauss's geometric argument and Dirichlet's hyperbola method, which explains where $\pi$ comes from arithmetically — and then surveys the same five directions of research as Lecture 2.
+The circle problem is also a problem about arithmetic. A lattice point $(a, b)$ lies in the disc exactly when $a^2 + b^2 \le R^2$, so counting lattice points is the same as averaging the number of ways an integer can be written as a sum of two squares. This section first derives the count in two ways — Gauss's geometric argument and Dirichlet's hyperbola method, which explains where $\pi$ comes from arithmetically — and then surveys the same five directions of research as Section 2.
 
 ## Sums of two squares
 
@@ -16,7 +16,7 @@ $$
 the number of lattice points in the closed disc of radius $\sqrt{x}$, and the error term is $P(x) = N(x) - \pi x$.
 </Definition>
 
-We use the radius squared, $x = R^2$, as the variable throughout, so that $N(x)$ is a summatory function in the sense of Lecture 1. Exponents below refer to $x$; papers that use the radius $R$ double them.
+We use the radius squared, $x = R^2$, as the variable throughout, so that $N(x)$ is a summatory function in the sense of Section 1. Exponents below refer to $x$; papers that use the radius $R$ double them.
 
 For example $r_2(0) = 1$, $r_2(1) = 4$ (from $(\pm 1, 0)$ and $(0, \pm 1)$), $r_2(3) = 0$, $r_2(5) = 8$ (from $(\pm 1, \pm 2)$ and $(\pm 2, \pm 1)$) and $r_2(25) = 12$. Unlike $\tau(n)$, the function $r_2(n)$ is not multiplicative as it stands, but $r_2(n)/4$ is, and there is an exact formula in terms of the non-principal character modulo $4$,
 $$
@@ -42,7 +42,7 @@ Several basic facts follow at once.
 - **Size.** Since $|\chi_{-4}(d)| \le 1$, we have $r_2(n) \le 4\tau(n) \ll_\varepsilon n^{\varepsilon}$, and $r_2(n)$ is as irregular as $\tau(n)$: $r_2(5) = 8$, $r_2(65) = 16$, $r_2(1105) = 32$ for products of the first primes $\equiv 1 \bmod 4$, while $r_2(n) = 0$ for every $n \equiv 3 \bmod 4$.
 - **Average.** The average of $r_2(n)$ is $\pi$, since $N(x) \sim \pi x$. Proving that, with an error term, is the subject of the next two sections.
 
-A different question is how many integers are sums of two squares at all, counted without multiplicity. Their number up to $x$ is of order $x/\sqrt{\log x}$, so they have density zero; for this indicator function, see Lecture 5.
+A different question is how many integers are sums of two squares at all, counted without multiplicity. Their number up to $x$ is of order $x/\sqrt{\log x}$, so they have density zero; for this indicator function, see Section 5.
 
 ## The trivial count
 
@@ -62,7 +62,7 @@ N(x) = \pi x + P(x), \qquad |P(x)| \le \pi\sqrt{2}\, \sqrt{x} + \tfrac{\pi}{2} .
 $$
 </Result>
 
-Unlike the trivial count of Lecture 2, this already gives an error term of size $\sqrt{x}$, the length of the boundary. The reason is geometric: only the squares that meet the boundary circle are counted wrongly, and there are about as many of them as the circumference. The argument works for any reasonable convex region, and it never uses arithmetic. In particular $\pi$ enters only as an area.
+Unlike the trivial count of Section 2, this already gives an error term of size $\sqrt{x}$, the length of the boundary. The reason is geometric: only the squares that meet the boundary circle are counted wrongly, and there are about as many of them as the circumference. The argument works for any reasonable convex region, and it never uses arithmetic. In particular $\pi$ enters only as an area.
 
 ## Dirichlet's hyperbola method
 
@@ -70,7 +70,7 @@ Jacobi's formula turns the circle problem into a divisor-type problem. Summing $
 $$
 N(x) = 1 + 4 \sum_{ab \le x} \chi_{-4}(a),
 $$
-a weighted count of lattice points under the hyperbola $ab = x$. Now Dirichlet's hyperbola identity from Lecture 2 applies to the convolution $\chi_{-4} * 1$. The summatory function of $\chi_{-4}$ is
+a weighted count of lattice points under the hyperbola $ab = x$. Now Dirichlet's hyperbola identity from Section 2 applies to the convolution $\chi_{-4} * 1$. The summatory function of $\chi_{-4}$ is
 $$
 F(t) = \sum_{a \le t} \chi_{-4}(a) = \begin{cases} 1 & \lfloor t \rfloor \equiv 1, 2 \pmod 4, \\ 0 & \lfloor t \rfloor \equiv 0, 3 \pmod 4, \end{cases}
 $$
@@ -138,7 +138,7 @@ The table lists $N(x)$, computed exactly by summing the columns $2\lfloor \sqrt{
 | $10^{16}$ | $31\,415\,926\,535\,867\,961$ | $31\,415\,926\,535\,897\,932.38$ | $-29\,971.38$ | $-3.00$ | $3.1415926535867961$ |
 | $10^{18}$ | $3\,141\,592\,653\,589\,764\,829$ | $3\,141\,592\,653\,589\,793\,238.46$ | $-28\,409.46$ | $-0.90$ | $3.141592653589764829$ |
 
-The last column agrees with $\pi$ to about three quarters as many digits as $x$ has, which is what an error of size $x^{1/4}$ predicts; Gauss's bound would only guarantee about half. As in Lecture 2, $P(x)$ is far below $\sqrt{x}$ (which is $10^9$ at the last row), and $P(x)/x^{1/4}$ stays of order $1$.
+The last column agrees with $\pi$ to about three quarters as many digits as $x$ has, which is what an error of size $x^{1/4}$ predicts; Gauss's bound would only guarantee about half. As in Section 2, $P(x)$ is far below $\sqrt{x}$ (which is $10^9$ at the last row), and $P(x)/x^{1/4}$ stays of order $1$.
 </Example>
 
 ## Better error terms, and what RH says
@@ -170,11 +170,11 @@ The constant $C$ can be computed from the identity $\sum r_2(n)^2 n^{-s} = 16\, 
 | 1993 | Huxley | $23/73 \approx 0.3151$ | Bombieri–Iwaniec–Huxley |
 | 2003 | Huxley | $131/416 \approx 0.3149$ | Bombieri–Iwaniec–Huxley |
 
-The table shows the same exponents as the divisor problem, often in the same papers. The two later preprints of Lecture 2 also treat both problems: Bourgain and Watt (2017) announced $\theta \le 517/1648 \approx 0.3137$, and X. Li and X. Yang (2023) obtained $\theta \le 0.31448\ldots$. Landau (1912) gave a shorter proof of Sierpiński's $\tfrac13$.
+The table shows the same exponents as the divisor problem, often in the same papers. The two later preprints of Section 2 also treat both problems: Bourgain and Watt (2017) announced $\theta \le 517/1648 \approx 0.3137$, and X. Li and X. Yang (2023) obtained $\theta \le 0.31448\ldots$. Landau (1912) gave a shorter proof of Sierpiński's $\tfrac13$.
 
 ### The method
 
-The reduction to exponential sums parallels Lecture 2, with the circle in place of the hyperbola. Every lattice point $(a, b)$ with $a, b \ge 1$ and $a^2 + b^2 \le x$ has $\min(a, b) \le \sqrt{x/2}$, so by the same inclusion–exclusion as in the hyperbola method,
+The reduction to exponential sums parallels Section 2, with the circle in place of the hyperbola. Every lattice point $(a, b)$ with $a, b \ge 1$ and $a^2 + b^2 \le x$ has $\min(a, b) \le \sqrt{x/2}$, so by the same inclusion–exclusion as in the hyperbola method,
 $$
 N(x) = 1 + 4\lfloor \sqrt{x} \rfloor + 4\left( 2 \sum_{1 \le a \le \sqrt{x/2}} \left\lfloor \sqrt{x - a^2} \right\rfloor - \left\lfloor \sqrt{x/2} \right\rfloor^2 \right),
 $$
@@ -182,7 +182,7 @@ exactly. Writing $\lfloor t \rfloor = t - \tfrac12 - \psi(t)$ and evaluating the
 $$
 P(x) = -8 \sum_{1 \le a \le \sqrt{x/2}} \psi\!\left( \sqrt{x - a^2} \right) + O(1),
 $$
-a sum of $\psi$ along an arc of the circle instead of along the hyperbola. From here the tools are those of Lecture 2.
+a sum of $\psi$ along an arc of the circle instead of along the hyperbola. From here the tools are those of Section 2.
 
 - **The Hardy–Voronoi series.** The analogue of Voronoi's formula is
 $$
@@ -203,11 +203,11 @@ $$
 $$
 In terms of radii, an annulus of inner radius $\sqrt{x}$ and width $w$ corresponds to $h \approx 2w\sqrt{x}$, so annuli of fixed width correspond to $h \asymp \sqrt{x}$ and **thin annuli** (width tending to $0$) to $h = o(\sqrt{x})$.
 
-**Every interval.** Any bound $P(x) \ll x^{\theta + \varepsilon}$ gives the asymptotic $\pi h$ for all $x$ once $h \ge x^{\theta + 2\varepsilon}$, and Hardy's $\Omega$-result means this route cannot go below $h = x^{1/4}$. Whether $(x, x + h]$ contains a sum of two squares at all, and the gaps between consecutive sums of two squares, are questions about the indicator of sums of two squares; see Lecture 5.
+**Every interval.** Any bound $P(x) \ll x^{\theta + \varepsilon}$ gives the asymptotic $\pi h$ for all $x$ once $h \ge x^{\theta + 2\varepsilon}$, and Hardy's $\Omega$-result means this route cannot go below $h = x^{1/4}$. Whether $(x, x + h]$ contains a sum of two squares at all, and the gaps between consecutive sums of two squares, are questions about the indicator of sums of two squares; see Section 5.
 
-**Thin annuli and Gaussian behaviour.** For the count with multiplicity, the natural question is the distribution of $P(x + h) - P(x)$ as $x$ varies. Bleher and Lebowitz (1994), motivated by energy-level statistics of quantum systems, studied the number of lattice points in annuli of various widths. For wide annuli the fluctuations have a non-Gaussian limiting distribution, like Heath-Brown's; they conjectured that in the thin-annulus regime — width tending to $0$ while the area tends to infinity — the fluctuations, normalized by their standard deviation, become Gaussian. Hughes and Rudnick (2004) proved this conjecture for circles and the lattice $\mathbb{Z}^2$, provided the width shrinks slower than any power of the radius. Wigman extended it to generic rectangular lattices and to some elliptic annuli. The parallel with Lecture 2 is close: this is the circle analogue of the Lester–Yesha theorem for $\Delta(x + h) - \Delta(x)$, which came later.
+**Thin annuli and Gaussian behaviour.** For the count with multiplicity, the natural question is the distribution of $P(x + h) - P(x)$ as $x$ varies. Bleher and Lebowitz (1994), motivated by energy-level statistics of quantum systems, studied the number of lattice points in annuli of various widths. For wide annuli the fluctuations have a non-Gaussian limiting distribution, like Heath-Brown's; they conjectured that in the thin-annulus regime — width tending to $0$ while the area tends to infinity — the fluctuations, normalized by their standard deviation, become Gaussian. Hughes and Rudnick (2004) proved this conjecture for circles and the lattice $\mathbb{Z}^2$, provided the width shrinks slower than any power of the radius. Wigman extended it to generic rectangular lattices and to some elliptic annuli. The parallel with Section 2 is close: this is the circle analogue of the Lester–Yesha theorem for $\Delta(x + h) - \Delta(x)$, which came later.
 
-**The method.** As in Lecture 2, Hardy's series turns $P(x + h) - P(x)$ into a sum of terms $r_2(n) n^{-3/4}$ times a difference of cosines that is small when $n$ is small compared with $x/h^2$. The variance comes from the diagonal, and Gaussian behaviour from computing higher moments and showing that the frequencies $\sqrt{n}$, for $n$ a sum of two squares, cancel against each other only in trivial ways. For the set of sums of two squares, without multiplicity, see Lecture 5.
+**The method.** As in Section 2, Hardy's series turns $P(x + h) - P(x)$ into a sum of terms $r_2(n) n^{-3/4}$ times a difference of cosines that is small when $n$ is small compared with $x/h^2$. The variance comes from the diagonal, and Gaussian behaviour from computing higher moments and showing that the frequencies $\sqrt{n}$, for $n$ a sum of two squares, cancel against each other only in trivial ways. For the set of sums of two squares, without multiplicity, see Section 5.
 
 ## Sums of two squares in arithmetic progressions
 
@@ -232,12 +232,12 @@ all within $106$ of the prediction. The class $a = 0$ gets $64\,076$ against the
 ### Milestones
 
 - **The $2/3$ barrier.** R. A. Smith (1968) proved the asymptotic $N(x; q, a) \sim \pi \eta_a(q) x/q^2$ uniformly for $q \le x^{2/3 - \varepsilon}$, with an explicit error term. Smith's motivation was the shifted convolution problem of the next section. Varbanets (1970) improved the error term for $a = 1$, and Tolev (2012) improved it in general.
-- **Without multiplicity.** For the sums of two squares themselves (equidistribution, and a bias towards quadratic residues), see Lecture 5.
+- **Without multiplicity.** For the sums of two squares themselves (equidistribution, and a bias towards quadratic residues), see Section 5.
 
 ### The method
 
 1. **Theta functions.** The generating function $\sum_{n \ge 0} r_2(n) e(nz) = \theta(z)^2$, with $\theta(z) = \sum_{m \in \mathbb{Z}} e(m^2 z)$, is a modular form of weight $1$ for $\Gamma_0(4)$ with character $\chi_{-4}$. It plays the role that $\zeta(s)^2$ and the Eisenstein series play for $\tau(n)$, and the corresponding Voronoi formula for $r_2(n) e(rn/q)$ follows from the transformation law of $\theta$.
-2. **Exponential sums.** Detecting $n \equiv a \bmod q$ with additive characters and applying that summation formula leads, as for $\tau$, to dual sums with arithmetic exponential sums modulo $q$ as coefficients, and square-root cancellation in each of them gives the level $x^{2/3}$, as in Lecture 2.
+2. **Exponential sums.** Detecting $n \equiv a \bmod q$ with additive characters and applying that summation formula leads, as for $\tau$, to dual sums with arithmetic exponential sums modulo $q$ as coefficients, and square-root cancellation in each of them gives the level $x^{2/3}$, as in Section 2.
 
 ## Shifted convolutions
 
@@ -256,34 +256,34 @@ $$
 
 Numerically, for $x = 10^6$ the sum divided by $x$ is $8.0034$ for $h = 1$ (prediction $8$), $10.6562$ for $h = 3$ (prediction $32/3 = 10.6667$) and $9.6007$ for $h = 5$ (prediction $48/5 = 9.6$). For even $h$ the constant is different: for $h = 2$ the ratio is $3.9990$, not $8\sigma_{-1}(2) = 12$, because $n$ and $n + 2$ have the same parity and odd sums of two squares are $\equiv 1 \bmod 4$. Note that the main term is of order $x$, with no logarithm: unlike $\tau$, the average of $r_2$ is a constant.
 
-The exponent $\tfrac23$ matches the Deshouillers–Iwaniec bound for $\tau(n)\tau(n + h)$ in Lecture 2, and it has the same source.
+The exponent $\tfrac23$ matches the Deshouillers–Iwaniec bound for $\tau(n)\tau(n + h)$ in Section 2, and it has the same source.
 
-For pairs $n, n + 1$ that are both sums of two squares, counted without multiplicity, see Lecture 5.
+For pairs $n, n + 1$ that are both sums of two squares, counted without multiplicity, see Section 5.
 
 ### The method
 
 - **Opening one $r_2$.** Write $r_2(n + h) = 4 \sum_{d \mid n + h} \chi_{-4}(d)$; then the sum becomes a sum of $r_2(n)$ over the progressions $n \equiv -h \bmod d$, weighted by $\chi_{-4}(d)$. This is where Smith's progression results enter, and why he needed them for moduli as large as $\sqrt{x}$.
-- **Kloosterman sums and spectral theory.** The resulting sums of Kloosterman-type sums over the modulus are handled by the Kuznetsov formula for $\Gamma_0(4)$, exactly as in Lecture 2, which gives $x^{2/3}$.
+- **Kloosterman sums and spectral theory.** The resulting sums of Kloosterman-type sums over the modulus are handled by the Kuznetsov formula for $\Gamma_0(4)$, exactly as in Section 2, which gives $x^{2/3}$.
 - **Quadratic forms.** Alternatively, the sum counts integer zeros of the indefinite quaternary form $c^2 + d^2 - a^2 - b^2 - h$ in a growing region. Versions of the circle method designed for quadratic forms, such as the $\delta$-method of Duke, Friedlander and Iwaniec, give a second route to the asymptotic.
 
 ## Sums of two squares at polynomial values
 
-Finally, one can ask about $r_2(f(n))$ for a polynomial $f$. (How often $f(n)$ is a sum of two squares at all is a question about the indicator, treated in Lecture 5.) The simplest case reduces to Lecture 2. Every odd divisor $d$ of $n^2 + 1$ is a product of primes $\equiv 1 \bmod 4$, so $\chi_{-4}(d) = 1$, and $4 \nmid n^2 + 1$. Jacobi's formula therefore gives
+Finally, one can ask about $r_2(f(n))$ for a polynomial $f$. (How often $f(n)$ is a sum of two squares at all is a question about the indicator, treated in Section 5.) The simplest case reduces to Section 2. Every odd divisor $d$ of $n^2 + 1$ is a product of primes $\equiv 1 \bmod 4$, so $\chi_{-4}(d) = 1$, and $4 \nmid n^2 + 1$. Jacobi's formula therefore gives
 $$
 r_2(n^2 + 1) = \begin{cases} 4\, \tau(n^2 + 1) & n \text{ even}, \\ 2\, \tau(n^2 + 1) & n \text{ odd}, \end{cases}
 $$
-for instance $\sum_{n \le 10} r_2(n^2 + 1) = 4 + 8 + 8 + 8 + 8 + 8 + 12 + 16 + 8 + 8 = 88$. So the asymptotic for $\sum \tau(n^2 + 1)$ from Lecture 2 shows that $\sum_{n \le x} r_2(n^2 + 1)$ has order $x \log x$, and the same methods (split by the parity of $n$) give its asymptotic. For other quadratics, and for higher degree, the situation is the same as for $\tau(f(n))$: quadratics are understood, cubics are open.
+for instance $\sum_{n \le 10} r_2(n^2 + 1) = 4 + 8 + 8 + 8 + 8 + 8 + 12 + 16 + 8 + 8 = 88$. So the asymptotic for $\sum \tau(n^2 + 1)$ from Section 2 shows that $\sum_{n \le x} r_2(n^2 + 1)$ has order $x \log x$, and the same methods (split by the parity of $n$) give its asymptotic. For other quadratics, and for higher degree, the situation is the same as for $\tau(f(n))$: quadratics are understood, cubics are open.
 
 The deeper questions are about primes. Since a prime $p$ is a sum of two squares exactly when $p = 2$ or $p \equiv 1 \bmod 4$, the primes $p = a^2 + b^2$ are well understood, but restricting $a$ or $b$ to a sparse set is hard.
 
-- **Shifted primes.** For primes $p$ with $p - 1$ a sum of two squares (Linnik, and Iwaniec's half-dimensional sieve), see Lecture 5.
+- **Shifted primes.** For primes $p$ with $p - 1$ a sum of two squares (Linnik, and Iwaniec's half-dimensional sieve), see Section 5.
 - **Primes with a prime coordinate.** Fouvry and Iwaniec (1997) gave an asymptotic formula for the number of primes $p = a^2 + b^2 \le x$ with $b$ also prime, and more generally with $b$ restricted to suitable sets of density as small as $(\log x)^{-C}$.
 - **A thin polynomial.** Friedlander and Iwaniec (1998) proved that $a^2 + b^4$ takes infinitely many prime values, with an asymptotic formula for their number. This is remarkable because fewer than $x^{3/4}$ integers up to $x$ have this form, so the set is far too thin for the usual sieve arguments. Heath-Brown (2001) did the same for $a^3 + 2b^3$, a set of integers of size about $x^{2/3}$.
 - **Open.** Whether $n^2 + 1$ is prime infinitely often — the one-variable case $b = 1$ of $a^2 + b^4$ — is open.
 
 ### The method
 
-1. **Reduction to divisor sums.** When $f(n)$ is automatically a norm from $\mathbb{Z}[i]$, as for $n^2 + 1 = (n + i)(n - i)$, Jacobi's formula makes $r_2(f(n))$ a divisor sum with a character, and the methods of Lecture 2 (switching divisors, roots of $f$ modulo $d$ and their equidistribution) apply directly.
+1. **Reduction to divisor sums.** When $f(n)$ is automatically a norm from $\mathbb{Z}[i]$, as for $n^2 + 1 = (n + i)(n - i)$, Jacobi's formula makes $r_2(f(n))$ a divisor sum with a character, and the methods of Section 2 (switching divisors, roots of $f$ modulo $d$ and their equidistribution) apply directly.
 2. **Bilinear forms and the parity barrier.** Selberg's parity problem prevents sieve methods alone from detecting primes. Friedlander and Iwaniec overcame it for $a^2 + b^4$ by proving an estimate for bilinear forms (Type II sums) in the Gaussian integers, using the factorization $a^2 + b^4 = (a + b^2 i)(a - b^2 i)$; Heath-Brown did the same in $\mathbb{Z}[\sqrt[3]{2}]$ for $a^3 + 2b^3$.
 
 Further reading: E. Grosswald, *Representations of Integers as Sums of Squares*, for Jacobi's formula and its relatives; M. N. Huxley, *Area, Lattice Points, and Exponential Sums*, for the circle problem and the Bombieri–Iwaniec method; A. Ivić, E. Krätzel, M. Kühleitner and W. G. Nowak, "Lattice points in large regions and related arithmetic functions: recent developments in a very classic topic", for a survey of the circle problem and its variants; H. Iwaniec and E. Kowalski, *Analytic Number Theory*, for theta functions, Kloosterman sums and the Kuznetsov formula; J. Friedlander and H. Iwaniec, *Opera de Cribro*, for the semi-linear (half-dimensional) sieve and the parity problem.
