@@ -106,41 +106,6 @@ The general version of this argument is the **Selberg–Delange method**: if the
 | Lower-order terms | not visible | not visible | full expansion in $1/\log x$ |
 | What limits it | $3^{\pi(z)}$ rounding errors | multiplicity of $r_2$ | zero-free region of $\zeta$ and $L$ |
 
-## A worked example
-
-The sums of two squares up to $100$ are
-$$
-\begin{aligned}
-&1, 2, 4, 5, 8, 9, 10, 13, 16, 17, 18, 20, 25, 26, 29, 32, 34, 36, 37, 40, 41, 45, \\
-&49, 50, 52, 53, 58, 61, 64, 65, 68, 72, 73, 74, 80, 81, 82, 85, 89, 90, 97, 98, 100,
-\end{aligned}
-$$
-so $B(100) = 43$. Each can be checked against the characterization: for example $45 = 3^2 \cdot 5 = 6^2 + 3^2$, while $12 = 2^2 \cdot 3$ is excluded by the single factor $3$. The square-part identity organizes the same count. The squarefree $s \le 100$ with no prime factor $\equiv 3 \bmod 4$ are
-$$
-1, 2, 5, 10, 13, 17, 26, 29, 34, 37, 41, 53, 58, 61, 65, 73, 74, 82, 85, 89, 97,
-$$
-twenty-one numbers, and $S(100/m^2)$ for $m = 1, \dots, 10$ is $21, 6, 4, 3, 2, 2, 2, 1, 1, 1$, which again adds up to $43$.
-
-The main term $K \cdot 100/\sqrt{\log 100} = 35.61$ is far too small, and even with the second term $35.61 (1 + c_1/\log 100) = 40.11$ the error is about $7\%$.
-
-<Example name="Landau's formula numerically">
-The table lists $B(x)$, computed with a segmented sieve (and checked against the square-part identity up to $10^8$), against one and two terms of Landau's expansion, and against the integral $M(x)$ of the next section.
-
-| $x$ | $B(x)$ | $\frac{Kx}{\sqrt{\log x}}$ | ratio | two terms | $M(x)$ | $\frac{B(x) - M(x)}{\sqrt{x}}$ |
-|---|---|---|---|---|---|---|
-| $10^2$ | $43$ | $35.61$ | $1.2075$ | $40.11$ | $40.89$ | $0.211$ |
-| $10^3$ | $330$ | $290.77$ | $1.1349$ | $315.27$ | $323.78$ | $0.197$ |
-| $10^4$ | $2\,749$ | $2\,518.16$ | $1.0917$ | $2\,677.26$ | $2\,730.59$ | $0.184$ |
-| $10^5$ | $24\,028$ | $22\,523.07$ | $1.0668$ | $23\,661.56$ | $23\,980.42$ | $0.150$ |
-| $10^6$ | $216\,341$ | $205\,606.58$ | $1.0522$ | $214\,267.31$ | $216\,239.22$ | $0.102$ |
-| $10^7$ | $1\,985\,459$ | $1\,903\,547.03$ | $1.0430$ | $1\,972\,275.16$ | $1\,985\,128.38$ | $0.105$ |
-| $10^8$ | $18\,457\,847$ | $17\,806\,052.01$ | $1.0366$ | $18\,368\,583.24$ | $18\,456\,876.92$ | $0.097$ |
-| $10^9$ | $173\,229\,058$ | $167\,877\,068.32$ | $1.0319$ | $172\,591\,375.20$ | $173\,226\,354.36$ | $0.086$ |
-| $10^{10}$ | $1\,637\,624\,156$ | $1\,592\,621\,708.36$ | $1.0283$ | $1\,632\,873\,166.20$ | $1\,637\,616\,416.64$ | $0.077$ |
-
-The ratio column approaches $1$ only like $1 + c_1/\log x$: at $x = 10^{10}$ it is still $1.028$, close to $1 + c_1/\log x = 1.0253$. Two terms of the expansion leave a relative error of $3 \times 10^{-3}$ at $10^{10}$, and three terms (giving $1\,636\,751\,155.06$) leave $5 \times 10^{-4}$. Compare the circle problem, where $N(x)/x$ agreed with $\pi$ to fourteen digits at $x = 10^{18}$.
-</Example>
-
 ## Better error terms, secondary terms and RH
 
 Truncating Landau's expansion after any fixed number of terms leaves an error of the size of the next term, as long as that coefficient is nonzero (as $c_1, c_2, c_3$ are). So in the form of an expansion in powers of $1/\log x$, the error term is a power of $\log x$ and never a power of $x$. This is not a weakness of the method: the function $x (\log x)^{-1/2}$ and its companions are simply not a good enough description of $B(x)$.
@@ -149,7 +114,7 @@ The cure is to keep the Hankel integral itself instead of expanding it. On the r
 $$
 M(x) = \frac{1}{\pi} \int_{1/2}^{1} \sqrt{|\zeta(\sigma)|\, L(\sigma, \chi_{-4})}\; G(\sigma)\, \frac{x^{\sigma}}{\sigma}\, d\sigma ,
 $$
-which is the column $M(x)$ of the table. It tracks $B(x)$ to within $0.22\sqrt{x}$ throughout the table, compared with an error of $0.003 x$ for two terms of the expansion at $x = 10^{10}$.
+which contains every term of Landau's expansion at once and is a much closer approximation to $B(x)$ than any truncation of it.
 
 How small $B(x) - M(x)$ is depends on how far left the contour can be moved, which is decided by the zeros of $\zeta(s)$ and $L(s, \chi_{-4})$. Each zero $\rho$ is a branch point of $F$, because $F$ involves their square root, and it needs its own cut. Unconditionally, the classical zero-free region gives $B(x) = M(x) + O\big( x e^{-c\sqrt{\log x}} \big)$, like the prime number theorem. Assuming the Riemann hypothesis for $\zeta$ and $L(s, \chi_{-4})$, all the cuts start on the line $\sigma = \tfrac12$, and the same contour argument gives $B(x) = M(x) + O(x^{1/2 + \varepsilon})$. So here, as for squarefree numbers in Section 3 and unlike for the divisor and circle problems, RH controls the error term: a zero with real part $\beta \gt \tfrac12$ would make itself felt as a term of size about $x^{\beta}$.
 
@@ -182,17 +147,6 @@ Every interval $[x, x + c x^{1/4}]$, for a suitable absolute constant $c$ and al
 
 The proof is a two-step greedy choice: take $u = \lfloor \sqrt{x} \rfloor$, so that $0 \le x - u^2 \le 2\sqrt{x}$, and then $v = \lceil \sqrt{x - u^2} \rceil$, so that $u^2 + v^2 - x \le 2v + 1 \ll x^{1/4}$. Nobody has improved the exponent $\tfrac14$, and whether the gaps are $o(x^{1/4})$ is open.
 
-<Example name="Record gaps">
-First occurrences of record gaps between consecutive sums of two squares below $10^{10}$ (a selection):
-
-| Gap | $11$ | $19$ | $25$ | $35$ | $48$ | $60$ | $74$ | $88$ | $105$ |
-|---|---|---|---|---|---|---|---|---|---|
-| From | $986$ | $5\,165$ | $52\,393$ | $685\,541$ | $1\,853\,866$ | $67\,070\,173$ | $780\,728\,128$ | $4\,362\,753\,449$ | $6\,067\,500\,388$ |
-| Gap$/\log s_k$ | $1.60$ | $2.22$ | $2.30$ | $2.60$ | $3.33$ | $3.33$ | $3.61$ | $3.96$ | $4.66$ |
-
-At the last entry $s_k^{1/4} = 279$, so the gaps are far below the Bambah–Chowla bound, and they grow roughly like a multiple of $\log s_k$.
-</Example>
-
 **Long gaps.** In the other direction, Richards (1982) showed that gaps of length at least $(\tfrac14 - \varepsilon) \log s_k$ occur infinitely often. Dietmann, Elsholtz, Kalmynin, Konyagin and Maynard (IMRN, 2022) improved the constant to $390/449 = 0.868\ldots$, as part of a result for general binary quadratic forms. Note that $\log s_k$ is much larger than the average gap $\sqrt{\log s_k}/K$.
 
 **Almost every interval.** Hooley (1971) proved that if $y/\sqrt{\log x} \to \infty$, then for almost all $x$ the interval $(x, x + y]$ contains a number of sums of two squares of the expected order $y/\sqrt{\log x}$. He also bounded the moments of the gaps,
@@ -216,14 +170,6 @@ which is the size that gaps of typical length $\sqrt{\log x}$ would give. Kalmyn
 ## Arithmetic progressions
 
 For $\gcd(a, q) = 1$, let $B(x; q, a)$ count the sums of two squares $n \le x$ with $n \equiv a \pmod q$. If $4 \mid q$ and $a \equiv 3 \bmod 4$, it is zero. Otherwise, Prachar (1953) proved a Landau-type asymptotic $B(x; q, a) \sim c_q K x/\sqrt{\log x}$, with a constant $c_q$ depending only on $q$ (among the classes with $a \equiv 1 \bmod \gcd(4, q)$): the sums of two squares are equidistributed among the admissible classes coprime to $q$. Iwaniec's half-dimensional sieve (1976) gives results in which $q$ may grow with $x$.
-
-<Example name="Sums of two squares mod 7">
-Since $7 \equiv 3 \bmod 4$, a multiple of $7$ that is a sum of two squares is a multiple of $49$, so $B(x; 7, 0) = B(x/49)$ exactly; for $x = 10^6$ this is $5\,357$. The other $210\,984$ sums of two squares up to $10^6$ should be shared equally by the six classes, $35\,164$ each. The counts for $a = 1, \dots, 6$ are
-$$
-35\,188,\quad 35\,176,\quad 35\,155,\quad 35\,182,\quad 35\,133,\quad 35\,150 .
-$$
-The quadratic residues $1, 2, 4$ get $105\,546$ together, the non-residues $105\,438$.
-</Example>
 
 ### Milestones
 
@@ -255,20 +201,7 @@ An asymptotic formula is not known. The conjectured one has the shape $C(h)\, x/
 $$
 m^2 - 1 = y^2 + y^2, \qquad m^2 = m^2 + 0^2, \qquad m^2 + 1 = m^2 + 1^2 ,
 $$
-and the solutions $m = 3, 17, 99, 577, 3363, \ldots$ give the triples starting at $8, 288, 9800, 332\,928, 11\,309\,768, \ldots$ The triples up to $1000$ start at $8, 16, 72, 80, 144, 232, 288, 360, 520, 576, 584, 800$, so most are not of this form. Cochrane and Dressler (1987) bounded the number of triples up to $x$; the independence heuristic predicts the order $x/(\log x)^{3/2}$.
-
-<Example name="Consecutive sums of two squares">
-Counts of $n$ with $n, n + 1$ (respectively $n, n + 1, n + 2$) all sums of two squares and $\le x$:
-
-| $x$ | pairs | pairs $/ (x/\log x)$ | triples | triples $/ (x/(\log x)^{3/2})$ |
-|---|---|---|---|---|
-| $10^4$ | $670$ | $0.6171$ | $65$ | $0.1817$ |
-| $10^6$ | $40\,798$ | $0.5636$ | $3\,082$ | $0.1583$ |
-| $10^8$ | $2\,948\,564$ | $0.5431$ | $183\,098$ | $0.1448$ |
-| $10^{10}$ | $231\,444\,217$ | $0.5329$ | $12\,459\,137$ | $0.1377$ |
-
-Both ratios decrease slowly, as one expects from lower-order terms in powers of $1/\log x$, and are consistent with the predicted orders.
-</Example>
+and the solutions $m = 3, 17, 99, 577, 3363, \ldots$ give the triples starting at $8, 288, 9800, 332\,928, 11\,309\,768, \ldots$ Most triples are not of this form. Cochrane and Dressler (1987) bounded the number of triples up to $x$; the independence heuristic predicts the order $x/(\log x)^{3/2}$.
 
 **Runs in residue classes.** Kimmel and Kuperberg (2024) proved that every triple of residue classes mod $q$ that is not ruled out by local conditions occurs infinitely often among three consecutive sums of two squares, and in a second paper (2025) that, for odd squarefree $q$, a positive proportion of sums of two squares begin runs of consecutive members in prescribed classes, an analogue of Maynard's result on runs of consecutive primes.
 
@@ -288,10 +221,6 @@ The independence heuristic predicts about $x/(\log x)^{3/2}$ such $p \le x$: the
 - **The right order.** Iwaniec (1972) introduced the half-dimensional sieve to show that the number of primes $p = u^2 + v^2 + 1 \le x$ is of exact order $x/(\log x)^{3/2}$, with upper and lower bounds of the same order. An asymptotic formula is not known unconditionally.
 - **Refinements.** Matomäki (2007) found such primes in short intervals. Teräväinen (2018) showed that almost all even integers satisfying the necessary local conditions are sums of two primes of this form, and that these primes contain infinitely many three-term arithmetic progressions. Nath and Xie (2026) combined the condition with $p + 2$ having a bounded number of prime factors.
 - **Primes that are sums of two squares** with a restriction on the coordinates, such as $p = a^2 + b^2$ with $b$ prime (Fouvry–Iwaniec) or $p = a^2 + b^4$ (Friedlander–Iwaniec), are counted with multiplicity and appear in Section 4.
-
-<Example name="Shifted primes">
-Up to $10^8$ there are $5\,761\,455$ primes, and $881\,536$ of them have $p - 1$ a sum of two squares ($880\,702$ have $p + 1$ a sum of two squares). The first few are $2, 3, 5, 11, 17, 19, 37, 41, 53, 59$. The ratio of the count to $x/(\log x)^{3/2}$ is $0.731$ at $x = 10^6$ and $0.697$ at $x = 10^8$, slowly decreasing as in the previous example.
-</Example>
 
 ### The method
 

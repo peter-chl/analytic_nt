@@ -112,30 +112,6 @@ where $M = 0.2614972\ldots$ is the Meissel–Mertens constant.
 
 None of these statements mentions analysis, but none has a proof that avoids estimating sums by integrals or using the analytic structure of $\zeta(s)$ in some form. (Elementary proofs of the prime number theorem exist, but they are still analytic in spirit: they are built on asymptotic estimates of sums.)
 
-## A worked example
-
-The table compares three discrete sums with their smooth approximations. Every entry was computed exactly.
-
-| $x$ | $\sum_{n \le x} 1/n$ | $\log x + \gamma$ | $\sum_{p \le x} 1/p$ | $\log\log x + M$ | $\pi(x)$ | $x/\log x$ | $\operatorname{li}(x)$ |
-|---|---|---|---|---|---|---|---|
-| $10$ | $2.92897$ | $2.87980$ | $1.17619$ | $1.09553$ | $4$ | $4.34$ | $6.17$ |
-| $100$ | $5.18738$ | $5.18239$ | $1.80282$ | $1.78868$ | $25$ | $21.71$ | $30.13$ |
-| $10^3$ | $7.48547$ | $7.48497$ | $2.19808$ | $2.19414$ | $168$ | $144.76$ | $177.61$ |
-| $10^4$ | $9.78761$ | $9.78756$ | $2.48306$ | $2.48182$ | $1229$ | $1085.74$ | $1246.14$ |
-| $10^6$ | $14.392727$ | $14.392726$ | $2.88733$ | $2.88729$ | $78498$ | $72382.41$ | $78627.55$ |
-
-(Here $\operatorname{li}(x) = \int_0^x dt/\log t$ in the principal-value sense; it differs from $\int_2^x$ by the constant $1.045\ldots$.)
-
-<Example name="Checking the smallest row by hand">
-For $x = 10$: $1 + \tfrac12 + \cdots + \tfrac{1}{10} = 7381/2520 = 2.92897$, while $\log 10 + \gamma = 2.30259 + 0.57722 = 2.87980$. The difference $0.04917$ is close to $1/(2x) = 0.05$, the next term in the expansion. The primes up to $10$ are $2, 3, 5, 7$, so $\pi(10) = 4$ and $\sum_{p \le 10} 1/p = \tfrac12 + \tfrac13 + \tfrac15 + \tfrac17 = 247/210 = 1.17619$.
-</Example>
-
-Three lessons can be read off the table:
-
-- **The smooth approximation improves as $x$ grows**, in relative terms and, for the harmonic sum, in absolute terms too: its error is $1/(2x)$ to leading order, about $5 \times 10^{-7}$ at $x = 10^6$.
-- **Different sums converge at very different speeds.** The harmonic error shrinks like $1/x$, the Mertens error far more slowly. That speed reflects the analytic object behind the sum: $\lfloor t \rfloor$ for the harmonic sum, the zeros of $\zeta$ for sums over primes.
-- **The right main term matters.** $\pi(x) / (x/\log x)$ is $1.084$ at $x = 10^6$ and approaches $1$ only slowly, while $\pi(x)/\operatorname{li}(x) = 0.998$. Both are correct asymptotically, but $\operatorname{li}(x)$ is the main term that Perron's formula actually produces.
-
 ## Extensions
 
 The same three bridges extend in several directions that later sections develop:

@@ -44,7 +44,7 @@ The direct approach is a sieve. An integer is squarefree if it is not divisible 
 $$
 Q(x) = \sum_{d \mid P} \mu(d) \left\lfloor \frac{x}{d^2} \right\rfloor, \qquad P = \prod_{p \le \sqrt{x}} p .
 $$
-The sum has $2^{\pi(\sqrt{x})}$ terms. Replacing each $\lfloor x/d^2 \rfloor$ by $x/d^2$ costs at most $1$ per term, which is hopeless: for $x = 10^{12}$ there are $\pi(10^6) = 78\,498$ primes and the error bound is $2^{78\,498} \approx 10^{23\,630}$.
+The sum has $2^{\pi(\sqrt{x})}$ terms. Replacing each $\lfloor x/d^2 \rfloor$ by $x/d^2$ costs at most $1$ per term, which is hopeless: the error bound $2^{\pi(\sqrt{x})}$ grows faster than any power of $x$.
 
 Legendre's remedy, as for primes, is to sieve only by the primes up to a parameter $z$. Let $S(x, z)$ count the $n \le x$ with $p^2 \nmid n$ for all $p \le z$. The same inclusion–exclusion, now with $2^{\pi(z)}$ terms, gives
 $$
@@ -98,31 +98,6 @@ $$
 Q(x) = \sum_{d \le y} \mu(d) \left\lfloor \frac{x}{d^2} \right\rfloor + \sum_{m \le x/y^2} M\!\left( \sqrt{x/m} \right) - M(y) \left\lfloor \frac{x}{y^2} \right\rfloor .
 $$
 (Every point has $d \le y$ or $m \le x/y^2$, and the last term removes the points with both.) This identity shows where the difficulty lies. The first sum is a sum of fractional parts, like the divisor problem; the second and third are controlled by the Mertens function, that is, by the zeros of $\zeta$.
-
-## A worked example
-
-Take $x = 100$. The squarefree $d \le 10$ are $1, 2, 3, 5, 6, 7, 10$, and the terms $\mu(d) \lfloor 100/d^2 \rfloor$ are
-$$
-100,\ -25,\ -11,\ -4,\ 2,\ -2,\ 1,
-$$
-so $Q(100) = 61$. Equivalently, there are $39$ non-squarefree numbers up to $100$, starting $4, 8, 9, 12, 16, 18, 20, \ldots$, which can be checked by hand. The main term is $600/\pi^2 = 60.793$, so $E(100) = 0.207$. The hyperbola identity with $y = 4$ gives the same value.
-
-<Example name="The error term numerically">
-The table lists $Q(x)$, computed exactly from the sum over $d \le \sqrt{x}$ (for $x = 10^{16}$ this needs $\mu(d)$ for $d \le 10^8$), against the main term.
-
-| $x$ | $Q(x)$ | $6x/\pi^2$ | $E(x)$ | $E(x)/x^{1/4}$ |
-|---|---|---|---|---|
-| $10^2$ | $61$ | $60.79$ | $0.21$ | $0.066$ |
-| $10^4$ | $6\,083$ | $6\,079.27$ | $3.73$ | $0.373$ |
-| $10^6$ | $607\,926$ | $607\,927.10$ | $-1.10$ | $-0.035$ |
-| $10^8$ | $60\,792\,694$ | $60\,792\,710.19$ | $-16.19$ | $-0.162$ |
-| $10^{10}$ | $6\,079\,270\,942$ | $6\,079\,271\,018.54$ | $-76.54$ | $-0.242$ |
-| $10^{12}$ | $607\,927\,102\,274$ | $607\,927\,101\,854.03$ | $419.97$ | $0.420$ |
-| $10^{14}$ | $60\,792\,710\,185\,947$ | $60\,792\,710\,185\,402.66$ | $544.34$ | $0.172$ |
-| $10^{16}$ | $6\,079\,271\,018\,540\,405$ | $6\,079\,271\,018\,540\,266.29$ | $138.71$ | $0.014$ |
-
-At $x = 10^{16}$ the bound $\sqrt{x}$ is $10^8$, while the actual error is $139$. As in Section 2, $E(x)/x^{1/4}$ stays of order $1$ and changes sign. The difference is in the explanation: here the size $x^{1/4}$ comes from the zeros of $\zeta$.
-</Example>
 
 ## Better error terms, and what RH says
 
@@ -182,32 +157,11 @@ The expected number of squarefree integers in $(x, x + h]$ is $6h/\pi^2$, and an
 
 Schmidt (1964) and Trifonov also contributed small improvements along the way. The exponent $\tfrac15$ stood for three decades; a 2024 preprint of Pandey announces $\tfrac15 - \eta$ for some small, inexplicit $\eta \gt 0$. Assuming the $abc$ conjecture, Granville showed that every exponent $\theta \gt 0$ is admissible.
 
-<Example name="Record gaps">
-The first occurrences of record gaps between consecutive squarefree numbers below $10^8$:
-
-| Gap | $3$ | $4$ | $5$ | $6$ | $7$ | $8$ | $9$ | $10$ |
-|---|---|---|---|---|---|---|---|---|
-| From | $7$ | $47$ | $241$ | $843$ | $22\,019$ | $217\,069$ | $1\,092\,746$ | $8\,870\,023$ |
-
-For example $47$ and $51$ are squarefree while $48 = 2^4 \cdot 3$, $49 = 7^2$ and $50 = 2 \cdot 5^2$ are not. The record gap grows very slowly, consistent with a logarithmic rate.
-</Example>
-
 **Variance and Gaussian behaviour.** Let $N(x, H)$ be the number of squarefree integers in $(x, x + H]$. Hall (1982) proved that, as $x$ varies up to $X$, its variance grows like $A\sqrt{H}$, with
 $$
 A = \frac{\zeta(3/2)}{\pi} \prod_p \left( 1 - \frac{3}{p^2} + \frac{2}{p^3} \right) = 0.23844\ldots,
 $$
 for $H$ up to about $X^{2/9}$. The variance is far below the $H$ that independent events would give: squarefree numbers are more evenly spread than random. Gorodetsky, Matomäki, Radziwiłł and Rodgers (2021) extended the asymptotic to $H \lt X^{6/11 - \varepsilon}$, and to $H \lt X^{2/3 - \varepsilon}$ assuming the Lindelöf hypothesis. They also showed that a bound for the variance sharp up to a factor $H^{\varepsilon}$, in the full range $H \lt X^{1 - \varepsilon}$, is equivalent to RH. Gorodetsky, Mangerel and Rodgers (2023) proved that $N(x, H)$, suitably normalized, has a Gaussian limiting distribution when $H \to \infty$ with $H = X^{o(1)}$, answering a question raised by Hall, and that the counts converge to fractional Brownian motion with Hurst parameter $\tfrac14$.
-
-<Example name="The variance numerically">
-For $0 \le x \lt X \approx 10^8$, the mean of $(N(x, H) - 6H/\pi^2)^2$ against Hall's prediction:
-
-| $H$ | $10$ | $30$ | $100$ | $1000$ |
-|---|---|---|---|---|
-| Variance | $0.832$ | $1.389$ | $2.097$ | $7.146$ |
-| $A\sqrt{H}$ | $0.754$ | $1.306$ | $2.384$ | $7.540$ |
-
-The variance indeed grows like $\sqrt{H}$, not like $H$; the ratio stays between $0.88$ and $1.11$.
-</Example>
 
 **Function fields.** Keating and Rudnick (2016) studied squarefree polynomials in short intervals and arithmetic progressions in $\mathbb{F}_q[t]$ as $q \to \infty$. Using Katz's equidistribution theorems, they expressed the variances as matrix integrals over unitary groups and evaluated them, in ranges much wider than are known over the integers.
 
@@ -225,14 +179,6 @@ $$
 Q(x; q, a) \approx \frac{6}{\pi^2} \frac{x}{q} \prod_{p \mid q} \left( 1 - \frac{1}{p^2} \right)^{-1} .
 $$
 The question, as for $\tau$, is the **level of distribution**: for which $q \le x^{\vartheta}$ does this hold uniformly?
-
-<Example name="Equidistribution mod 7">
-For $x = 10^6$ and $q = 7$ the prediction is $88\,656.04$. The exact values of $Q(10^6; 7, a)$ for $a = 1, \dots, 6$ are
-$$
-88\,646,\quad 88\,660,\quad 88\,659,\quad 88\,654,\quad 88\,653,\quad 88\,660,
-$$
-all within $11$ of the prediction. The class $a = 0$ gets $75\,994$, fewer than its share, since a squarefree multiple of $7$ is $7m$ with $m$ squarefree and coprime to $7$; that count is predicted to be $\frac{6}{\pi^2} \frac{x}{7} (1 + \frac17)^{-1} = 75\,990.89$.
-</Example>
 
 ### Milestones
 
@@ -258,14 +204,6 @@ $$
 $$
 The same argument works for any pattern $n + h_1, \dots, n + h_k$: the density is $\prod_p (1 - \nu(p)/p^2)$, where $\nu(p)$ is the number of residues mod $p^2$ hit by $-h_1, \dots, -h_k$. Pillai studied these general patterns, and Mirsky (1947) treated them for $r$-free numbers and reduced the error term.
 
-<Example name="Consecutive squarefree numbers">
-| $x$ | $\#\{ n \le x : n,\ n + 1 \text{ squarefree} \}$ | $0.322634\ldots \cdot x$ |
-|---|---|---|
-| $10^4$ | $3\,230$ | $3\,226.34$ |
-| $10^6$ | $322\,619$ | $322\,634.10$ |
-| $10^7$ | $3\,226\,343$ | $3\,226\,341.03$ |
-</Example>
-
 The error term has improved in two further steps, each using a new counting method:
 
 | Year | Author(s) | Error exponent | Method |
@@ -289,16 +227,6 @@ $$
 \#\{ n \le x : f(n) \text{ squarefree} \} \sim c_f\, x, \qquad c_f = \prod_p \left( 1 - \frac{\rho(p^2)}{p^2} \right) \gt 0 .
 $$
 For $f(n) = n^2 + 1$ the value is never divisible by $4$, and for odd $p$ it is divisible by $p^2$ for two residues mod $p^2$ if $p \equiv 1 \pmod 4$ and none otherwise, so $c_f = \prod_{p \equiv 1 (4)} (1 - 2/p^2) = 0.89484\ldots$
-
-<Example name="Squarefree values of n² + 1">
-The first $n$ with $n^2 + 1$ not squarefree are $7, 18, 32, 38, 41, 43, 57$; for instance $7^2 + 1 = 2 \cdot 5^2$ and $18^2 + 1 = 5^2 \cdot 13$.
-
-| $x$ | $\#\{ n \le x : n^2 + 1 \text{ squarefree} \}$ | $0.89484\ldots \cdot x$ |
-|---|---|---|
-| $10^2$ | $88$ | $89.48$ |
-| $10^4$ | $8\,952$ | $8\,948.41$ |
-| $10^6$ | $894\,856$ | $894\,841.23$ |
-</Example>
 
 **Degree at most $2$.** For linear and quadratic $f$ the conjecture follows from a sieve like the one in this section. Estermann (1931) proved it for $n^2 + 1$ with error $O(x^{2/3} \log x)$. Heath-Brown (2012) improved the error to $O(x^{7/12 + \varepsilon})$, by counting rational points near a curve with the determinant method; he also observed that the error is $\Omega(\log x)$, because there are intervals of length $c \log x$ in which every $n^2 + 1$ has a square factor.
 

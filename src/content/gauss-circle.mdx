@@ -1,4 +1,4 @@
-How many points of the integer lattice $\mathbb{Z}^2$ lie in a disc of radius $R$ centred at the origin? The answer is close to the area $\pi R^2$, and for $R = 10^9$ it is $3\,141\,592\,653\,589\,764\,829$, whose first fourteen digits are those of $\pi$. The question of *how* close is the **Gauss circle problem**. It is the twin of the Dirichlet divisor problem of Section 2: there we counted lattice points under a hyperbola, here inside a circle, and the two problems share their history, their methods and their best known exponents almost line for line.
+How many points of the integer lattice $\mathbb{Z}^2$ lie in a disc of radius $R$ centred at the origin? The answer is close to the area $\pi R^2$. The question of *how* close is the **Gauss circle problem**. It is the twin of the Dirichlet divisor problem of Section 2: there we counted lattice points under a hyperbola, here inside a circle, and the two problems share their history, their methods and their best known exponents almost line for line.
 
 The circle problem is also a problem about arithmetic. A lattice point $(a, b)$ lies in the disc exactly when $a^2 + b^2 \le R^2$, so counting lattice points is the same as averaging the number of ways an integer can be written as a sum of two squares. This section first derives the count in two ways — Gauss's geometric argument and Dirichlet's hyperbola method, which explains where $\pi$ comes from arithmetically — and then surveys the same five directions of research as Section 2.
 
@@ -107,40 +107,6 @@ Here the two methods give the same error term, and the comparison is about what 
 
 What the hyperbola route buys is the connection to $L$-functions. Replace $a^2 + b^2$ by another positive definite binary quadratic form, or sum over all forms of a given discriminant $-D$, and the same argument gives a main term proportional to $L(1, \chi_{-D})$; via Dirichlet's class number formula this is how class numbers enter lattice point counts. The geometric argument sees only the area, which for an ellipse $Q(a, b) \le x$ is $2\pi x/\sqrt{D}$, and cannot tell that the count over a whole genus of forms is governed by an $L$-value. Conversely, the geometric argument needs no arithmetic and works equally for regions with no number theory in them.
 
-## A worked example
-
-Take $x = 25$, the disc of radius $5$. Counting by columns, the column at $a$ contains $2\lfloor \sqrt{25 - a^2} \rfloor + 1$ points, which for $a = 0, \pm 1, \pm 2, \pm 3, \pm 4, \pm 5$ is
-$$
-11,\quad 9,\quad 9,\quad 9,\quad 7,\quad 1,
-$$
-so $N(25) = 11 + 2(9 + 9 + 9 + 7 + 1) = 81$. The same number comes from summing representations: the values $r_2(0), r_2(1), \dots, r_2(25)$ are
-$$
-1, 4, 4, 0, 4, 8, 0, 0, 4, 4, 8, 0, 0, 8, 0, 0, 4, 8, 4, 0, 8, 0, 0, 0, 0, 12,
-$$
-which add up to $81$. The hyperbola identity, with $y = 5$, needs
-$$
-\sum_{a \le 5} \chi_{-4}(a) \left\lfloor \frac{25}{a} \right\rfloor = 25 - 8 + 5 = 22, \qquad \sum_{b \le 5} F\!\left( \frac{25}{b} \right) = 1 + 0 + 0 + 1 + 1 = 3, \qquad F(5) \cdot 5 = 5,
-$$
-and gives $N(25) = 1 + 4(22 + 3 - 5) = 81$ again. Since $25\pi = 78.540$, the error is $P(25) = 2.460$, well inside Gauss's bound $\pi\sqrt{2} \cdot 5 + \tfrac{\pi}{2} = 23.8$.
-
-<Example name="The error term numerically">
-The table lists $N(x)$, computed exactly by summing the columns $2\lfloor \sqrt{x - a^2} \rfloor + 1$ with integer square roots (and checked against the hyperbola identity up to $x = 10^{10}$).
-
-| $x$ | $N(x)$ | $\pi x$ | $P(x)$ | $P(x)/x^{1/4}$ | $N(x)/x$ |
-|---|---|---|---|---|---|
-| $10^2$ | $317$ | $314.16$ | $2.84$ | $0.90$ | $3.17$ |
-| $10^4$ | $31\,417$ | $31\,415.93$ | $1.07$ | $0.11$ | $3.1417$ |
-| $10^6$ | $3\,141\,549$ | $3\,141\,592.65$ | $-43.65$ | $-1.38$ | $3.141549$ |
-| $10^8$ | $314\,159\,053$ | $314\,159\,265.36$ | $-212.36$ | $-2.12$ | $3.14159053$ |
-| $10^{10}$ | $31\,415\,925\,457$ | $31\,415\,926\,535.90$ | $-1\,078.90$ | $-3.41$ | $3.1415925457$ |
-| $10^{12}$ | $3\,141\,592\,649\,625$ | $3\,141\,592\,653\,589.79$ | $-3\,964.79$ | $-3.96$ | $3.141592649625$ |
-| $10^{14}$ | $314\,159\,265\,350\,589$ | $314\,159\,265\,358\,979.32$ | $-8\,390.32$ | $-2.65$ | $3.14159265350589$ |
-| $10^{16}$ | $31\,415\,926\,535\,867\,961$ | $31\,415\,926\,535\,897\,932.38$ | $-29\,971.38$ | $-3.00$ | $3.1415926535867961$ |
-| $10^{18}$ | $3\,141\,592\,653\,589\,764\,829$ | $3\,141\,592\,653\,589\,793\,238.46$ | $-28\,409.46$ | $-0.90$ | $3.141592653589764829$ |
-
-The last column agrees with $\pi$ to about three quarters as many digits as $x$ has, which is what an error of size $x^{1/4}$ predicts; Gauss's bound would only guarantee about half. As in Section 2, $P(x)$ is far below $\sqrt{x}$ (which is $10^9$ at the last row), and $P(x)/x^{1/4}$ stays of order $1$.
-</Example>
-
 ## Better error terms, and what RH says
 
 Let $\theta$ be the infimum of exponents $a$ with $P(x) \ll x^{a}$. Gauss's argument gives $\theta \le \tfrac12$. The circle problem asks for the true value of $\theta$; it is open, and the conjecture is $\theta = \tfrac14$.
@@ -154,7 +120,7 @@ $$
 - (Heath-Brown, 1992.) $P(x)/x^{1/4}$ has a limiting distribution with a continuous density that decays roughly like $\exp(-|t|^4)$. The distribution is not Gaussian.
 </Result>
 
-The constant $C$ can be computed from the identity $\sum r_2(n)^2 n^{-s} = 16\, \zeta(s)^2 L(s, \chi_{-4})^2 / \big( (1 + 2^{-s}) \zeta(2s) \big)$; for $X = 10^6$ the integral divided by $X^{3/2}$ is already $1.6947$. Hafner (1981) and Soundararajan (2003) sharpened Hardy's $\Omega$-result by powers of $\log \log x$, by the same methods as for the divisor problem; recent work using the resonance method pushes these further. None of this decides whether $P(x) \ll x^{1/4 + \varepsilon}$.
+The constant $C$ can be computed from the identity $\sum r_2(n)^2 n^{-s} = 16\, \zeta(s)^2 L(s, \chi_{-4})^2 / \big( (1 + 2^{-s}) \zeta(2s) \big)$. Hafner (1981) and Soundararajan (2003) sharpened Hardy's $\Omega$-result by powers of $\log \log x$, by the same methods as for the divisor problem; recent work using the resonance method pushes these further. None of this decides whether $P(x) \ll x^{1/4 + \varepsilon}$.
 
 ### Milestones for the upper bound
 
@@ -188,7 +154,7 @@ a sum of $\psi$ along an arc of the circle instead of along the hyperbola. From 
 $$
 P(x) = \frac{x^{1/4}}{\pi} \sum_{n=1}^{\infty} \frac{r_2(n)}{n^{3/4}} \cos\!\left( 2\pi\sqrt{nx} - \frac{3\pi}{4} \right) + (\text{lower order}),
 $$
-with $r_2(n)$ in place of $\tau(n)$ and phases $2\pi\sqrt{nx}$ instead of $4\pi\sqrt{nx}$ (for $x = 1000.5$, the first $10^6$ terms give $5.77$ against the true $P(x) = 5.84$). Squaring and keeping the diagonal gives Kátai's mean square; the near-independence of the frequencies gives Heath-Brown's limiting distribution. The series comes from Poisson summation in two variables: the Fourier transform of the indicator of a disc is a Bessel function, and the cosines are its asymptotic form.
+with $r_2(n)$ in place of $\tau(n)$ and phases $2\pi\sqrt{nx}$ instead of $4\pi\sqrt{nx}$. Squaring and keeping the diagonal gives Kátai's mean square; the near-independence of the frequencies gives Heath-Brown's limiting distribution. The series comes from Poisson summation in two variables: the Fourier transform of the indicator of a disc is a Bessel function, and the cosines are its asymptotic form.
 - **Exponent pairs and Bombieri–Iwaniec.** The phase $h\sqrt{x - a^2}$ has derivatives of the same sizes as $hx/a$, so van der Corput's estimates, exponent pairs and the Bombieri–Iwaniec method apply with the same numerology. Iwaniec and Mozzochi treated the two problems together, and so did Huxley.
 
 <Remark name="RH does not help the circle problem">
@@ -221,14 +187,6 @@ N(x; q, a) \approx \frac{\pi\, \eta_a(q)}{q^2}\, x .
 $$
 Unlike the divisor case, the prediction need not be the same for all classes coprime to $q$ (modulo $4$ the class $3$ gets nothing at all), and it covers non-coprime classes as well.
 
-<Example name="Equidistribution mod 7">
-For the prime $q = 7 \equiv 3 \bmod 4$, the congruence $u^2 + v^2 \equiv a$ has $\eta_a(7) = 8$ solutions for each $a \not\equiv 0$, and just one, $(0, 0)$, for $a \equiv 0$. With $x = 10^6$ the predicted value for $a = 1, \dots, 6$ is $\pi \cdot 8 \cdot 10^6/49 = 512\,913.1$, and the exact values of $N(10^6; 7, a)$ are
-$$
-512\,952,\quad 512\,880,\quad 512\,936,\quad 512\,896,\quad 512\,808,\quad 513\,000,
-$$
-all within $106$ of the prediction. The class $a = 0$ gets $64\,076$ against the predicted $\pi \cdot 10^6/49 = 64\,114.1$: about one eighth as much, because $7 \mid u^2 + v^2$ forces $7 \mid u$ and $7 \mid v$.
-</Example>
-
 ### Milestones
 
 - **The $2/3$ barrier.** R. A. Smith (1968) proved the asymptotic $N(x; q, a) \sim \pi \eta_a(q) x/q^2$ uniformly for $q \le x^{2/3 - \varepsilon}$, with an explicit error term. Smith's motivation was the shifted convolution problem of the next section. Varbanets (1970) improved the error term for $a = 1$, and Tolev (2012) improved it in general.
@@ -254,7 +212,7 @@ $$
 $$
 </Result>
 
-Numerically, for $x = 10^6$ the sum divided by $x$ is $8.0034$ for $h = 1$ (prediction $8$), $10.6562$ for $h = 3$ (prediction $32/3 = 10.6667$) and $9.6007$ for $h = 5$ (prediction $48/5 = 9.6$). For even $h$ the constant is different: for $h = 2$ the ratio is $3.9990$, not $8\sigma_{-1}(2) = 12$, because $n$ and $n + 2$ have the same parity and odd sums of two squares are $\equiv 1 \bmod 4$. Note that the main term is of order $x$, with no logarithm: unlike $\tau$, the average of $r_2$ is a constant.
+For even $h$ the constant is different, because $n$ and $n + 2$ have the same parity and odd sums of two squares are $\equiv 1 \bmod 4$. Note that the main term is of order $x$, with no logarithm: unlike $\tau$, the average of $r_2$ is a constant.
 
 The exponent $\tfrac23$ matches the Deshouillers–Iwaniec bound for $\tau(n)\tau(n + h)$ in Section 2, and it has the same source.
 
@@ -272,7 +230,7 @@ Finally, one can ask about $r_2(f(n))$ for a polynomial $f$. (How often $f(n)$ i
 $$
 r_2(n^2 + 1) = \begin{cases} 4\, \tau(n^2 + 1) & n \text{ even}, \\ 2\, \tau(n^2 + 1) & n \text{ odd}, \end{cases}
 $$
-for instance $\sum_{n \le 10} r_2(n^2 + 1) = 4 + 8 + 8 + 8 + 8 + 8 + 12 + 16 + 8 + 8 = 88$. So the asymptotic for $\sum \tau(n^2 + 1)$ from Section 2 shows that $\sum_{n \le x} r_2(n^2 + 1)$ has order $x \log x$, and the same methods (split by the parity of $n$) give its asymptotic. For other quadratics, and for higher degree, the situation is the same as for $\tau(f(n))$: quadratics are understood, cubics are open.
+so the asymptotic for $\sum \tau(n^2 + 1)$ from Section 2 shows that $\sum_{n \le x} r_2(n^2 + 1)$ has order $x \log x$, and the same methods (split by the parity of $n$) give its asymptotic. For other quadratics, and for higher degree, the situation is the same as for $\tau(f(n))$: quadratics are understood, cubics are open.
 
 The deeper questions are about primes. Since a prime $p$ is a sum of two squares exactly when $p = 2$ or $p \equiv 1 \bmod 4$, the primes $p = a^2 + b^2$ are well understood, but restricting $a$ or $b$ to a sparse set is hard.
 

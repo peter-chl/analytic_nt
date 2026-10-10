@@ -93,33 +93,6 @@ $$
 $$
 The freedom to choose $y$ — balancing how well $F$ and $G$ are known — makes this one of the most useful elementary tools in the subject.
 
-## A worked example
-
-Take $x = 100$, so $\sqrt{x} = 10$. The column heights $\lfloor 100/a \rfloor$ for $a = 1, \dots, 10$ are
-$$
-100,\ 50,\ 33,\ 25,\ 20,\ 16,\ 14,\ 12,\ 11,\ 10,
-$$
-which sum to $291$. The hyperbola identity gives
-$$
-D(100) = 2 \cdot 291 - 10^2 = 482,
-$$
-using $10$ divisions instead of the $100$ needed by the trivial count (or the $100$ values of $\tau(n)$). The main terms give $100 \log 100 + (2\gamma - 1) \cdot 100 = 460.517 + 15.443 = 475.960$, so $\Delta(100) = 6.040$.
-
-<Example name="The error term numerically">
-The table lists $D(x)$, computed exactly with the hyperbola identity, against the main term.
-
-| $x$ | $D(x)$ | $x \log x + (2\gamma - 1) x$ | $\Delta(x)$ | $\Delta(x) / x^{1/4}$ | $(D(x) - x \log x)/x$ |
-|---|---|---|---|---|---|
-| $10^2$ | $482$ | $475.96$ | $6.04$ | $1.91$ | $0.2148$ |
-| $10^4$ | $93\,668$ | $93\,647.72$ | $20.28$ | $2.03$ | $0.1565$ |
-| $10^6$ | $13\,970\,034$ | $13\,969\,941.89$ | $92.11$ | $2.91$ | $0.1545$ |
-| $10^8$ | $1\,857\,511\,568$ | $1\,857\,511\,207.38$ | $360.62$ | $3.61$ | $0.15444$ |
-| $10^{10}$ | $231\,802\,823\,220$ | $231\,802\,822\,597.44$ | $622.56$ | $1.97$ | $0.154431$ |
-| $10^{12}$ | $27\,785\,452\,449\,086$ | $27\,785\,452\,445\,731.62$ | $3354.39$ | $3.35$ | $0.154431$ |
-
-The last column converges to $2\gamma - 1 = 0.154431\ldots$, the constant the trivial count cannot see. More striking is the fourth column: $\Delta(x)$ is far smaller than the bound $\sqrt{x}$ (which is $10^6$ at $x = 10^{12}$), and $\Delta(x)/x^{1/4}$ stays of order $1$. The rest of the section is, in large part, about explaining this.
-</Example>
-
 ## Better error terms, and what RH says
 
 Let $\theta$ be the infimum of exponents $a$ with $\Delta(x) \ll x^{a}$. Dirichlet's argument gives $\theta \le \tfrac12$. The **Dirichlet divisor problem** asks for the true value of $\theta$, and it is still open.
@@ -133,7 +106,7 @@ $$
 - (Heath-Brown, 1992.) $\Delta(x)/x^{1/4}$ has a limiting distribution with a continuous, rapidly decaying density.
 </Result>
 
-So on average $\Delta(x)$ is of size $x^{1/4}$, which matches the last example; the open question is whether it can occasionally be much larger.
+So on average $\Delta(x)$ is of size $x^{1/4}$; the open question is whether it can occasionally be much larger.
 
 ### Milestones for the upper bound
 
@@ -235,14 +208,6 @@ D(x; q, a) \approx \frac{1}{\varphi(q)} \sum_{\substack{n \le x \\ \gcd(n, q) = 
 $$
 (the right side is the residue at $s = 1$ of $\zeta(s)^2 \prod_{p \mid q} (1 - p^{-s})^2 x^s/s$, divided by $\varphi(q)$). The central question is the **level of distribution**: how large can $q$ be, as a power $x^{\vartheta}$, with the asymptotic still holding uniformly?
 
-<Example name="Equidistribution mod 7">
-For $x = 10^6$ and $q = 7$ the predicted main term is $1\,790\,030.0$. The exact values of $D(10^6; 7, a)$ for $a = 1, \dots, 6$ are
-$$
-1\,790\,046,\quad 1\,789\,958,\quad 1\,790\,048,\quad 1\,790\,052,\quad 1\,790\,030,\quad 1\,790\,070,
-$$
-all within $72$ of the prediction — relative errors below $5 \times 10^{-5}$. (The class $a = 0$ is not coprime to $7$ and gets $3\,229\,830$, far more than its share, because multiples of $7$ have extra divisors.)
-</Example>
-
 ### Milestones
 
 - **The $2/3$ barrier (1950s).** The asymptotic holds uniformly for $q \le x^{2/3 - \varepsilon}$. This is credited to Selberg (unpublished) and to Hooley, and in some accounts also to Linnik.
@@ -317,10 +282,7 @@ no asymptotic is known for any single $h$; Browning (2011) conjectured it to be 
 
 ## Divisor sums over polynomial values
 
-The last question replaces $n$ by a polynomial: what is $\sum_{n \le x} \tau(f(n))$ for $f \in \mathbb{Z}[t]$? The simplest case already shows the flavour:
-$$
-\sum_{n \le 10} \tau(n^2 + 1) = 2 + 2 + 4 + 2 + 4 + 2 + 6 + 4 + 4 + 2 = 32 .
-$$
+The last question replaces $n$ by a polynomial: what is $\sum_{n \le x} \tau(f(n))$ for $f \in \mathbb{Z}[t]$?
 
 <Result name="Order of magnitude (Erdős, 1952)">
 If $f$ is irreducible with integer coefficients, then for $x \ge 2$,

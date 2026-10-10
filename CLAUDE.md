@@ -20,12 +20,14 @@ different subject).
 
 - Canadian English throughout: -ize (optimize, minimize) but -our, -re and
   doubled l (labour, centre, modelling, travelling). Keep slugs as they are.
-- Lecture order: motivation → definitions/formulation → main results and
-  methods → a worked example small enough to check by hand → extensions →
-  further reading.
-- Every number in a worked example must be verified by computing it (e.g.
-  Python with sympy/mpmath), not by hand. Scratch scripts stay out of the repo.
-  Leave out attribution or history claims you can't confirm.
+- Section order: motivation → definitions/formulation → main results and
+  methods → research directions/extensions → further reading. The site calls
+  each page a "Section".
+- No worked examples or numerical tables (computed counts, error-term data).
+  Small illustrations in prose and named constants are fine; any number that
+  appears must be verified by computing it (e.g. Python with sympy/mpmath).
+  Scratch scripts stay out of the repo. Leave out attribution or history
+  claims you can't confirm.
 - When a paper is supplied, build on what the PDF says and credit its authors;
   never paraphrase theorems from an abstract.
 - In MDX prose, a bare `<` or `{` is parsed as JSX — use math mode or words.
