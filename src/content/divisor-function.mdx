@@ -276,6 +276,87 @@ $$
 $$
 </Result>
 
+<Proof name="an elementary argument">
+<ProofIdea>
+
+Pair each divisor $a$ of $n$ with $n/a$: then $\tau(n)$ is essentially twice the number of divisors $a \le \sqrt{n}$, and the sum counts triples $(n, a, b)$ with $a \mid n$, $b \mid n + h$ and $a, b$ at most about $\sqrt{x}$. Now fix the pair $(a, b)$ instead of $n$. By the Chinese remainder theorem the admissible $n$ form a single residue class modulo $\operatorname{lcm}(a, b)$ when $\gcd(a, b)$ divides $h$, and there are none otherwise. So each pair contributes $x \gcd(a, b)/(ab)$, up to an error of $O(1)$ — and there are only $O(x)$ pairs, so the errors are harmless against a main term of size $x \log^2 x$. What is left is a sum of $1/(ab)$ over pairs with a prescribed gcd. Möbius inversion evaluates it: the coprimality condition produces $6/\pi^2 = 1/\zeta(2)$, the two harmonic sums produce $\log^2 x$, and the possible values $g = \gcd(a, b)$, which must divide $h$, produce $\sigma_{-1}(h)$. The argument gives the error term $O(x \log x)$.
+
+</ProofIdea>
+<ProofDetails>
+
+Throughout, $h \ge 1$ is fixed and implied constants may depend on $h$ and $\varepsilon$.
+
+**Step 1: keep only the small divisors.** For $n \ge 1$ let
+$$
+A(n) = \#\{ a \mid n : a^2 \le n \}, \qquad s(n) = \begin{cases} 1 & n \text{ is a square}, \\ 0 & \text{otherwise}. \end{cases}
+$$
+The map $a \mapsto n/a$ pairs the divisors below $\sqrt{n}$ with those above it, so $\tau(n) = 2A(n) - s(n)$. Therefore
+$$
+\tau(n)\tau(n + h) = 4A(n)A(n + h) - 2A(n)s(n + h) - 2s(n)A(n + h) + s(n)s(n + h).
+$$
+Since $A(m) \le \tau(m) \ll m^{\varepsilon}$ and at most $\sqrt{x + h}$ integers up to $x + h$ are squares, the last three terms contribute $O(x^{1/2 + \varepsilon})$ to the sum over $n \le x$. Hence
+$$
+\sum_{n \le x} \tau(n)\tau(n + h) = 4 S(x) + O(x^{1/2 + \varepsilon}), \qquad S(x) = \sum_{n \le x} A(n) A(n + h).
+$$
+
+**Step 2: count by pairs of divisors.** By definition, $S(x)$ is the number of triples $(n, a, b)$ with
+$$
+n \le x, \qquad a \mid n, \qquad b \mid n + h, \qquad a^2 \le n, \qquad b^2 \le n + h .
+$$
+Fix $a$ and $b$ and let $g = \gcd(a, b)$. The congruences $n \equiv 0 \pmod a$ and $n \equiv -h \pmod b$ are compatible exactly when $g \mid h$, and then, by the Chinese remainder theorem, they define a single residue class modulo $\operatorname{lcm}(a, b) = ab/g$. The size conditions say that $n$ lies in the interval $[L_{a,b}, x]$ with $L_{a,b} = \max(a^2, b^2 - h)$. An interval of length $\ell \ge 0$ contains $\ell g/(ab) + O(1)$ members of a residue class modulo $ab/g$, with an $O(1)$ that is at most $1$ in absolute value. A pair contributes only if $a \le \sqrt{x}$ and $b \le \sqrt{x + h}$, and there are $O(x)$ such pairs, so
+$$
+S(x) = \sum_{\substack{a \le \sqrt{x},\ b \le \sqrt{x + h} \\ \gcd(a, b) \mid h}} \frac{\gcd(a, b)}{ab} \left( x - \max(a^2, b^2 - h) \right)^{+} + O(x),
+$$
+where $u^{+} = \max(u, 0)$.
+
+**Step 3: simplify the boundary.** Replacing $b^2 - h$ by $b^2$ changes each bracket by at most $h$. Since $\gcd(a, b) \le h$ in every term, the total change is at most
+$$
+h^2 \Big( \sum_{a \le \sqrt{x + h}} \frac1a \Big)^2 \ll \log^2 x .
+$$
+After the replacement, the terms with $b \gt \sqrt{x}$ vanish. Now write $a = g a'$ and $b = g b'$ with $\gcd(a', b') = 1$. Then $\gcd(a, b)/(ab) = 1/(g a' b')$ and $x - \max(a, b)^2 = g^2 \left( y^2 - \max(a', b')^2 \right)$ with $y = \sqrt{x}/g$, so
+$$
+S(x) = \sum_{g \mid h} g\, F\!\left( \frac{\sqrt{x}}{g} \right) + O(x), \qquad F(y) = \sum_{\substack{a, b \le y \\ \gcd(a, b) = 1}} \frac{y^2 - \max(a, b)^2}{ab} .
+$$
+
+**Step 4: sum over coprime pairs.** Let
+$$
+G(t) = \sum_{\substack{a, b \le t \\ \gcd(a, b) = 1}} \frac{1}{ab}, \qquad H(u) = \sum_{m \le u} \frac1m = \log u + O(1) \quad (u \ge 1).
+$$
+Detecting $\gcd(a, b) = 1$ with $\sum_{d \mid \gcd(a, b)} \mu(d)$ gives
+$$
+\begin{aligned}
+G(t) &= \sum_{d \le t} \frac{\mu(d)}{d^2}\, H\!\left( \frac{t}{d} \right)^2 \\
+&= \sum_{d \le t} \frac{\mu(d)}{d^2} \left( \log^2 t + O\big( (1 + \log d)(1 + \log t) + (1 + \log d)^2 \big) \right).
+\end{aligned}
+$$
+Since $\sum_{d \le t} \mu(d)/d^2 = 1/\zeta(2) + O(1/t) = 6/\pi^2 + O(1/t)$ and $\sum_d (1 + \log d)^2/d^2$ converges,
+$$
+G(t) = \frac{6}{\pi^2} \log^2 t + O(1 + \log t) \qquad (t \ge 1).
+$$
+Writing $y^2 - \max(a, b)^2 = \int_{\max(a, b)}^{y} 2t\, dt$ and exchanging sum and integral,
+$$
+F(y) = \int_1^y 2t\, G(t)\, dt = \frac{6}{\pi^2}\, y^2 \log^2 y + O\big( y^2 (1 + \log y) \big),
+$$
+because $\int_1^y 2t \log^2 t\, dt = y^2 \log^2 y - y^2 \log y + \tfrac12 (y^2 - 1)$.
+
+**Step 5: assemble.** For $g \mid h$ and $y = \sqrt{x}/g$,
+$$
+y^2 \log^2 y = \frac{x}{g^2} \left( \tfrac12 \log x - \log g \right)^2 = \frac{x \log^2 x}{4 g^2} + O(x \log x),
+$$
+so Step 3 gives
+$$
+S(x) = \frac{6}{\pi^2} \cdot \frac{x \log^2 x}{4} \sum_{g \mid h} \frac{1}{g} + O(x \log x) = \frac{6}{4\pi^2}\, \sigma_{-1}(h)\, x \log^2 x + O(x \log x).
+$$
+By Step 1,
+$$
+\sum_{n \le x} \tau(n)\tau(n + h) = \frac{6}{\pi^2}\, \sigma_{-1}(h)\, x \log^2 x + O(x \log x).
+$$
+
+**Where the method stops.** The error $O(1)$ for each of the $O(x)$ pairs in Step 2 is already of size $x$, which is why this argument cannot see the lower-order terms of $x P_h(\log x)$, let alone a power saving. Recovering them means showing that the rounding errors for the different pairs cancel. Those rounding errors are governed by where the residue class modulo $\operatorname{lcm}(a, b)$ falls, and expanding them in Fourier series leads to exactly the Kloosterman sums of the table below.
+
+</ProofDetails>
+</Proof>
+
 The full main term is $x P_h(\log x)$ with $P_h$ quadratic, and the history of the problem is the history of its error term:
 
 | Year | Author(s) | Error term | Key input |

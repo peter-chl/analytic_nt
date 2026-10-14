@@ -289,3 +289,89 @@ body {
 .env-title:has(.env-name)::before {
   margin-right: 0.4em;
 }
+
+/* ---------- Proofs: idea shown, full argument behind a toggle ---------- */
+
+.proof {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.85em 1.2em;
+}
+
+.proof > * + * {
+  margin-top: 0.75em;
+}
+
+.proof-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+
+.proof-title {
+  font-weight: 650;
+  font-style: italic;
+}
+
+.proof-name {
+  font-weight: 500;
+  font-style: normal;
+  color: var(--muted);
+}
+
+.proof-toggle {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2em 0.85em;
+  font-size: 0.8rem;
+  color: var(--accent);
+  background: var(--background);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.proof-toggle:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.proof-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.proof-toggle::after {
+  content: " \25B8";
+}
+
+.proof[data-open] .proof-toggle::after {
+  content: " \25BE";
+}
+
+.proof-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.proof-idea > * + *,
+.proof-details > * + * {
+  margin-top: 0.75em;
+}
+
+.proof-details {
+  border-top: 1px dashed var(--border);
+  padding-top: 0.85em;
+}
+
+.proof-qed {
+  text-align: right;
+  color: var(--muted);
+}

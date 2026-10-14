@@ -32,3 +32,5 @@ Available in MDX without imports:
 - `<Definition name="…">`, `<Example>`, `<Result>`, `<Remark>` — numbered
   per lecture ("Example 3.2") by CSS counters
 - `<Figure caption="…">` for inline SVG or other figures
+- `<Proof name="…">` with `<ProofIdea>` (always shown) and `<ProofDetails>`
+  (the full argument, revealed by a "Show full proof" toggle)

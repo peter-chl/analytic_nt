@@ -13,6 +13,9 @@ different subject).
 - `src/components/Shell.tsx` — header + left sidebar (lists the current
   lecture's `##` sections, read from the DOM).
 - `src/components/Env.tsx` — Definition / Example / Result / Remark boxes.
+- `src/components/Proof.tsx` — `<Proof>` box: `<ProofIdea>` shows the
+  high-level idea by default, `<ProofDetails>` holds the full proof behind a
+  toggle. Leave blank lines inside them so the contents parse as Markdown.
 - `src/app/globals.css` — lecture typography, section and environment
   numbering (CSS counters).
 
