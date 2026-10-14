@@ -184,6 +184,21 @@ So the expected count is $h \log x$, and the question is how small $h$ can be wh
 
 **Every interval.** Any bound $\Delta(x) \ll x^{\theta + \varepsilon}$ gives the asymptotic for all $x$ once $h \ge x^{\theta + 2\varepsilon}$, so the record exponents of the previous section translate directly. This route cannot go below $h = x^{1/4}$ because of Hardy's $\Omega$-result. Shiu (1980) proved a Brun–Titchmarsh-type upper bound $\sum_{x \lt n \le x + h} \tau(n) \ll h \log x$ for $h \ge x^{\kappa}$, any fixed $\kappa > 0$: the right order of magnitude, but no asymptotic.
 
+**Higher divisor functions in every interval.** For $\tau_k$ the same route works with $\Delta_k$: a bound $\Delta_k(x) \ll x^{\alpha_k + \varepsilon}$ gives the asymptotic in every interval of length $h \ge x^{\alpha_k + 2\varepsilon}$. This is effective for small $k$, but the known bounds for $\alpha_k$ increase with $k$. A different approach, developed for primes and the Möbius function in short intervals, treats $\tau_k$ as a multiplicative function built from Dirichlet polynomials. It gives an exponent that does not depend on $k$, at the price of saving only a power of $\log x$ rather than a power of $x$. Matomäki and Teräväinen (2023), in their work on the Möbius function in all short intervals, reached intervals of length $x^{11/20 + \varepsilon}$ for $k \ge 5$, and Matomäki, Pandey, Pliego, Teräväinen and Wang have now lowered the exponent to $\tfrac{19}{35} \approx 0.5429$.
+
+<Result name="Matomäki–Pandey–Pliego–Teräväinen–Wang, 2026 (preprint)">
+Let $k \ge 5$ and $\varepsilon > 0$. Uniformly for $X \ge 3$ and $X^{19/35 + \varepsilon} \le H \le X$,
+$$
+\begin{aligned}
+\sum_{X \lt n \le X + H} \tau_k(n) &= (X + H)\, P_{k-1}\big(\log(X + H)\big) - X\, P_{k-1}(\log X) \\
+&\quad + O\!\left( H (\log X)^{(2/3 + \varepsilon)k - 1} \right),
+\end{aligned}
+$$
+where $x P_{k-1}(\log x)$ is the main term of the Piltz divisor problem.
+</Result>
+
+The main term has size $H (\log X)^{k-1}$, so the error term saves a factor $(\log X)^{(1/3 - \varepsilon)k}$. The authors point out that the main term must be kept as a difference: replacing it by $H$ times a polynomial in $\log X$, as is sometimes done, is accurate only when $H/X \ll (\log X)^{1 - k/3 + k\varepsilon}$. The same paper proves the analogous improvements from $\tfrac{11}{20}$ to $\tfrac{19}{35}$ for cancellation of the Möbius function in all intervals of length $X^{19/35 + \varepsilon}$, for sums of two squares (Section 5) and for products of two primes, and it remarks that its methods would similarly improve the higher-order (Gowers) uniformity of $\tau_k$ for $k \ge 4$ in short intervals obtained by Matomäki, Shao, Tao and Teräväinen (2023).
+
 **Almost every interval.** Much shorter intervals can be handled if a small exceptional set of $x$ is allowed. Jutila (1984) computed the mean square
 $$
 \int_T^{2T} \left( \Delta(x + U) - \Delta(x) \right)^2 dx \asymp T U \log^3\!\left( \frac{\sqrt{T}}{U} \right) \qquad (T^{\varepsilon} \le U \le \tfrac12 \sqrt{T})
@@ -195,6 +210,19 @@ and conjectured $\Delta(x + U) - \Delta(x) \ll x^{\varepsilon} U^{1/2}$. Ivić (
 **Higher divisor functions and random matrices.** For $\tau_k$, Keating, Rodgers, Roditty-Gershon and Rudnick (2018) computed the variance of short-interval sums of $\tau_k$ for polynomials over a finite field $\mathbb{F}_q[t]$, as $q \to \infty$. There the variance becomes a matrix integral over the unitary group, which evaluates to a piecewise-polynomial function of $\log h / \log x$. This led to a precise conjecture for the integers, consistent with what is known for $k = 2$ (Jutila, Coppola–Salerno, Ivić) and with Lester's (2016) asymptotic for $k = 3$, which is unconditional, and for $k \ge 4$ under Lindelöf.
 
 **The method.** Voronoi's formula turns $\Delta(x + h) - \Delta(x)$ into a sum of terms $\tau(n) n^{-3/4}$ times a difference of cosines, and the difference $\cos(4\pi\sqrt{n(x + h)}) - \cos(4\pi\sqrt{nx})$ is small when $n \ll x/h^2$. Squaring and integrating, only the diagonal survives. The terms with $n \le N = T/U^2$ contribute about $(U^2/\sqrt{T}) \sum_{n \le N} \tau(n)^2 n^{-1/2}$ each, and $\sum_{n \le N} \tau(n)^2 n^{-1/2} \asymp \sqrt{N} \log^3 N$, which gives Jutila's $T U \log^3(\sqrt{T}/U)$. Moments beyond the variance (Lester–Yesha) require showing that the frequencies $\sqrt{n}$ behave independently. For $\tau_k$ with $k \ge 3$ no Voronoi formula of comparable strength is available, and one works instead with mean values of $\zeta(\tfrac12 + it)^k$ via Plancherel — which is why the $\tau_k$ variance is tied to the $2k$-th moment of $\zeta$.
+
+**The method for $\tau_k$ in every interval.** The Matomäki–Pandey–Pliego–Teräväinen–Wang theorem rests on Dirichlet polynomials rather than Voronoi summation.
+
+1. **Decomposition.** Following Matomäki and Teräväinen, the short sum is compared with a long sum, and a combinatorial decomposition writes the difference in terms of products $A_1(s) \cdots A_J(s)$ of Dirichlet polynomials $A_j(s) = \sum_{n \sim X^{\beta_j}} a_j(n) n^{-s}$ with divisor-bounded coefficients and $\beta_1 + \cdots + \beta_J = 1$. Every factor longer than about $X^{1/20}$ is a sum over an interval, possibly twisted by a Dirichlet character of bounded modulus, so its large values can be controlled through the fourth moment of Dirichlet $L$-functions.
+2. **Perron's formula.** The problem becomes a mean value bound
+$$
+\int_{T_0}^{T_1} \left| A_1(\tfrac12 + it) \cdots A_J(\tfrac12 + it) \right| dt \ll \frac{X^{1/2}}{(\log X)^{A}}, \qquad T_1 \approx X/H,
+$$
+for every $A$. The shorter the interval, the longer the range of $t$ that must be controlled.
+3. **Large values.** For each factor one bounds how often $|A_j(\tfrac12 + it)|$ can be as large as $X^{\beta_j(1/2 - \nu)}$, combining the mean value theorem, the Halász–Montgomery–Huxley large values estimate and the recent large values estimates of Guth and Maynard, as refined by Chen, Gupta and Li.
+4. **A one-variable check.** The paper's main new device reduces the mean value bound for a product of Dirichlet polynomials, given large value bounds for each factor, to verifying that an explicit piecewise linear function of one variable is positive. This makes it possible to feed the new large values estimates into the argument systematically.
+
+The exponent $\tfrac{19}{35}$ is a genuine limit of the method: the case of five Dirichlet polynomials of length about $X^{1/5}$ would require large values information that current technology does not provide, so going further needs new arithmetic input.
 
 ## The divisor function in arithmetic progressions
 

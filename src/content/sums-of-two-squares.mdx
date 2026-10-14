@@ -137,7 +137,7 @@ Ramanujan's integral expands as $K x/\sqrt{\log x}\,(1 + \tfrac12/\log x + \cdot
 
 ## Short intervals and gaps
 
-How many sums of two squares lie in $(x, x + h]$? Landau's formula predicts about $K h/\sqrt{\log x}$, so the average gap between consecutive sums of two squares near $x$ is $\sqrt{\log x}/K$. Since $B(x)$ is known only with a logarithmic saving, the asymptotic follows for every interval only when $h$ is close to $x$. The interesting questions are the existence of at least one sum of two squares, and the behaviour of almost all intervals.
+How many sums of two squares lie in $(x, x + h]$? Landau's formula predicts about $K h/\sqrt{\log x}$, so the average gap between consecutive sums of two squares near $x$ is $\sqrt{\log x}/K$. Since $B(x)$ is known only with a logarithmic saving, the asymptotic cannot be deduced for short intervals simply by subtracting two values of $B$. The questions are whether every interval of a given length has the expected number of sums of two squares, whether it contains at least one, and how almost all intervals behave.
 
 **Every interval.** There is a simple elementary result.
 
@@ -146,6 +146,18 @@ Every interval $[x, x + c x^{1/4}]$, for a suitable absolute constant $c$ and al
 </Result>
 
 The proof is a two-step greedy choice: take $u = \lfloor \sqrt{x} \rfloor$, so that $0 \le x - u^2 \le 2\sqrt{x}$, and then $v = \lceil \sqrt{x - u^2} \rceil$, so that $u^2 + v^2 - x \le 2v + 1 \ll x^{1/4}$. Nobody has improved the exponent $\tfrac14$, and whether the gaps are $o(x^{1/4})$ is open.
+
+**Every interval, asymptotically.** Matomäki and Teräväinen (2023) proved the asymptotic $B(x + h) - B(x) \sim K h/\sqrt{\log x}$ in every interval with $h \ge x^{11/20 + \varepsilon}$, using the Dirichlet polynomial methods developed for the Möbius function in short intervals. Matomäki, Pandey, Pliego, Teräväinen and Wang (2026, preprint) improved the exponent:
+
+<Result name="Matomäki–Pandey–Pliego–Teräväinen–Wang, 2026 (preprint)">
+Let $\varepsilon > 0$. Uniformly for $X \ge 3$ and $X^{19/35 + \varepsilon} \le H \le X$,
+$$
+B(X + H) - B(X) = \frac{K H}{\sqrt{\log X}} + O\!\left( \frac{H}{(\log X)^{2/3 - \varepsilon}} \right),
+$$
+where $K$ is the Landau–Ramanujan constant.
+</Result>
+
+The method is the same as for $\tau_k$ in Section 2: a decomposition into products of Dirichlet polynomials, a mean value bound reduced to large values estimates (including those of Guth and Maynard), and a one-variable check of a piecewise linear function. The exponent $\tfrac{19}{35}$ is again the limit set by products of five Dirichlet polynomials of length about $X^{1/5}$.
 
 **Long gaps.** In the other direction, Richards (1982) showed that gaps of length at least $(\tfrac14 - \varepsilon) \log s_k$ occur infinitely often. Dietmann, Elsholtz, Kalmynin, Konyagin and Maynard (IMRN, 2022) improved the constant to $390/449 = 0.868\ldots$, as part of a result for general binary quadratic forms. Note that $\log s_k$ is much larger than the average gap $\sqrt{\log s_k}/K$.
 
