@@ -375,3 +375,13 @@ body {
   text-align: right;
   color: var(--muted);
 }
+
+/* Without an idea paragraph, the header already says "Proof". */
+.proof:not(:has(.proof-idea)) .proof-details {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.proof:not(:has(.proof-idea)) .proof-details > .proof-label {
+  display: none;
+}
