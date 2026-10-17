@@ -163,6 +163,8 @@ A = \frac{\zeta(3/2)}{\pi} \prod_p \left( 1 - \frac{3}{p^2} + \frac{2}{p^3} \rig
 $$
 for $H$ up to about $X^{2/9}$. The variance is far below the $H$ that independent events would give: squarefree numbers are more evenly spread than random. Gorodetsky, Matomäki, Radziwiłł and Rodgers (2021) extended the asymptotic to $H \lt X^{6/11 - \varepsilon}$, and to $H \lt X^{2/3 - \varepsilon}$ assuming the Lindelöf hypothesis. They also showed that a bound for the variance sharp up to a factor $H^{\varepsilon}$, in the full range $H \lt X^{1 - \varepsilon}$, is equivalent to RH. Gorodetsky, Mangerel and Rodgers (2023) proved that $N(x, H)$, suitably normalized, has a Gaussian limiting distribution when $H \to \infty$ with $H = X^{o(1)}$, answering a question raised by Hall, and that the counts converge to fractional Brownian motion with Hurst parameter $\tfrac14$.
 
+**Almost all intervals.** Since $\mu^2$ is multiplicative with values in $[0, 1]$ and long average $6/\pi^2$, the Matomäki–Radziwiłł theorem of Section 2 gives $N(x, H) \sim 6H/\pi^2$ for almost all $x$ whenever $H \to \infty$. For squarefree numbers this also follows from Hall's variance asymptotic by Chebyshev's inequality, with a better error; the theorem is needed for functions such as $\mu$ and $\lambda$, which have no comparable periodic structure.
+
 **Function fields.** Keating and Rudnick (2016) studied squarefree polynomials in short intervals and arithmetic progressions in $\mathbb{F}_q[t]$ as $q \to \infty$. Using Katz's equidistribution theorems, they expressed the variances as matrix integrals over unitary groups and evaluated them, in ranges much wider than are known over the integers.
 
 ### The method
@@ -212,7 +214,16 @@ The error term has improved in two further steps, each using a new counting meth
 | 1984 | Heath-Brown | $7/11 \approx 0.6364$ | the square sieve |
 | 2014 | Reuss | $(26 + \sqrt{433})/81 \approx 0.5779$ | approximate determinant method |
 
-**Why it is easy, and what is hard.** The function $\mu^2$ is a combination of periodic functions: $\mu^2(n) = \sum_{d^2 \mid n} \mu(d)$, and the indicator of $d^2 \mid n$ has period $d^2$. The terms with large $d$ are rare. This makes correlations of $\mu^2$ tractable for every pattern. For the Möbius function itself the analogous statement, $\sum_{n \le x} \mu(n)\, \mu(n + 1) = o(x)$, is Chowla's conjecture and is open; Tao (2016) proved a logarithmically averaged version.
+**Why it is easy, and what is hard.** The function $\mu^2$ is a combination of periodic functions: $\mu^2(n) = \sum_{d^2 \mid n} \mu(d)$, and the indicator of $d^2 \mid n$ has period $d^2$. The terms with large $d$ are rare. This makes correlations of $\mu^2$ tractable for every pattern. For the Möbius function itself the analogous statement, $\sum_{n \le x} \mu(n)\, \mu(n + 1) = o(x)$, is Chowla's conjecture and is open. It does hold on average over the shifts. Writing $\lambda(n) = (-1)^{\Omega(n)}$ for the Liouville function, where $\Omega(n)$ counts prime factors with multiplicity:
+
+<Result name="Matomäki–Radziwiłł–Tao, 2015">
+For fixed $k \ge 1$ and any $H = H(X) \to \infty$ with $H \le X$,
+$$
+\sum_{h_1, \dots, h_k \le H} \left| \sum_{n \le X} \lambda(n + h_1) \cdots \lambda(n + h_k) \right| = o(H^k X).
+$$
+</Result>
+
+So for almost all choices of shifts up to $H$ the correlation is $o(X)$, even when $H$ grows arbitrarily slowly. The proof combines the Matomäki–Radziwiłł theorem on short intervals (Section 2) with an argument of Kátai and of Bourgain, Sarnak and Ziegler, and it applies to bounded multiplicative functions in general, giving an averaged form of a corrected conjecture of Elliott; the rate of decay is roughly $(\log\log H)/\log H$. Tao (2016) then proved a logarithmically averaged version for a single shift: $\sum_{n \le x} \lambda(n)\lambda(n + h)/n = o(\log x)$ for every fixed $h \ne 0$.
 
 ### The method
 
